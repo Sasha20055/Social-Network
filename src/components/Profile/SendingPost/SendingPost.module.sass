@@ -1,0 +1,39 @@
+$mainColor: #DFE8FF
+$textColor: #001049
+$boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
+
+
+
+.sendPost
+  width: 90%
+  text-align: start
+  form
+    display: flex
+    flex-direction: column
+    height: 150px
+    .input
+      width: 100%
+      height: 50px
+      border: 0
+      background-color: #ecebeb
+      border-radius: 10px
+      &::placeholder
+        font-size: 1.2em
+        padding: 20px
+        font-family: 'Jost-medium'
+        font-weight: 500
+    .button
+      font-family: 'Jost-medium'
+      font-weight: 500
+      font-size: 1.5em
+      box-shadow: $boxShadow
+      background-color: $mainColor
+      color: $textColor
+      position: relative
+      left: 4px
+      width: 100px
+      height: 40px
+      align-self: end
+      border: 0
+      border-radius: 10px
+      top: 20px

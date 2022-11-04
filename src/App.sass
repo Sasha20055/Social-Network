@@ -1,0 +1,43 @@
+$mainColor: #DFE8FF
+$textColor: #001049
+$boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
+
+@font-face
+  font-family: 'Jost-medium'
+  src: url('./fonts/Jost-Medium.eot')
+  src: local('☺'), url('./fonts/Jost-Medium.woff') format('woff'), url('./fonts/Jost-Medium.ttf') format('truetype'), url('./fonts/Jost-Medium.svg') format('svg')
+  font-weight: 500
+  font-style: normal
+@font-face
+  font-family: 'Jost-regular'
+  src: url('./fonts/Jost-Regular.eot')
+  src: local('☺'), url('./fonts/Jost-Regular.woff') format('woff'), url('./fonts/Jost-Regular.ttf') format('truetype'), url('./fonts/Jost-Regular.svg') format('svg')
+  font-weight: normal
+  font-style: normal
+
+button, a
+  cursor: pointer
+  transition-duration: 0.5s
+  &:hover
+    transform: scale(1.1)
+    color: white !important
+    background-color: $textColor !important
+
+.wrapper
+  font-family: 'Jost-medium'
+  font-weight: 500
+  display: grid
+  grid-template-areas: "h h" "n c"
+
+  grid-template-rows: 60px 1fr
+  grid-template-columns: 2fr 10fr
+  margin: 10px
+
+  text-align: center
+  gap: 10px
+  color: $textColor
+  
+.content
+    grid-area: c
+    background-color: $mainColor
+    box-shadow: 0 10px 50px rgb(86 133 255 / 30%)

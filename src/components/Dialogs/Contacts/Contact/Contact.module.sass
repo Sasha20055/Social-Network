@@ -1,0 +1,30 @@
+$mainColor: #DFE8FF
+$textColor: #001049
+$boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
+
+.ava
+
+  width: 50px
+  height: 50px
+  border-radius: 50px
+.contact
+  padding: 10px
+  border-radius: 10px
+  transition-duration: 0.5s
+  a
+    display: flex
+    gap: 20px
+    padding: 10px
+    border-radius: 10px
+    transition-duration: 0.5s
+    text-decoration: none
+    &:hover
+      background-color: #bdcbef !important
+      color: $textColor !important
+    a.active
+      background-color: #bdcbef !important
+      color: $textColor !important
+  p
+    max-width: 100px
+    overflow: hidden
+    text-overflow: ellipsis
