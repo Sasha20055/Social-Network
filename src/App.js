@@ -7,7 +7,8 @@ import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 
 
-function App() {
+
+function App(props) {
   return (
     <BrowserRouter>
       <div className="wrapper">
@@ -15,8 +16,8 @@ function App() {
         <Navbar />
         <div className="content">
           <Routes>
-            <Route path='/dialogs/*' element={<Dialogs />} />
-            <Route path='/profile/*' element={<Profile />} />
+            <Route path='/dialogs/*' element={<Dialogs messageData={props.messageData} dialogsData={props.dialogsData}/>} />
+            <Route path='/profile/*' element={<Profile postData={props.postData}/>} />
           </Routes>
         </div>
       </div>
