@@ -11,15 +11,12 @@ const Contacts = () => {
     {id: 5, name: 'GrandMother', ava: 'https://cdn-icons-png.flaticon.com/512/147/147142.png'},
   ];
 
-  
+  const dialogs = dialogsData
+  .map(dialog => <Contact nickName={dialogsData[0].name} id={dialog.id} ava={dialog.ava}/>)
 
   return (
     <div className={s.contacts}>
-      <Contact nickName={dialogsData[0].name} id={dialogsData[0].id} ava={dialogsData[0].ava}/>
-      <Contact nickName={dialogsData[1].name} id={dialogsData[1].id} ava={dialogsData[1].ava}/>
-      <Contact nickName={dialogsData[2].name} id={dialogsData[2].id} ava={dialogsData[2].ava}/>
-      <Contact nickName={dialogsData[3].name} id={dialogsData[3].id} ava={dialogsData[3].ava}/>
-      <Contact nickName={dialogsData[4].name} id={dialogsData[4].id} ava={dialogsData[4].ava}/>
+      { dialogs }
     </div>
   )
 }

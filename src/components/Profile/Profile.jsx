@@ -11,16 +11,17 @@ const Profile = () => {
       {id: 1, message: 'Testing props on comments!', likes: '15'},
       {id: 2, message: 'Hello props!!!', likes: '5'},
       {id: 3, message: 'Everybody is coming here)', likes: '23'}
-   ]
+   ];
+
+   const posts = postData
+   .map(post => <Post message={post.message} likes={post.likes}/>)
 
    return (
       <div>
          <Head />
          <Person nickName='Alex' dateOfBirth='26 january' city='Berdyansk' education='High' webSite='https://trainingToDoSocialN.com'/>
          <SendingPost />
-         <Post message={postData[0].message} likes={postData[0].likes}/>
-         <Post message={postData[1].message} likes={postData[1].likes}/>
-         <Post message={postData[2].message} likes={postData[2].likes}/>
+         { posts }
       </div>
    )
 }
