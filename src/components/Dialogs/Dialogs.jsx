@@ -5,8 +5,8 @@ import Chat from './Chat/Chat';
 const Dialogs = (props) => {
   return (
     <div className={s.wrapper}>
-      <Contacts dialogsData={props.dialogsData}/>
-      <Chat messageData={props.messageData}/>
+      <Contacts accounts={ props.dialogsData.accounts }/>
+      <Chat messageData={ props.dialogsData.messages }/>
     </div>
   )
 }

@@ -3,8 +3,8 @@ import Contact from './Contact/Contact'
 
 const Contacts = (props) => {
 
-  const dialogs = props.dialogsData
-  .map(dialog => <Contact nickName={props.dialogsData[0].name} id={dialog.id} ava={dialog.ava}/>)
+  const dialogs = props.accounts
+  .map(dialog => <Contact nickName={props.accounts[0].name} id={dialog.id} ava={dialog.ava}/>)
 
   return (
     <div className={s.contacts}>

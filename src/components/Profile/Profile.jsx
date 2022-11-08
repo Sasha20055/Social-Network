@@ -7,7 +7,7 @@ import Head from './Head/Head';
 
 const Profile = (props) => {
 
-   const posts = props.postData
+   const posts = props.profileData.postData
    .map(post => <Post message={post.message} likes={post.likes}/>)
 
    return (
