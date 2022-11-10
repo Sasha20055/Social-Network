@@ -1,13 +1,18 @@
 import s from './SendingPost.module.sass'
+import React from 'react'
 
-const SendingPost = () => {
+const newPostElement = React.createRef();
+
+const SendingPost = (props) => {
+  const addPost = () => {
+    let text = newPostElement.current.value
+    props.addPost(text)
+  }
   return (
         <div className={s.sendPost}>
           <h2>My posts</h2>
-          <form>
-            <input className={s.input} placeholder='your news...'></input>
-            <button className={s.button}>Send</button>
-          </form>
+            <input className={s.input} placeholder='your news...' ref={ newPostElement }></input>
+            <button className={s.button} onClick={ addPost }>Send</button>
         </div>
   )
 }

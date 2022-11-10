@@ -1,5 +1,7 @@
+import React from 'react';
 import s from './Chat.module.sass';
-import Writer from './Writer/Writer'
+import Writer from './Writer/Writer';
+import SendingMessage from './SendingMessage/SendingMessage'
 
 const Chat = (props) => {
 
@@ -9,6 +11,7 @@ const Chat = (props) => {
   return (
     <div className={s.chat}>
       {message}
+      <SendingMessage />
     </div>
   )
 }

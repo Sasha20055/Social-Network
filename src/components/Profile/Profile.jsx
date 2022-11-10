@@ -14,7 +14,7 @@ const Profile = (props) => {
       <div>
          <Head />
          <Person nickName='Alex' dateOfBirth='26 january' city='Berdyansk' education='High' webSite='https://trainingToDoSocialN.com'/>
-         <SendingPost />
+         <SendingPost addPost={ props.addPost }/>
          { posts }
       </div>
    )
