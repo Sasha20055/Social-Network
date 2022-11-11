@@ -8,14 +8,23 @@ import Head from './Head/Head';
 const Profile = (props) => {
 
    const posts = props.profileData.postData
-   .map(post => <Post message={post.message} likes={post.likes}/>)
+      .map(post => <Post message={post.message} likes={post.likes} />)
 
    return (
       <div>
          <Head />
-         <Person nickName='Alex' dateOfBirth='26 january' city='Berdyansk' education='High' webSite='https://trainingToDoSocialN.com'/>
-         <SendingPost addPost={ props.addPost }/>
-         { posts }
+         <Person
+            nickName='Alex'
+            dateOfBirth='26 january'
+            city='Berdyansk'
+            education='High'
+            webSite='https://trainingToDoSocialN.com' />
+
+         <SendingPost
+            addPost={props.addPost}
+            updateNewPostText={props.updateNewPostText} 
+            newPostText={props.profileData.newPostText}/>
+         {posts}
       </div>
    )
 }

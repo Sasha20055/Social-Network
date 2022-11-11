@@ -7,7 +7,8 @@ const state = {
         { id: 1, message: 'Testing props on comments!', likes: '15' },
         { id: 2, message: 'Hello props!!!', likes: '5' },
         { id: 3, message: 'Everybody is coming here)', likes: '23' }
-      ]
+      ],
+    newPostText: 'train'
   },
   dialogsData: {
     accounts:
@@ -26,6 +27,11 @@ const state = {
         { id: 4, message: 'Sadfdsa adsfasd ' },
       ]
   }
+}
+
+export const updateNewPostText = (newText) => {
+  state.profileData.newPostText = newText
+  rerenderEntireTree(state)
 }
 
 export const addPost = (newMessage) => {
