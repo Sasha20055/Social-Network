@@ -53,7 +53,7 @@ let store = {
       this._rerenderEntireTree(this._state)
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profileData.newPostText = action.newText
-      this._rerenderEntireTree(this.state)
+      this._rerenderEntireTree(this._state)
 
     }
   }
