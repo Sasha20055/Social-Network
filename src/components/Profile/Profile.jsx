@@ -21,9 +21,7 @@ const Profile = (props) => {
             webSite='https://trainingToDoSocialN.com' />
 
          <SendingPost
-            addPost={props.addPost}
-            updateNewPostText={props.updateNewPostText} 
-            newPostText={props.profileData.newPostText}/>
+            dispatch={props.dispatch}/>
          {posts}
       </div>
    )

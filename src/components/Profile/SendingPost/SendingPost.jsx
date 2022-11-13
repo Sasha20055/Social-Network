@@ -5,12 +5,12 @@ const newPostElement = React.createRef();
 
 const SendingPost = (props) => {
   const addPost = () => {
-    let text = newPostElement.current.value
-    props.addPost(text)
+    props.dispatch({type: "ADD-POST"})
   }
   const onPostChange = () => {
     let text = newPostElement.current.value
-    props.updateNewPostText(text)
+    let action = {type: "UPDATE-NEW-POST-TEXT", newText: text}
+    props.dispatch(action)
   }
   return (
         <div className={s.sendPost}>

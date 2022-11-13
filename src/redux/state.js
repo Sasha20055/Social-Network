@@ -2,7 +2,6 @@ let store = {
   _rerenderEntireTree() {
     console.log('rerenderTree')
   },
-
   _state: {
     profileData: {
       postData:
@@ -32,29 +31,31 @@ let store = {
     }
   },
 
+
   getState() {
     return this._state
   },
-
-  updateNewPostText(newText) {
-    this._state.profileData.newPostText = newText
-    this._rerenderEntireTree(this.state)
-  },
-
-  addPost() {
-    let newPost = {
-      id: 5,
-      message: this._state.profileData.newPostText,
-      likes: '0'
-    };
-
-    this._state.profileData.postData.push(newPost)
-    this._state.profileData.newPostText = ''
-    this._rerenderEntireTree(this._state)
-  },
-
   subscribe(observer) {
     this._rerenderEntireTree = observer
+  },
+
+
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      let newPost = {
+        id: 5,
+        message: this._state.profileData.newPostText,
+        likes: '0'
+      };
+
+      this._state.profileData.postData.push(newPost)
+      this._state.profileData.newPostText = ''
+      this._rerenderEntireTree(this._state)
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+      this._state.profileData.newPostText = action.newText
+      this._rerenderEntireTree(this.state)
+
+    }
   }
 }
 
