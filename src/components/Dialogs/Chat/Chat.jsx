@@ -11,7 +11,7 @@ const Chat = (props) => {
   return (
     <div className={s.chat}>
       {message}
-      <SendingMessage />
+      <SendingMessage dispatch={props.dispatch} newMessageText={props.newMessageText}/>
     </div>
   )
 }

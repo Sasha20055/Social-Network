@@ -1,23 +1,23 @@
 import s from './SendingPost.module.sass'
 import React from 'react'
+import { actionAddPost, actionOnPostChangePost } from '../../../redux/state';
 
 const newPostElement = React.createRef();
 
 const SendingPost = (props) => {
   const addPost = () => {
-    props.dispatch({type: "ADD-POST"})
+    props.dispatch(actionAddPost())
   }
   const onPostChange = () => {
     let text = newPostElement.current.value
-    let action = {type: "UPDATE-NEW-POST-TEXT", newText: text}
-    props.dispatch(action)
+    props.dispatch(actionOnPostChangePost(text))
   }
   return (
-        <div className={s.sendPost}>
-          <h2>My posts</h2>
-            <input className={s.input} onChange={onPostChange} placeholder='your news...' ref={ newPostElement } value={props.newPostText}></input>
-            <button className={s.button} onClick={ addPost }>Send</button>
-        </div>
+    <div className={s.sendPost}>
+      <h2>My posts</h2>
+      <input className={s.input} onChange={onPostChange} placeholder='your news...' ref={newPostElement} value={props.newPostText}></input>
+      <button className={s.button} onClick={addPost}>Send</button>
+    </div>
   )
 }
 
