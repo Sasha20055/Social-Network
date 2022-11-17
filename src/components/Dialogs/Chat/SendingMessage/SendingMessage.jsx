@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './SendingMessage.module.sass';
-import { actionAddMessage, actionOnPostChangeMessage } from '../../../../redux/state';
+import { actionAddMessage, actionOnPostChangeMessage } from '../../../../redux/dialogsReducer';
 
 const newMessage = React.createRef()
 

@@ -1,6 +1,6 @@
 import s from './SendingPost.module.sass'
 import React from 'react'
-import { actionAddPost, actionOnPostChangePost } from '../../../redux/state';
+import { actionAddPost, actionOnPostChangePost } from '../../../redux/profileReducer';
 
 const newPostElement = React.createRef();
 
