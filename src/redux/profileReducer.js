@@ -35,7 +35,7 @@ export const actionAddPost = () => {
     type: ADD_POST
   }
 }
-export const actionOnPostChangePost = (text) => {
+export const actionOnPostChange = (text) => {
   return {
     type: UPDATE_NEW_POST_TEXT,
     newText: text

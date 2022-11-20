@@ -1,12 +1,13 @@
 import s from './Profile.module.sass';
 import Post from './Post/Post';
 import Person from './Person/Person';
-import SendingPost from './SendingPost/SendingPost';
+import SendingPostContainer from './SendingPost/SendingPostContainer';
 import Head from './Head/Head';
 
 
 const Profile = (props) => {
-   const posts = props.profileData.postData
+
+   const posts = props.store.getState().profilePage.postData
       .map(post => <Post message={post.message} likes={post.likes} />)
 
    return (
@@ -19,9 +20,7 @@ const Profile = (props) => {
             education='High'
             webSite='https://trainingToDoSocialN.com' />
 
-         <SendingPost
-            newPostText={props.profileData.newPostText}
-            dispatch={props.dispatch}/>
+         <SendingPostContainer store={props.store}/>
          {posts}
       </div>
    )
