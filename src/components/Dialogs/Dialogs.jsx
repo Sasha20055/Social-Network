@@ -5,11 +5,14 @@ import Chat from './Chat/Chat';
 const Dialogs = (props) => {
   return (
     <div className={s.wrapper}>
-      <Contacts accounts={props.dialogsData.accounts} />
+      <Contacts accounts={props.accounts} />
       <Chat
-        messageData={props.dialogsData.messages}
-        newMessageText={props.dialogsData.newMessageText} 
-        dispatch={props.dispatch} />
+        messageData={props.messageData}
+        newMessageText={props.newMessageText}
+        dispatch={props.dispatch}
+        message={props.message}
+        messageChange={props.messageChange}
+      />
     </div>
   )
 }
