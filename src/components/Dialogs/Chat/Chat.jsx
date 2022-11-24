@@ -12,7 +12,6 @@ const Chat = (props) => {
       {message}
       <SendingMessage
         newMessageText={props.newMessageText}
-        dispatch={props.dispatch}
         message={props.message}
         messageChange={props.messageChange}
       />

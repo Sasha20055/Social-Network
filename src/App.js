@@ -4,7 +4,7 @@ import './App.sass';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 
@@ -16,8 +16,8 @@ function App(props) {
         <Navbar />
         <div className="content">
           <Routes>
-            <Route path='/dialogs/*' element={<DialogsContainer store={props.store} />} />
-            <Route path='/profile/*' element={<Profile store={props.store} />}
+            <Route path='/dialogs/*' element={<DialogsContainer />} />
+            <Route path='/profile/*' element={<ProfileContainer />}
             />
           </Routes>
         </div>

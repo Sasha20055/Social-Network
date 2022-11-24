@@ -9,7 +9,6 @@ const Dialogs = (props) => {
       <Chat
         messageData={props.messageData}
         newMessageText={props.newMessageText}
-        dispatch={props.dispatch}
         message={props.message}
         messageChange={props.messageChange}
       />

@@ -1,41 +1,27 @@
-import s from './Dialogs.module.sass';
-import Contacts from './Contacts/Contacts';
-import Chat from './Chat/Chat';
-import Dialogs from "./Dialogs"
+import {connect} from "react-redux"
 import { actionAddMessage, actionOnPostChangeMessage } from '../../redux/dialogsReducer';
+import Dialogs from "./Dialogs";
 
 
-/*<div className={s.wrapper}>
-<Contacts accounts={props.dialogsData.accounts} />
-<Chat
-  messageData={props.dialogsData.messages}
-  newMessageText={props.dialogsData.newMessageText} 
-  dispatch={props.dispatch} />
-</div>*/
-
-const DialogsContainer = (props) => {
-  let accounts = props.store.getState().dialogsPage.accounts
-  let messageData = props.store.getState().dialogsPage.messages
-  let newMessageText = props.store.getState().dialogsPage.newMessageText
-
-  const message = () => {
-    props.store.dispatch(actionAddMessage())
+let mapStateToProps = (state) => {
+  return{
+    accounts: state.dialogsPage.accounts,
+    messageData: state.dialogsPage.messages,
+    newMessageText: state.dialogsPage.newMessageText
   }
-  const messageChange = (text) => {
-    props.store.dispatch(actionOnPostChangeMessage(text))
-  }
-
-
-  return (
-    <Dialogs
-      accounts={accounts}
-      messageData={messageData}
-      newMessageText={newMessageText}
-      dispatch={props.store.dispatch}
-      message={message}
-      messageChange={messageChange}
-    />
-  )
 }
+
+let mapDispatchToProps = (dispatch) => {
+  return{
+    message: () => {
+      dispatch(actionAddMessage())
+    },
+    messageChange: (text) => {
+      dispatch(actionOnPostChangeMessage(text))
+    }
+  }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 export default DialogsContainer
