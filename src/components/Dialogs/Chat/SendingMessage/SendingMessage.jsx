@@ -9,7 +9,6 @@ const SendingMessage = (props) => {
   }
   const onMessageChange = () => {
     let text = newMessage.current.value
-    console.log(text)
     props.messageChange(text)
   }
 
