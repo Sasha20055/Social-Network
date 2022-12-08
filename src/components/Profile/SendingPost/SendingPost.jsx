@@ -6,11 +6,11 @@ const newPostElement = React.createRef();
 
 const SendingPost = (props) => {
   const onAddPost = () => {
-    props.addPost()
+    props.actionAddPost()
   }
   const onPostChange = () => {
     let text = newPostElement.current.value
-    props.postChange(text)
+    props.actionOnPostChange(text)
   }
   return (
     <div className={s.sendPost}>

@@ -1,17 +1,28 @@
 import s from './Person.module.sass'
 
+
 const Person = (props) => {
+  if (!props.profile) {
+    return (
+      <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img>
+    )
+  }
+  let contacts = []
+  for (let contact in props.profile.contacts) {
+    contacts.push(contact)
+  }
+
   return (
     <div className={s.person}>
       <div className={s.ava}>
-        <img src="https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"></img>
+        <img src={props.profile.photos.small}></img>
       </div>
       <div className={s.info}>
-        <h2>{props.nickName}</h2>
-        <p>Date of Birth: {props.dateOfBirth}</p>
-        <p>City: {props.city}</p>
-        <p>Education: {props.education}</p>
-        <p>Web Site: {props.webSite}</p>
+        <h2>{props.profile.fullName}</h2>
+        <div>{props.profile.aboutMe}</div>
+        <div className={s.contacts}>
+          {contacts.map(c => <div className={s.contact}>{c}</div>)}
+        </div>
       </div>
     </div>
   )

@@ -1,21 +1,21 @@
 import Person from './Person/Person';
-import SendingPostContainer from './SendingPost/SendingPostContainer';
+import SendingPost from './SendingPost/SendingPost';
 import Head from './Head/Head';
 
 
 const Profile = (props) => {
-
    return (
       <div>
          <Head />
          <Person
+            profile={props.profile}
             nickName='Alex'
             dateOfBirth='26 january'
             city='Berdyansk'
             education='High'
             webSite='https://trainingToDoSocialN.com' />
 
-         <SendingPostContainer />
+         <SendingPost {...props}/>
          {props.posts}
       </div>
    )

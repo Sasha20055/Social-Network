@@ -55,12 +55,12 @@ const UsersReducer = (state = initialState, action) => {
   }
 }
 
-export const FollowAC = (UserId) => ({ type: FOLLOW, UserId });
-export const UnFollowAC = (UserId) => ({ type: UNFOLLOW, UserId });
-export const SetUsersAC = (users) => ({ type: SET_USERS, users });
-export const currentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
-export const totalUsersCountAC = (count) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
-export const toogleIsFetching= (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching})
+export const Follow = (UserId) => ({ type: FOLLOW, UserId });
+export const UnFollow = (UserId) => ({ type: UNFOLLOW, UserId });
+export const SetUsers = (users) => ({ type: SET_USERS, users });
+export const SetCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
+export const SetTotalUsersCount = (count) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
+export const SetToogleIsFetching= (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching})
 
 
 
