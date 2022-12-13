@@ -1,6 +1,7 @@
 import Person from './Person/Person';
 import SendingPost from './SendingPost/SendingPost';
 import Head from './Head/Head';
+import React from "react";
 
 
 const Profile = (props) => {

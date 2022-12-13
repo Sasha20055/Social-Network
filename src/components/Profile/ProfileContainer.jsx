@@ -4,19 +4,30 @@ import Post from "./Post/Post";
 import { connect } from "react-redux"
 import { actionAddPost, actionOnPostChange, SetProfile } from "../../redux/profileReducer";
 import axios, * as others from 'axios';
+import { useParams } from "react-router-dom";
 
+export function withRouter(Children) {
+  return (props) => {
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />
+  }
+}
 
 class ProfileCont extends React.Component {
-
+  
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+    let profileId = this.props.match.params.userId;
+    if (!profileId) {
+      profileId = 2
+    }
+    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${profileId}`).then(response => {
       this.props.SetProfile(response.data)
     })
   }
 
   render() {
     return (
-      <Profile {...this.props} profile={this.props.profile}/>
+      <Profile {...this.props} profile={this.props.profile} />
     )
   }
 }
@@ -30,5 +41,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-const ProfileContainer = connect(mapStateToProps, { actionAddPost, actionOnPostChange, SetProfile })(ProfileCont);
-export default ProfileContainer
+let WithUrlDataContainerComponent = withRouter(ProfileCont)
+
+export default connect(mapStateToProps, { actionAddPost, actionOnPostChange, SetProfile })(WithUrlDataContainerComponent);
