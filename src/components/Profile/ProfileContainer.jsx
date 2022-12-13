@@ -18,7 +18,7 @@ class ProfileCont extends React.Component {
   componentDidMount() {
     let profileId = this.props.match.params.userId;
     if (!profileId) {
-      profileId = 2
+      profileId = this.props.userId
     }
     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${profileId}`).then(response => {
       this.props.SetProfile(response.data)
@@ -37,7 +37,8 @@ let mapStateToProps = (state) => {
     posts: state.profilePage.postData
       .map(post => <Post message={post.message} likes={post.likes} />),
     newPostText: state.profilePage.newPostText,
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    userId: state.auth.userId
   }
 }
 

@@ -8,26 +8,30 @@ class UsersCont extends React.Component {
 
   componentDidMount() {
     this.props.SetToogleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-      this.props.SetToogleIsFetching(false)
-      this.props.SetUsers(response.data.items)
-      this.props.SetTotalUsersCount(response.data.totalCount)
-    })
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+      { withCredentials: true })
+      .then(response => {
+        this.props.SetToogleIsFetching(false)
+        this.props.SetUsers(response.data.items)
+        this.props.SetTotalUsersCount(response.data.totalCount)
+      })
   }
 
   onPageChange = (numberPage) => {
     this.props.SetCurrentPage(numberPage)
     this.props.SetToogleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.pageSize}`).then(response => {
-      this.props.SetToogleIsFetching(false)
-      this.props.SetUsers(response.data.items)
-    })
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.pageSize}`,
+      { withCredentials: true })
+      .then(response => {
+        this.props.SetToogleIsFetching(false)
+        this.props.SetUsers(response.data.items)
+      })
 
   }
 
   render() {
     return (<>
-    {this.props.isFetching ? <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img> : null}
+      {this.props.isFetching ? <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img> : null}
       <Users
         users={this.props.users}
         follow={this.props.Follow}
@@ -52,7 +56,7 @@ let mapStateToProps = (state) => {
   }
 }
 
-let UsersContainer = connect(mapStateToProps, 
-  {Follow, UnFollow, SetUsers, SetCurrentPage, SetTotalUsersCount, SetToogleIsFetching})(UsersCont)
+let UsersContainer = connect(mapStateToProps,
+  { Follow, UnFollow, SetUsers, SetCurrentPage, SetTotalUsersCount, SetToogleIsFetching })(UsersCont)
 
 export default UsersContainer;
