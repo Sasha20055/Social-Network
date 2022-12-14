@@ -2,29 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { Follow, SetUsers, UnFollow, SetCurrentPage, SetTotalUsersCount, SetToogleIsFetching } from "../../redux/usersReducer";
 import Users from './Users'
-import axios, * as others from 'axios';
+import { usersAPI } from "../../api/api";
 
 class UsersCont extends React.Component {
 
   componentDidMount() {
     this.props.SetToogleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-      { withCredentials: true })
-      .then(response => {
+
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+    .then(data => {
         this.props.SetToogleIsFetching(false)
-        this.props.SetUsers(response.data.items)
-        this.props.SetTotalUsersCount(response.data.totalCount)
+        this.props.SetUsers(data.items)
+        this.props.SetTotalUsersCount(data.totalCount)
       })
   }
 
   onPageChange = (numberPage) => {
     this.props.SetCurrentPage(numberPage)
     this.props.SetToogleIsFetching(true)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${numberPage}&count=${this.props.pageSize}`,
-      { withCredentials: true })
-      .then(response => {
+
+    usersAPI.getUsers(numberPage, this.props.pageSize)
+      .then(data => {
         this.props.SetToogleIsFetching(false)
-        this.props.SetUsers(response.data.items)
+        this.props.SetUsers(data.items)
       })
 
   }
