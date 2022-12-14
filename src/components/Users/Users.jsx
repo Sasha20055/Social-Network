@@ -31,20 +31,24 @@ const Users = (props) => {
                 <img className={s.ava} src={user.photos.small != null ? user.photos.small : UserIcon} alt="" />
               </NavLink>
               {user.followed
-                ? <button onClick={() => {
+                ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {
+                  props.SetToogleIsFollowing(true, user.id)
                   usersAPI.unFollow(user.id)
                     .then(data => {
                       if (data.resultCode === 0) {
                         props.unFollow(user.id)
                       }
+                      props.SetToogleIsFollowing(false, user.id)
                     })
                 }}>Unfollow</button>
-                : <button onClick={() => {
+                : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {
+                  props.SetToogleIsFollowing(true, user.id)
                   usersAPI.follow(user.id)
                     .then(data => {
                       if (data.resultCode === 0) {
                         props.follow(user.id)
                       }
+                      props.SetToogleIsFollowing(false, user.id)
                     })
                 }}>Follow</button>
               }
