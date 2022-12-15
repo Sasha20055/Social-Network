@@ -1,10 +1,11 @@
 import { act } from "react-dom/test-utils"
+import { usersAPI } from "../api/api"
 
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
-const SET_CURRENT_PAGE = "SET-CURRENT_PAGE" 
+const SET_CURRENT_PAGE = "SET-CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 const TOOGLE_IS_FETCHING = "TOOGLE-IS-FETCHING"
 const TOOGLE_IS_FOLLOWING = "TOOGLE-IS-FOLLOWING"
@@ -42,21 +43,22 @@ const UsersReducer = (state = initialState, action) => {
 
     case SET_USERS:
       return { ...state, users: action.users }
-    
+
     case SET_CURRENT_PAGE:
-      return { ...state, currentPage: action.currentPage}
-    
+      return { ...state, currentPage: action.currentPage }
+
     case SET_TOTAL_USERS_COUNT:
-      return {...state, totalUsersCount: action.count}
+      return { ...state, totalUsersCount: action.count }
 
     case TOOGLE_IS_FETCHING:
-      return{...state, isFetching: action.isFetching}
+      return { ...state, isFetching: action.isFetching }
 
     case TOOGLE_IS_FOLLOWING:
-      return{...state,
-      isFollowing: action.isFollowing 
-      ? [...state.isFollowing, action.userId]
-      : state.isFollowing.filter(id => id != action.userId)
+      return {
+        ...state,
+        isFollowing: action.isFollowing
+          ? [...state.isFollowing, action.userId]
+          : state.isFollowing.filter(id => id != action.userId)
       }
 
     default:
@@ -64,13 +66,54 @@ const UsersReducer = (state = initialState, action) => {
   }
 }
 
-export const Follow = (UserId) => ({ type: FOLLOW, UserId });
-export const UnFollow = (UserId) => ({ type: UNFOLLOW, UserId });
+export const FollowSucces = (UserId) => ({ type: FOLLOW, UserId });
+export const UnFollowSucces = (UserId) => ({ type: UNFOLLOW, UserId });
 export const SetUsers = (users) => ({ type: SET_USERS, users });
 export const SetCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
 export const SetTotalUsersCount = (count) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
-export const SetToogleIsFetching= (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching})
-export const SetToogleIsFollowing= (isFollowing, userId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId})
+export const SetToogleIsFetching = (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
+export const SetToogleIsFollowing = (isFollowing, userId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
+
+
+export const getUsers = (currentPage, pageSize) => {
+  return (dispatch) => {
+    dispatch(SetToogleIsFetching(true))
+
+    usersAPI.getUsers(currentPage, pageSize)
+      .then(data => {
+        dispatch(SetCurrentPage(currentPage))
+        dispatch(SetToogleIsFetching(false))
+        dispatch(SetUsers(data.items))
+        dispatch(SetTotalUsersCount(data.totalCount))
+      })
+  }
+}
+
+export const UnFollow = (userId) => {
+  return (dispatch) => {
+    dispatch(SetToogleIsFollowing(true, userId))
+    usersAPI.unFollow(userId)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(UnFollowSucces(userId))
+        }
+        dispatch(SetToogleIsFollowing(false, userId))
+      })
+  }
+}
+
+export const Follow = (userId) => {
+  return (dispatch) => {
+    dispatch(SetToogleIsFollowing(true, userId))
+    usersAPI.follow(userId)
+      .then(data => {
+        if (data.resultCode === 0) {
+          dispatch(FollowSucces(userId))
+        }
+        dispatch(SetToogleIsFollowing(false, userId))
+      })
+  }
+}
 
 
 

@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import s from "./Users.module.sass";
 import UserIcon from "../../assets/images/unknown.png";
-import axios from "axios"
-import { usersAPI } from "../../api/api";
 
 
 const Users = (props) => {
@@ -31,26 +29,8 @@ const Users = (props) => {
                 <img className={s.ava} src={user.photos.small != null ? user.photos.small : UserIcon} alt="" />
               </NavLink>
               {user.followed
-                ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {
-                  props.SetToogleIsFollowing(true, user.id)
-                  usersAPI.unFollow(user.id)
-                    .then(data => {
-                      if (data.resultCode === 0) {
-                        props.unFollow(user.id)
-                      }
-                      props.SetToogleIsFollowing(false, user.id)
-                    })
-                }}>Unfollow</button>
-                : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {
-                  props.SetToogleIsFollowing(true, user.id)
-                  usersAPI.follow(user.id)
-                    .then(data => {
-                      if (data.resultCode === 0) {
-                        props.follow(user.id)
-                      }
-                      props.SetToogleIsFollowing(false, user.id)
-                    })
-                }}>Follow</button>
+                ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {props.UnFollow(user.id)}}>Unfollow</button>
+                : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {props.Follow(user.id)}}>Follow</button>
               }
             </div>
             <div className={s.MainInfo}>
