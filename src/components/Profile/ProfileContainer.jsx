@@ -4,6 +4,10 @@ import Post from "./Post/Post";
 import { connect } from "react-redux"
 import { actionAddPost, actionOnPostChange, getProfile } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux"
+
+
 
 export function withRouter(Children) {
   return (props) => {
@@ -32,10 +36,11 @@ let mapStateToProps = (state) => {
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
     userId: state.auth.userId,
-    isAuth: state.auth.isAuth
   }
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileCont)
-
-export default connect(mapStateToProps, { actionAddPost, actionOnPostChange, getProfile })(WithUrlDataContainerComponent);
+export default compose(
+  connect(mapStateToProps, { actionAddPost, actionOnPostChange, getProfile }),
+  withRouter,
+  withAuthRedirect
+)(ProfileCont)

@@ -2,12 +2,9 @@ import Person from './Person/Person';
 import SendingPost from './SendingPost/SendingPost';
 import Head from './Head/Head';
 import React from 'react';
-import { Navigate } from 'react-router-dom'
 
 
 const Profile = (props) => {
-   if (!props.isAuth) return <Navigate to='/login' />
-
    return (
       <div>
          <Head />

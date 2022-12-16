@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Follow, getUsers, UnFollow } from "../../redux/usersReducer";
-import Users from './Users'
+import Users from './Users';
+import { compose } from "redux"
+
 
 class UsersCont extends React.Component {
 
@@ -25,7 +27,7 @@ class UsersCont extends React.Component {
         currentPage={this.props.currentPage}
         onPageChange={this.onPageChange}
         isFollowing={this.props.isFollowing}
-        
+
       />
     </>)
   }
@@ -43,7 +45,6 @@ let mapStateToProps = (state) => {
   }
 }
 
-let UsersContainer = connect(mapStateToProps,
-  { Follow, UnFollow, getUsers})(UsersCont)
-
-export default UsersContainer;
+export default compose(
+  connect(mapStateToProps, { Follow, UnFollow, getUsers })
+)(UsersCont);
