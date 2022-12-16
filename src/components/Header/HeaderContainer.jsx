@@ -7,13 +7,6 @@ import { Auth } from '../../redux/authReducer'
 class HeaderComponent extends React.Component {
   componentDidMount() {
     this.props.Auth()
-    /*headerAPI.authMe()
-      .then(data => {
-        if (data.resultCode === 0) {
-          let {email, id, login} = data.data
-          this.props.setUserData(id, email, login)
-        }
-      })*/
   }
 
   render() {

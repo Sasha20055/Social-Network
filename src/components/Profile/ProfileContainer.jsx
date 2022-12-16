@@ -31,7 +31,8 @@ let mapStateToProps = (state) => {
       .map(post => <Post message={post.message} likes={post.likes} />),
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    isAuth: state.auth.isAuth
   }
 }
 

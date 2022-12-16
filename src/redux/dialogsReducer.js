@@ -42,16 +42,7 @@ const dialogsReducer = (state = initialState, action) => {
   }
 }
 
-export const actionAddMessage = () => {
-  return {
-    type: ADD_MESSAGE
-  }
-}
-export const actionOnPostChangeMessage = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
-  }
-}
+export const actionAddMessage = () => { return { type: ADD_MESSAGE } }
+export const actionOnPostChangeMessage = (text) => { return { type: UPDATE_NEW_MESSAGE_TEXT, newText: text } }
 
 export default dialogsReducer;
