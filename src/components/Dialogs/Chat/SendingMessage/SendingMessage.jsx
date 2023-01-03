@@ -1,21 +1,27 @@
 import React from 'react';
 import s from './SendingMessage.module.sass';
+import { Field, reduxForm } from 'redux-form'
 
-const newMessage = React.createRef()
+
+const SendingMessageForm = (props) => {
+  return(
+    <form onSubmit={props.handleSubmit}>
+        <Field name={"message"} component={"input"} type={"text"} placeholder={"message"}/>
+        <button>Send</button>
+    </form>
+  )
+}
+
+const DialogReduxForm = reduxForm({form: 'dialog'})(SendingMessageForm)
 
 const SendingMessage = (props) => {
-  const addMessage = () => {
-    props.message()
-  }
-  const onMessageChange = () => {
-    let text = newMessage.current.value
-    props.messageChange(text)
+  const onSubmit = (formData) => {
+    props.message(formData.message)
   }
 
   return (
     <div className={s.sendingMessage}>
-      <input type="text" ref={newMessage} onChange={onMessageChange} value={props.newMessageText} />
-      <button onClick={addMessage}>Send</button>
+      <DialogReduxForm onSubmit={onSubmit}/>
     </div>
   )
 }

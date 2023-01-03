@@ -10,14 +10,7 @@ const Profile = (props) => {
       <div>
          <Head />
          <Status status={props.status} UpdateStatus={props.UpdateStatus} />
-         <Person
-            profile={props.profile}
-            nickName='Alex'
-            dateOfBirth='26 january'
-            city='Berdyansk'
-            education='High'
-            webSite='https://trainingToDoSocialN.com' />
-
+         <Person profile={props.profile}/>
          <SendingPost {...props} />
          {props.posts}
       </div>
