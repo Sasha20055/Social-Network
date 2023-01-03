@@ -35,6 +35,12 @@ export const profileAPI = {
       .then(response => {
         return response.data
       })
+  },
+  getStatus(profileId) {
+    return instanse.get(`profile/status/${profileId}`)
+  },
+  updateStatus(status) {
+    return instanse.put(`profile/status`, { status: status })
   }
 }
 

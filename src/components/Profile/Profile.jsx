@@ -9,7 +9,7 @@ const Profile = (props) => {
    return (
       <div>
          <Head />
-         <Status status='In best feeling!'/>
+         <Status status={props.status} UpdateStatus={props.UpdateStatus} />
          <Person
             profile={props.profile}
             nickName='Alex'

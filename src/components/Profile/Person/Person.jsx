@@ -7,10 +7,7 @@ const Person = (props) => {
       <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img>
     )
   }
-  let contacts = []
-  for (let contact in props.profile.contacts) {
-    contacts.push(contact)
-  }
+
 
   return (
     <div className={s.person}>
@@ -20,9 +17,6 @@ const Person = (props) => {
       <div className={s.info}>
         <h2>{props.profile.fullName}</h2>
         <div>{props.profile.aboutMe}</div>
-        <div className={s.contacts}>
-          {contacts.map(c => <div className={s.contact}>{c}</div>)}
-        </div>
       </div>
     </div>
   )
