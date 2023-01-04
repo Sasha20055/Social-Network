@@ -38,15 +38,33 @@ export const profileAPI = {
   },
   getStatus(profileId) {
     return instanse.get(`profile/status/${profileId}`)
+      .then(response => {
+        return response.data
+      })
   },
   updateStatus(status) {
     return instanse.put(`profile/status`, { status: status })
+      .then(response => {
+        return response.data
+      })
   }
 }
 
 export const headerAPI = {
   authMe() {
     return instanse.get(`auth/me`)
+      .then(response => {
+        return response.data
+      })
+  },
+  login(email, password, rememberMe = false) {
+    return instanse.post(`auth/login`, { email, password, rememberMe })
+      .then(response => {
+        return response.data
+      })
+  },
+  logout() {
+    return instanse.delete(`auth/login`)
       .then(response => {
         return response.data
       })

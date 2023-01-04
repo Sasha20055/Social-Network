@@ -51,9 +51,9 @@ export const getProfile = (profileId) => {
 export const SetStatus = (profileId) => {
   return (dispatch) => {
     profileAPI.getStatus(profileId)
-      .then(response => {
-        if (response.data != null) {
-          dispatch(SetStatusAc(response.data))
+      .then(data => {
+        if (data != null) {
+          dispatch(SetStatusAc(data))
         } else {
           dispatch(SetStatusAc("No status!"))
         }
@@ -64,8 +64,8 @@ export const SetStatus = (profileId) => {
 export const UpdateStatus = (status) => {
   return (dispatch) => {
     profileAPI.updateStatus(status)
-      .then(response => {
-        if (response.data.resultCode === 0) {
+      .then(data => {
+        if (data.resultCode === 0) {
           dispatch(SetStatusAc(status))
         }
       })

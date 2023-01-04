@@ -1,12 +1,16 @@
 import React from 'react';
 import s from './SendingMessage.module.sass';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form';
+import {Input} from '../../../common/FormsControls/FormsControls';
+import { maxLengthCreator, required } from '../../../../utilities/validation';
+
 
 
 const SendingMessageForm = (props) => {
+  const maxLength30 = maxLengthCreator(30)
   return(
     <form onSubmit={props.handleSubmit}>
-        <Field name={"message"} component={"input"} type={"text"} placeholder={"message"}/>
+        <Field name={"message"} component={Input} type={"text"} placeholder={"message"} validate={[required, maxLength30]}/>
         <button>Send</button>
     </form>
   )
