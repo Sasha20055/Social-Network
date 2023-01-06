@@ -4,8 +4,9 @@ import Post from "./Post/Post";
 import { connect } from "react-redux"
 import { actionAddPost, getProfile, SetStatus, UpdateStatus } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux"
+import { compose } from "redux";
+import { Navigate } from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect"
 
 
 
@@ -48,4 +49,5 @@ let mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus }),
   withRouter,
+  withAuthRedirect,
 )(ProfileCont)

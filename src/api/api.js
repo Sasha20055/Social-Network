@@ -9,7 +9,7 @@ const instanse = axios.create({
 })
 
 export const usersAPI = {
-  getUsers(currentPage = 1, pageSize = 10) {
+  getRequestUsers(currentPage = 1, pageSize = 10) {
     return instanse.get(`users?page=${currentPage}&count=${pageSize}`,)
       .then(response => {
         return response.data

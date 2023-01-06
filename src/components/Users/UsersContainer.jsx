@@ -1,18 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Follow, getUsers, UnFollow } from "../../redux/usersReducer";
+import { Follow, getRequestUsers, UnFollow } from "../../redux/usersReducer";
 import Users from './Users';
-import { compose } from "redux"
+import { compose } from "redux";
+import { getIsFollowing, getIsFetching, getTotalUsersCount, getPageSize, getCurrentPage, getUsers } from "../../redux/usersSelectors"
 
 
 class UsersCont extends React.Component {
 
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    this.props.getRequestUsers(this.props.currentPage, this.props.pageSize)
   }
 
   onPageChange = (numberPage) => {
-    this.props.getUsers(numberPage, this.props.pageSize)
+    this.props.getRequestUsers(numberPage, this.props.pageSize)
   }
 
   render() {
@@ -36,15 +37,15 @@ class UsersCont extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    currentPage: state.usersPage.currentPage,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    isFetching: state.usersPage.isFetching,
-    isFollowing: state.usersPage.isFollowing
+    users: getUsers(state),
+    currentPage: getCurrentPage(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    isFetching: getIsFetching(state),
+    isFollowing: getIsFollowing(state)
   }
 }
 
 export default compose(
-  connect(mapStateToProps, { Follow, UnFollow, getUsers })
+  connect(mapStateToProps, { Follow, UnFollow, getRequestUsers })
 )(UsersCont);

@@ -75,11 +75,11 @@ export const SetToogleIsFetching = (isFetching) => ({ type: TOOGLE_IS_FETCHING, 
 export const SetToogleIsFollowing = (isFollowing, userId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
 
 
-export const getUsers = (currentPage, pageSize) => {
+export const getRequestUsers = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(SetToogleIsFetching(true))
 
-    usersAPI.getUsers(currentPage, pageSize)
+    usersAPI.getRequestUsers(currentPage, pageSize)
       .then(data => {
         dispatch(SetCurrentPage(currentPage))
         dispatch(SetToogleIsFetching(false))
