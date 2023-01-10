@@ -5,8 +5,7 @@ import { connect } from "react-redux"
 import { actionAddPost, getProfile, SetStatus, UpdateStatus } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
-import { Navigate } from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect"
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 
 
@@ -30,7 +29,7 @@ class ProfileCont extends React.Component {
 
   render() {
     return (
-      <Profile {...this.props}/>
+      <Profile {...this.props} />
     )
   }
 }
@@ -38,7 +37,7 @@ class ProfileCont extends React.Component {
 let mapStateToProps = (state) => {
   return {
     posts: state.profilePage.postData
-      .map(post => <Post message={post.message} likes={post.likes}/>),
+      .map(post => <Post message={post.message} likes={post.likes} />),
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
     userId: state.auth.userId,
