@@ -4,7 +4,7 @@ import s from "./Users.module.sass";
 import UserIcon from "../../assets/images/unknown.png";
 
 
-const Users = (props) => {
+const Users = React.memo((props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
   let pages = []
   for (let i = 1; i <= pagesCount; i++) {
@@ -12,6 +12,7 @@ const Users = (props) => {
       pages.push(i)
     }
   }
+  console.log("RENDER")
 
 
   return (
@@ -43,7 +44,7 @@ const Users = (props) => {
       }
     </div>
   )
-}
+})
 
 
 

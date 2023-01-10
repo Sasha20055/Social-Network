@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import Post from "./Post/Post";
+import Post from "./Posts/Posts";
 import { connect } from "react-redux"
 import { actionAddPost, getProfile, SetStatus, UpdateStatus } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
@@ -36,8 +36,7 @@ class ProfileCont extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    posts: state.profilePage.postData
-      .map(post => <Post message={post.message} likes={post.likes} />),
+    posts: state.profilePage.postData,
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
     userId: state.auth.userId,

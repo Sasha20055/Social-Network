@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from "./Status.module.sass"
 
-const Status = (props) => {
+const Status = React.memo((props) => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(props.status)
 
@@ -37,7 +37,7 @@ const Status = (props) => {
       }
     </div>
   )
-}
+})
 
 
 export default Status

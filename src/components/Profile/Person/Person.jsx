@@ -1,13 +1,13 @@
+import React from 'react'
 import s from './Person.module.sass'
 
 
-const Person = (props) => {
+const Person = React.memo((props) => {
   if (!props.profile) {
     return (
       <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img>
     )
   }
-
 
   return (
     <div className={s.person}>
@@ -20,6 +20,6 @@ const Person = (props) => {
       </div>
     </div>
   )
-}
+})
 
 export default Person

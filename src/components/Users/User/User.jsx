@@ -1,8 +1,7 @@
 import React from "react";
 import s from "./User.module.sass";
 
-const User = (props) => {
-  debugger
+const User = React.memo((props) => {
   return (
     <div className={s.User}>
       <div className={s.avaBtn}>
@@ -19,6 +18,6 @@ const User = (props) => {
       </div>
     </div>
   )
-}
+})
 
 export default User;
