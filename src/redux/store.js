@@ -6,6 +6,7 @@ import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunk from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
+import { compose } from "redux";
 
 
 const reducers = combineReducers({
@@ -17,8 +18,15 @@ const reducers = combineReducers({
   app: appReducer
 });
 
-let store = createStore(reducers, applyMiddleware(thunk))
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(thunk),
+    window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : (noop) => noop)
+);
 
-window.store = store
+window.__store__ = store
 
 export default store

@@ -7,20 +7,17 @@ import { maxLengthCreator, required } from '../../utilities/validation';
 import { login } from '../../redux/authReducer';
 import { connect } from 'react-redux';
 import style from '../common/FormsControls/FormsControls.module.sass';
+import {createForm} from '../common/FormsControls/FormsControls';
+
 
 const LoginForm = (props) => {
   const maxLength30 = maxLengthCreator(30)
   return (
     <form onSubmit={props.handleSubmit}>
-      <div className={s.login}>
-        <Field name={"email"} component={Input} type={"text"} placeholder={"login"} validate={[required, maxLength30]} />
-      </div>
-      <div className={s.password}>
-        <Field name={"password"} component={Input} type={"password"} placeholder={"password"} validate={[required, maxLength30]} />
-      </div>
-      <div className={s.rememberMe}>
-        <Field name={"rememberMe"} component={Input} type={"checkbox"} validate={[required, maxLength30]} />
-      </div>
+      {createForm("email", Input, "text", "login", [required, maxLength30])}
+      {createForm("password", Input, "password", "password", [required, maxLength30])}
+      {createForm("rememberMe", Input, "checkbox")}
+
       {props.error && <div className={style.commonError}>{props.error}</div>}
       <div className={s.submit}>
         <button>Submit</button>

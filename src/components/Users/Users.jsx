@@ -1,49 +1,23 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
 import s from "./Users.module.sass";
-import UserIcon from "../../assets/images/unknown.png";
+import Paginator from "../common/Paginator/Paginator";
+import User from "./User/User"
 
 
-const Users = React.memo((props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-  let pages = []
-  for (let i = 1; i <= pagesCount; i++) {
-    if (pages.length < 10) {
-      pages.push(i)
-    }
-  }
-  console.log("RENDER")
 
+const Users = React.memo(({totalUsersCount, pageSize, onPageChange, currentPage, ...props}) => {
 
   return (
     <div className={s.body}>
-      <div>
-        {pages.map(p => {
-          return <span className={props.currentPage === p && s.selectedPage} onClick={() => { props.onPageChange(p) }}>{p}</span>
-        })}
-      </div>
+      <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage}/>
       {
         props.users.map(user =>
-          <div className={s.User}>
-            <div className={s.avaBtn}>
-              <NavLink to={"/profile/" + user.id} >
-                <img className={s.ava} src={user.photos.small != null ? user.photos.small : UserIcon} alt="" />
-              </NavLink>
-              {user.followed
-                ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {props.UnFollow(user.id)}}>Unfollow</button>
-                : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {props.Follow(user.id)}}>Follow</button>
-              }
-            </div>
-            <div className={s.MainInfo}>
-              <p className={s.FullName}>{user.name}</p>
-              <p className={s.Status}>{user.status}</p>
-              <p className={s.Location}>city, country</p>
-            </div>
-          </div>
+            <User user={user} isFollowing={props.isFollowing} unFollow={props.UnFollow} Follow={props.Follow}/>
         )
       }
     </div>
   )
+
 })
 
 
