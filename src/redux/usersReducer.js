@@ -13,11 +13,11 @@ const TOOGLE_IS_FOLLOWING = "users/TOOGLE-IS-FOLLOWING"
 
 let initialState = {
   users: [],
-  pageSize: 5,
-  totalUsersCount: 21,
+  pageSize: 10,
+  totalUsersCount: 300,
   currentPage: 1,
   isFetching: false,
-  isFollowing: [2, 3]
+  isFollowing: []
 }
 
 const UsersReducer = (state = initialState, action) => {
