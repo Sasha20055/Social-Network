@@ -1,18 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.sass';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderComponent from './components/Header/HeaderContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
-import Login from './components/Login/Login';
 import { useParams } from "react-router-dom";
 import { compose } from 'redux';
 import { connect } from "react-redux";
 import { initializedApp } from "./redux/appReducer";
 import { Provider } from "react-redux";
 import store from './redux/Store';
+
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const Login = React.lazy(() => import('./components/Login/Login'));
 
 
 
@@ -41,12 +43,14 @@ export class App extends React.Component {
         <HeaderComponent />
         <NavbarContainer />
         <div className="content">
-          <Routes>
-            <Route path='/dialogs/*' element={<DialogsContainer />} />
-            <Route path='/profile/:userId' element={<ProfileContainer />} />
-            <Route path='/users/*' element={<UsersContainer />} />
-            <Route path='/login' element={<Login />} />
-          </Routes>
+          <React.Suspense fallback={<div>Load...</div>}>
+            <Routes>
+              <Route path='/dialogs/*' element={<DialogsContainer />} />
+              <Route path='/profile/:userId' element={<ProfileContainer />} />
+              <Route path='/users/*' element={<UsersContainer />} />
+              <Route path='/login' element={<Login />} />
+            </Routes>
+          </React.Suspense>
         </div>
       </div>
     );
@@ -65,11 +69,11 @@ const AppContainer = compose(
 
 const AppMain = (props) => {
   return (
-      <BrowserRouter>
-        <Provider store={store}>
-          <AppContainer />
-        </Provider>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
   )
 }
 
