@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import Post from "./Posts/Posts";
 import { connect } from "react-redux"
-import { actionAddPost, getProfile, SetStatus, UpdateStatus } from "../../redux/profileReducer";
+import { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -17,8 +17,7 @@ export function withRouter(Children) {
 }
 
 class ProfileCont extends React.Component {
-
-  componentDidMount() {
+  refreshProfile() {
     const profileId = this.props.match.params.userId
     if (!profileId) {
       profileId = this.props.userId
@@ -27,9 +26,22 @@ class ProfileCont extends React.Component {
     this.props.SetStatus(profileId)
   }
 
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.match.params.userId != prevProps.match.params.userId) {
+      this.refreshProfile()
+    }
+  }
+
   render() {
     return (
-      <Profile {...this.props} />
+      <Profile
+        {...this.props}
+        isOwner={this.props.match.params.userId == this.props.userId}
+      />
     )
   }
 }
@@ -45,7 +57,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-  connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus }),
+  connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto }),
   withRouter,
   withAuthRedirect,
 )(ProfileCont)

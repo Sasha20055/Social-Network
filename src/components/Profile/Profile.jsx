@@ -11,7 +11,7 @@ const Profile = React.memo((props) => {
       <div>
          <Head />
          <Status status={props.status} UpdateStatus={props.UpdateStatus} />
-         <Person profile={props.profile}/>
+         <Person profile={props.profile} isOwner={props.isOwner} savePhoto={props.savePhoto}/>
          <SendingPost {...props} />
          <Posts posts={props.posts}/>
       </div>
