@@ -1,5 +1,4 @@
 import Person from './Person/Person';
-import Status from './Status/Status';
 import SendingPost from './SendingPost/SendingPost';
 import Head from './Head/Head';
 import Posts from './Posts/Posts'
@@ -10,10 +9,16 @@ const Profile = React.memo((props) => {
    return (
       <div>
          <Head />
-         <Status status={props.status} UpdateStatus={props.UpdateStatus} />
-         <Person profile={props.profile} isOwner={props.isOwner} savePhoto={props.savePhoto}/>
+         <Person
+            profile={props.profile}
+            isOwner={props.isOwner}
+            savePhoto={props.savePhoto}
+            status={props.status}
+            UpdateStatus={props.UpdateStatus}
+            saveProfile={props.saveProfile} />
+            
          <SendingPost {...props} />
-         <Posts posts={props.posts}/>
+         <Posts posts={props.posts} />
       </div>
    )
 })

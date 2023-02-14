@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Login.module.sass';
 import { Navigate } from 'react-router'
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLengthCreator, required } from '../../utilities/validation';
 import { login } from '../../redux/authReducer';

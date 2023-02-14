@@ -5,7 +5,7 @@ const Posts = React.memo((props) => {
   return (
     <div>
       {
-        props.posts.map(post => <div className={s.myPost}>
+        props.posts.map(post => <div key={post.id} className={s.myPost}>
           <div className={s.postAva}></div>
           <p className={s.postMsg}>{post.message}</p>
           <p className={s.like}>Likes: {post.likes}</p>

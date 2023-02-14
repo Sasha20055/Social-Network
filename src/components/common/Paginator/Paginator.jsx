@@ -25,7 +25,7 @@ const Paginator = React.memo((props) => {
         {pages
           .filter(p => p >= leftPortionNumber && p <= rightPortionNumber)
           .map(p => {
-            return <span className={props.currentPage === p && s.selectedPage} onClick={() => { props.onPageChange(p) }}>{p}</span>
+            return <span key={p} className={props.currentPage === p && s.selectedPage} onClick={() => { props.onPageChange(p) }}>{p}</span>
           })}
       </div>
 
