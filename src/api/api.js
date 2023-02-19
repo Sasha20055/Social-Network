@@ -75,14 +75,20 @@ export const headerAPI = {
         return response.data
       })
   },
-  login(email, password, rememberMe = false) {
-    return instanse.post(`auth/login`, { email, password, rememberMe })
+  login(email, password, rememberMe = false, captcha = null) {
+    return instanse.post(`auth/login`, { email, password, rememberMe, captcha })
       .then(response => {
         return response.data
       })
   },
   logout() {
     return instanse.delete(`auth/login`)
+      .then(response => {
+        return response.data
+      })
+  },
+  captcha() {
+    return instanse.get(`security/get-captcha-url`)
       .then(response => {
         return response.data
       })

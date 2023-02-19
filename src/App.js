@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.sass';
 import HeaderComponent from './components/Header/HeaderContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
@@ -45,10 +45,12 @@ export class App extends React.Component {
         <div className="content">
           <React.Suspense fallback={<div>Load...</div>}>
             <Routes>
+              <Route path="/" element={<Navigate to="/profile/27076" />} />
               <Route path='/dialogs/*' element={<DialogsContainer />} />
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/users/*' element={<UsersContainer />} />
               <Route path='/login' element={<Login />} />
+              <Route path='*' element={<div>404 NOT FOUND</div>} />
             </Routes>
           </React.Suspense>
         </div>

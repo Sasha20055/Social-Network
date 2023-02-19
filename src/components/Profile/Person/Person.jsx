@@ -60,7 +60,7 @@ const PersonData = ({ profile, ...props }) => {
       <b>Name</b>: {profile.fullName}
     </div>
     <div className={s.status}>
-      <b>Status</b>: <Status status={props.status} UpdateStatus={props.UpdateStatus} />
+      <b>Status</b>: <Status status={props.status} UpdateStatus={props.UpdateStatus} isOwner={props.isOwner}/>
     </div>
     <div>
       <b>Looking for a job</b>: {profile.lookingForAJob ? "Yes" : "No"}

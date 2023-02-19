@@ -32,12 +32,16 @@ const Status = React.memo((props) => {
       }
       {editMode &&
         <div>
-          <input onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus={true} value={status} type="text" />
+          {props.isOwner
+            ? <input onChange={onStatusChange} onBlur={deactivateEditMode} autoFocus={true} value={status} type="text" />
+            : <b>{status}</b>
+          }
         </div>
       }
     </div>
   )
 })
+
 
 
 export default Status
