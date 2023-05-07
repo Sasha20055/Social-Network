@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import s from './Person.module.sass';
 import UserIcon from "../../../assets/images/unknown.png";
 import Status from '../Status/Status';
-import PersonDataFormReduxForm from "./PersonDataForm"
+import PersonDataFormReduxForm from "./PersonDataForm";
+import FriendsContainer from '../../common/Friends/FriendsContainer'
 
 
 
 
-const Person = React.memo((props) => {
+
+const Person = (props) => {
 
   const [editMode, setEditMode] = useState(false)
 
@@ -35,24 +37,25 @@ const Person = React.memo((props) => {
         <img src={props.profile.photos.large || UserIcon}></img>
       </div>
       {editMode
-
         ? <PersonDataFormReduxForm
           initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}
           isOwner={props.isOwner} UpdateStatus={props.UpdateStatus}
           editMode={editMode} offToEditMode={() => setEditMode(false)} />
-
         : <PersonData
           profile={props.profile} isOwner={props.isOwner}
           UpdateStatus={props.UpdateStatus} status={props.status}
           editMode={editMode} goToEditMode={() => setEditMode(true)} />
-
       }
+
       <div className={s.choosePhoto}>
         {props.isOwner && <input type={"file"} onChange={photoSelected} />}
       </div>
+      <div>
+        <FriendsContainer />
+      </div>
     </div>
   )
-})
+}
 
 const PersonData = ({ profile, ...props }) => {
   return (<div className={s.info}>
@@ -60,7 +63,7 @@ const PersonData = ({ profile, ...props }) => {
       <b>Name</b>: {profile.fullName}
     </div>
     <div className={s.status}>
-      <b>Status</b>: <Status status={props.status} UpdateStatus={props.UpdateStatus} isOwner={props.isOwner}/>
+      <b>Status</b>: <Status status={props.status} UpdateStatus={props.UpdateStatus} isOwner={props.isOwner} />
     </div>
     <div>
       <b>Looking for a job</b>: {profile.lookingForAJob ? "Yes" : "No"}

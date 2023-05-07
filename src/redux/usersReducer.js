@@ -78,9 +78,17 @@ const followUnfollowFlow = async (dispatch, userId, usersApi, actionCr) => {
 
 export const getRequestUsers = (currentPage, pageSize) => async (dispatch) => {
   dispatch(SetToogleIsFetching(true))
-
   let data = await usersAPI.getRequestUsers(currentPage, pageSize)
   dispatch(SetCurrentPage(currentPage))
+  dispatch(SetToogleIsFetching(false))
+  dispatch(SetUsers(data.items))
+  dispatch(SetTotalUsersCount(data.totalCount))
+}
+
+export const getUsersByName = (name) => async (dispatch) => {
+  dispatch(SetToogleIsFetching(true))
+  let data = await usersAPI.searchUsersbyName(name)
+  dispatch(SetCurrentPage(1))
   dispatch(SetToogleIsFetching(false))
   dispatch(SetUsers(data.items))
   dispatch(SetTotalUsersCount(data.totalCount))

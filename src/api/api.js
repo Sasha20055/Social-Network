@@ -15,8 +15,20 @@ export const usersAPI = {
         return response.data
       })
   },
+  searchUsersbyName(page = 1, count = 10, term) {
+    return instanse.get(`users?page=${page}&count=${count}&term=${term}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  followIs(id) {
+    return instanse.get(`follow/${id}`)
+      .then(response => {
+        return response.data
+      })
+  },
   unFollow(id) {
-    return instanse.delete(`follow/${id}`,)
+    return instanse.delete(`follow/${id}`)
       .then(response => {
         return response.data
       })
@@ -32,6 +44,12 @@ export const usersAPI = {
 export const profileAPI = {
   getProfile(profileId) {
     return instanse.get(`profile/${profileId}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  getFriends() {
+    return instanse.get('users?friend=true&count=100')
       .then(response => {
         return response.data
       })
@@ -93,4 +111,67 @@ export const headerAPI = {
         return response.data
       })
   }
+}
+
+export const dialogsAPI = {
+  allDialogs() {
+    return instanse.get(`dialogs`)
+      .then(response => {
+        return response.data
+      })
+  },
+  startChatting(userId) {
+    return instanse.put(`dialogs/${userId}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  listOfMessages(userId, currentPage, pageSize) {
+    return instanse.get(`dialogs/${userId}/messages?page=${currentPage}&count=${pageSize}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  sendMessage(userId, message) {
+    return instanse.post(`dialogs/${userId}/messages`, { 'body': message })
+      .then(response => {
+        return response.data
+      })
+  },
+  isMessageViewed(messageId) {
+    return instanse.get(`dialogs/messages/${messageId}/viewed`)
+      .then(response => {
+        return response.data
+      })
+  },
+  messageToSpam(messageId) {
+    return instanse.post(`dialogs/messages/${messageId}/spam`)
+      .then(response => {
+        return response.data
+      })
+  },
+  deleteForMe(messageId) {
+    return instanse.delete(`dialogs/messages/${messageId}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  restoreMyMessages(messageId) {
+    return instanse.put(`dialogs/messages/${messageId}/restore`)
+      .then(response => {
+        return response.data
+      })
+  },
+  messagesNewestThanDate(userId, date) {
+    return instanse.get(`dialogs/${userId}/messages/new?newerThen=${date}`)
+      .then(response => {
+        return response.data
+      })
+  },
+  listOfNewMessages() {
+    return instanse.get(`dialogs/messages/new/count`)
+      .then(response => {
+        return response.data
+      })
+  },
 }

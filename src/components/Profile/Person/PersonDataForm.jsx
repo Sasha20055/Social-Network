@@ -9,6 +9,7 @@ import style from '../../common/FormsControls/FormsControls.module.sass';
 
 
 const PersonDataForm = React.memo((props) => {
+  
   const maxLength30 = maxLengthCreator(15)
   const maxLength100 = maxLengthCreator(100)
 

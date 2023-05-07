@@ -6,7 +6,7 @@ import User from "./User/User"
 
 
 const Users = React.memo(({totalUsersCount, pageSize, onPageChange, currentPage, ...props}) => {
-  
+
   return (
     <div className={s.body}>
       <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} onPageChange={onPageChange} currentPage={currentPage} portionSize={6}/>
@@ -17,7 +17,7 @@ const Users = React.memo(({totalUsersCount, pageSize, onPageChange, currentPage,
       }
     </div>
   )
-  
+
 })
 
 

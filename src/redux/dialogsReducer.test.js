@@ -1,16 +1,14 @@
-import dialogsReducer, { actionAddMessage } from './dialogsReducer';
+import dialogsReducer, { actionDeleteMessage } from './dialogsReducer';
 
-it('message not add', () => {
-  let action = actionAddMessage('ladada')
+it('message not delete', () => {
+  let action = actionDeleteMessage("e068cf54-c5e9-48b1-8b79-17ce2fd68849")
   let store = {
     messages:
       [
-        { id: 1, message: 'Hi' },
-        { id: 2, message: 'Wafsdfadf asdf sda adsafadsf asdf' },
-        { id: 3, message: 'FSDF sdfasd dafsdf adf' },
-        { id: 4, message: 'Sadfdsa adsfasd ' },
+        { id: "25504a36-0456-40be-8d54-fdf2503a08d9", message: 'Hi' },
+        { id: "e068cf54-c5e9-48b1-8b79-17ce2fd68849", message: 'Wafsdfadf asdf sda adsafadsf asdf' },
       ],
   };
-  let addMessage = dialogsReducer(store, action)
-  expect(addMessage.messages.length).toBe(5)
+  let deleteMessage = dialogsReducer(store, action)
+  expect(deleteMessage.messages.length).toBe(1)
 })

@@ -1,8 +1,8 @@
+import React from "react";
 import Person from './Person/Person';
 import SendingPost from './SendingPost/SendingPost';
 import Head from './Head/Head';
-import Posts from './Posts/Posts'
-import React from 'react';
+import Posts from './Posts/Posts';
 
 
 const Profile = React.memo((props) => {
@@ -16,7 +16,6 @@ const Profile = React.memo((props) => {
             status={props.status}
             UpdateStatus={props.UpdateStatus}
             saveProfile={props.saveProfile} />
-            
          <SendingPost {...props} />
          <Posts posts={props.posts} />
       </div>

@@ -45,8 +45,8 @@ export class App extends React.Component {
         <div className="content">
           <React.Suspense fallback={<div>Load...</div>}>
             <Routes>
-              <Route path="/" element={<Navigate to="/profile/27076" />} />
-              <Route path='/dialogs/*' element={<DialogsContainer />} />
+              <Route path="/" element={<Navigate to={`/profile/${this.props.userId}`} />} />
+              <Route path='/dialogs/:userId' element={<DialogsContainer />} />
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/users/*' element={<UsersContainer />} />
               <Route path='/login' element={<Login />} />
@@ -60,7 +60,8 @@ export class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  initialized: state.app.initialized
+  initialized: state.app.initialized,
+  userId: state.auth.userId
 })
 
 const AppContainer = compose(
