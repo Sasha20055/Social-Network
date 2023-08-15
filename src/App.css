@@ -1,0 +1,48 @@
+button, a {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #55370A;
+  opacity: 75%;
+}
+
+span {
+  font-size: 15px;
+  font-weight: normal;
+  color: #4F2F00;
+}
+
+.wrapper {
+  font-weight: bold;
+  font-weight: normal;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  font-size: 18px;
+}
+
+.content {
+  grid-area: c;
+  height: 100vh;
+  width: 100%;
+  background-color: #F1E4A1;
+}
+
+button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
+  padding: 5px 8px;
+  font-weight: bold;
+  opacity: 75%;
+  color: #FFFFFF;
+  background-color: #A37A3E;
+  border-radius: 10px;
+  border: 0;
+}
+/*# sourceMappingURL=App.css.map */

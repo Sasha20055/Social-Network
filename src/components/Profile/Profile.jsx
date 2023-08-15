@@ -1,14 +1,12 @@
 import React from "react";
 import Person from './Person/Person';
 import SendingPost from './SendingPost/SendingPost';
-import Head from './Head/Head';
 import Posts from './Posts/Posts';
 
 
 const Profile = React.memo((props) => {
    return (
       <div>
-         <Head />
          <Person
             profile={props.profile}
             isOwner={props.isOwner}

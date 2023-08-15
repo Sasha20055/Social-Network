@@ -10,7 +10,7 @@ const User = React.memo(({user, ...props}) => {
     <div className={s.User}>
             <div className={s.avaBtn}>
               <NavLink to={"/profile/" + user.id} >
-                <img className={s.ava} src={user.photos.small != null ? user.photos.small : UserIcon} alt="" />
+                <img className={s.ava} src={user.photos.small != null ? user.photos.small : UserIcon} alt="User-icon" />
               </NavLink>
               {user.followed
                 ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => {props.UnFollow(user.id)}}>Unfollow</button>

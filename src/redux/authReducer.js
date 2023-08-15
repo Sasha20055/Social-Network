@@ -15,7 +15,7 @@ let initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_DATA:
-      case SET_CAPTCHA_URL:
+    case SET_CAPTCHA_URL:
       return {
         ...state,
         ...action.data
@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 export const setUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
-export const getCaptchaURLSuccess = (captchaURL) => ({ type: SET_CAPTCHA_URL, data: {captchaURL} })
+export const getCaptchaURLSuccess = (captchaURL) => ({ type: SET_CAPTCHA_URL, data: { captchaURL } })
 
 
 export const Auth = () => async (dispatch) => {
@@ -43,10 +43,13 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
   if (data.resultCode === 0) {
     dispatch(Auth())
   } else {
-    if(data.resultCode === 10) {
+    if (data.resultCode === 10) {
       dispatch(getCaptchaURL())
     }
-    let message = data.messages.length > 0 ? data.messages[0] : "Some Error"
+    let message = data.messages.length > 0 ? data.messages[0] : "Ошибка"
+    if (message == 'Incorrect Email or Password') {
+      message = 'Неправильная почта или пароль'
+    }
     dispatch(stopSubmit("login", { _error: message }))
   }
 }
@@ -60,7 +63,7 @@ export const logout = () => async (dispatch) => {
 
 export const getCaptchaURL = () => async (dispatch) => {
   const data = await headerAPI.captcha()
-  const captchaURL = data.url 
+  const captchaURL = data.url
   dispatch(getCaptchaURLSuccess(captchaURL))
 }
 

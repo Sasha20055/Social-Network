@@ -3,28 +3,30 @@ import s from './Login.module.sass';
 import { Navigate } from 'react-router'
 import { reduxForm } from 'redux-form';
 import { Input } from '../common/FormsControls/FormsControls';
-import { maxLengthCreator, required } from '../../utilities/validation';
+import { required } from '../../utilities/validation';
 import { login } from '../../redux/authReducer';
 import { connect } from 'react-redux';
 import style from '../common/FormsControls/FormsControls.module.sass';
-import {createForm} from '../common/FormsControls/FormsControls';
+import { createForm } from '../common/FormsControls/FormsControls';
 
 
 const LoginForm = (props) => {
-  const maxLength30 = maxLengthCreator(30)
   return (
-    <form onSubmit={props.handleSubmit}>
-      {createForm("email", Input, "text", "login", [required, maxLength30])}
-      {createForm("password", Input, "password", "password", [required, maxLength30])}
-      {createForm("rememberMe", Input, "checkbox")}
-
-      {props.error && <div className={style.commonError}>{props.error}</div>}
-
-      {props.captchaURL && <img src={props.captchaURL}/>}
+    <form onSubmit={props.handleSubmit} className={s.loginForm}>
+      {createForm("email", Input, "text", "login", [required])}
+      {createForm("password", Input, "password", "password", [required])}
+      {props.captchaURL && <img src={props.captchaURL} />}
       {props.captchaURL && createForm("captcha", Input, "text", "captcha", [required])}
       <div className={s.submit}>
-        <button>Submit</button>
+        <button>Войти</button>
       </div>
+      <div className={s.rememberMeBlock}>
+        {createForm("rememberMe", Input, "checkbox")}
+        <p>Запомнить меня</p>
+      </div>
+
+
+      {props.error && <div className={style.commonError}>{props.error}</div>}
     </form>
   )
 }
@@ -40,11 +42,11 @@ const Login = (props) => {
     return <Navigate to={`/profile/${props.userId}`} />
   }
 
-  return <div>
+  return <div className={s.body}>
     <h1>
-      LOGIN
+      Авторизация
     </h1>
-    <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
+    <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL} />
   </div>
 }
 

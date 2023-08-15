@@ -6,7 +6,7 @@ import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunk from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
-import { compose } from "redux";
+import { compose } from "redux"; 
 
 
 const reducers = combineReducers({

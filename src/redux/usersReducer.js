@@ -1,4 +1,3 @@
-import { act } from "react-dom/test-utils"
 import { usersAPI } from "../api/api"
 import {updateObjectInArray } from "../utilities/object-helpers"
 
@@ -51,7 +50,7 @@ const UsersReducer = (state = initialState, action) => {
         ...state,
         isFollowing: action.isFollowing
           ? [...state.isFollowing, action.userId]
-          : state.isFollowing.filter(id => id != action.userId)
+          : state.isFollowing.filter(id => id !== action.userId)
       }
 
     default:

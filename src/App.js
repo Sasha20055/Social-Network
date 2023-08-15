@@ -1,7 +1,6 @@
 import React from 'react';
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.sass';
-import HeaderComponent from './components/Header/HeaderContainer';
 import NavbarContainer from './components/Navbar/NavbarContainer';
 import { useParams } from "react-router-dom";
 import { compose } from 'redux';
@@ -40,7 +39,6 @@ export class App extends React.Component {
 
     return (
       <div className="wrapper">
-        <HeaderComponent />
         <NavbarContainer />
         <div className="content">
           <React.Suspense fallback={<div>Load...</div>}>
