@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACZ,SAAS,EAAE,KAAK;CAAG;;AAErB,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,GAAG,EAAE,IAAI;CAGM;;AANjB,AAIE,UAJQ,CAIR,aAAa,CAAC;EACZ,OAAO,EAAE,IAAI;EACb,GAAG,EAAE,GAAG;CAAG",
+    "sources": [
+        "Paginator.module.sass"
+    ],
+    "names": [],
+    "file": "Paginator.module.css"
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.sass';
 import NavbarContainer from './components/Navbar/NavbarContainer';
+import Footer from './components/Footer/Footer'
 import { useParams } from "react-router-dom";
 import { compose } from 'redux';
 import { connect } from "react-redux";
@@ -52,6 +53,7 @@ export class App extends React.Component {
             </Routes>
           </React.Suspense>
         </div>
+        <Footer />
       </div>
     );
   }

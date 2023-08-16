@@ -2,16 +2,16 @@ $mainColor: #DFE8FF
 $textColor: #001049
 $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 
-
 .person
-  gap: 50px
   display: flex
-  justify-items: center
   align-items: center
+  justify-content: center
+  flex-wrap: wrap
+  margin: auto 0
+  max-width: 800px
+  gap: 20px
   .ava
-    display: flex
-    justify-items: center
-    align-items: center
+    margin: 0 auto
     img
       width: 150px
       height: 150px
@@ -19,13 +19,27 @@ $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
   .info
     display: flex
     flex-direction: column
-    gap: 5px
-    width: 400px
-    height: 400px
     text-align: start
-    flex-wrap: wrap
-    .contact_item
-      padding-left: 15px
-    .status
-      display: flex    
-  
+
+.secondBlock
+  display: flex
+  flex-direction: column
+  justify-content: start
+.contacts
+  display: flex
+  flex-wrap: wrap
+  gap: 5px
+.contact
+  padding: 15px
+  background-position: 0 0
+  background: url(../../../assets/images/website.svg) 50% 50% no-repeat
+.contact[href *='https://www.instagram.com']
+  background: url(../../../assets/images/instagram.svg) 50% 50% no-repeat
+.contact[href *='https://www.youtube.com']
+  background: url(../../../assets/images/youtube.svg) 50% 50% no-repeat
+.contact[href *='https://www.twitter.com']
+  background: url(../../../assets/images/twitter.svg) 50% 50% no-repeat
+.contact[href *='https://www.github.com']
+  background: url(../../../assets/images/github.svg) 50% 50% no-repeat
+.contact[href *='https://www.vk.com']
+  background: url(../../../assets/images/vk.svg) 50% 50% no-repeat

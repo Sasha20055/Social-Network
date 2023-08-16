@@ -33,24 +33,25 @@ const Person = (props) => {
 
   return (
     <div className={s.person}>
-      <div className={s.ava}>
-        <img src={props.profile.photos.large || UserIcon}></img>
+      <div className={s.firstBlock}>
+        <div className={s.ava}>
+          <img src={props.profile.photos.large || UserIcon}></img>
+        </div>
+        <ContactsData profile={props.profile} />
       </div>
-      {editMode
-        ? <PersonDataFormReduxForm
-          initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}
-          isOwner={props.isOwner} UpdateStatus={props.UpdateStatus}
-          editMode={editMode} offToEditMode={() => setEditMode(false)} />
-        : <PersonData
-          profile={props.profile} isOwner={props.isOwner}
-          UpdateStatus={props.UpdateStatus} status={props.status}
-          editMode={editMode} goToEditMode={() => setEditMode(true)} />
-      }
-
-      <div className={s.choosePhoto}>
-        {props.isOwner && <input type={"file"} onChange={photoSelected} />}
+      <div className={s.secondBlock}>
+        {editMode
+          ? <PersonDataFormReduxForm
+            initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}
+            isOwner={props.isOwner} UpdateStatus={props.UpdateStatus}
+            editMode={editMode} offToEditMode={() => setEditMode(false)} photoSelected={photoSelected} />
+          : <PersonData
+            profile={props.profile} isOwner={props.isOwner}
+            UpdateStatus={props.UpdateStatus} status={props.status}
+            editMode={editMode} goToEditMode={() => setEditMode(true)} />
+        }
       </div>
-      <div>
+      <div className={s.friends}>
         <FriendsContainer />
       </div>
     </div>
@@ -60,30 +61,40 @@ const Person = (props) => {
 const PersonData = ({ profile, ...props }) => {
   return (<div className={s.info}>
     <div>
-      <b>Name</b>: {profile.fullName}
+      <h2 className={s.fullName}>{profile.fullName}</h2>
     </div>
     <div className={s.status}>
-      <b>Status</b>: <Status status={props.status} UpdateStatus={props.UpdateStatus} isOwner={props.isOwner} />
+      <Status status={props.status} UpdateStatus={props.UpdateStatus} isOwner={props.isOwner} />
     </div>
     <div>
-      <b>Looking for a job</b>: {profile.lookingForAJob ? "Yes" : "No"}
+      {profile.lookingForAJob ? "Looking for a job" : "No looking for a job"}
     </div>
     <div>
-      <b>About me</b>: {profile.aboutMe ? profile.aboutMe : "Empty"}
+      {profile.aboutMe ? profile.aboutMe : "Empty"}
     </div>
-    <div>
-      <b>Skills</b>: {profile.lookingForAJobDescription ? profile.lookingForAJobDescription : "Absent"}
-    </div>
-    <div className={s.contacts}><b>Contacts</b>: {Object.keys(profile.contacts)
-      .map(key => {
-        return <Contacts key={key} ContactTitle={key} ContactValue={profile.contacts[key]} />
-      })}</div>
+    {profile.lookingForAJobDescription || <div>{profile.lookingForAJobDescription}</div>}
     {props.isOwner && <div><button onClick={props.goToEditMode}>Edit</button></div>}
   </div>)
 }
 
+const ContactsData = ({ profile, ...props }) => {
+  return (
+    <div className={s.contacts}>{Object.keys(profile.contacts)
+      .map(key => {
+        return <Contacts key={key} ContactTitle={key} ContactValue={profile.contacts[key]} />
+      })}</div>
+  )
+}
+
+
 const Contacts = ({ ContactTitle, ContactValue }) => {
-  return <div className={s.contact_item}><b>{ContactTitle}</b>: {ContactValue ? ContactValue : "empty"}</div>
+  if (ContactValue) {
+    return (
+      <div className={s.contacts}>
+        <a href={ContactValue} className={s.contact}></a>
+      </div>
+    )
+  }
 }
 
 export default Person

@@ -2,4 +2,18 @@
 .friends
   display: flex
   overflow: auto
-  width: 200px
+  max-width: 500px
+  margin-top: 50px
+  gap: 15px
+  height: 100px
+.friend
+  p
+    width: 60px
+    overflow: auto
+    margin: 0
+.ava
+  width: 50px
+
+@media screen and (max-width: 550px)
+  .friends
+    max-width: 300px
