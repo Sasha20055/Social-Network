@@ -28,7 +28,6 @@ class UsersCont extends React.Component {
         currentPage={this.props.currentPage}
         onPageChange={this.onPageChange}
         isFollowing={this.props.isFollowing}
-
       />
     </>)
   }
@@ -42,7 +41,7 @@ let mapStateToProps = (state) => {
     pageSize: getPageSize(state),
     totalUsersCount: getTotalUsersCount(state),
     isFetching: getIsFetching(state),
-    isFollowing: getIsFollowing(state)
+    isFollowing: getIsFollowing(state),
   }
 }
 

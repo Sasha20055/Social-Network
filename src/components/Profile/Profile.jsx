@@ -15,7 +15,14 @@ const Profile = React.memo((props) => {
             savePhoto={props.savePhoto}
             status={props.status}
             UpdateStatus={props.UpdateStatus}
-            saveProfile={props.saveProfile} />
+            saveProfile={props.saveProfile} 
+            user={props.user}
+            UnFollowProf={props.UnFollowProf}
+            followProf={props.followProf}
+            isFollowing={props.isFollowing}
+            isFollowingUser={props.isFollowingUser}
+            />
+            
       </div>
    )
 })

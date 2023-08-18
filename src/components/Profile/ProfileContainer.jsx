@@ -1,10 +1,11 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux"
-import { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends } from "../../redux/profileReducer";
+import { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends, getUser, UnFollowProf, followProf } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+
 
 
 
@@ -23,6 +24,7 @@ class ProfileCont extends React.Component {
     }
     this.props.getProfile(profileId)
     this.props.SetStatus(profileId)
+    this.props.getUser(profileId)
   }
 
   componentDidMount() {
@@ -50,14 +52,17 @@ let mapStateToProps = (state) => {
     posts: state.profilePage.postData,
     newPostText: state.profilePage.newPostText,
     profile: state.profilePage.profile,
+    user: state.profilePage.user,
+    isFollowing: state.profilePage.isFollowingProf,
     userId: state.auth.userId,
     status: state.profilePage.status,
-    friends: state.profilePage.friends
+    friends: state.profilePage.friends,
+    isFollowingUser: state.usersPage.isFollowing
   }
 }
 
 export default compose(
-  connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends }),
+  connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends, getUser, UnFollowProf, followProf }),
   withRouter,
   withAuthRedirect,
 )(ProfileCont)
