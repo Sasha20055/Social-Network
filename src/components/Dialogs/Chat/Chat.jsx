@@ -3,6 +3,7 @@ import React from 'react';
 import s from './Chat.module.sass';
 import Writer from './Writer/Writer';
 import SendingMessage from './SendingMessage/SendingMessage'
+import { NavLink } from 'react-router-dom';
 
 
 const Chat = React.memo((props) => {
@@ -33,9 +34,13 @@ const Chat = React.memo((props) => {
     props.SetCurrentPage(props.currentPage + 1)
   }
 
+  const chatWithName = props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].name)
+
   return (
     <div className={s.chat}>
-      <h2 className={s.header}>{props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].name)}</h2>
+      <NavLink to={'/profile/' + (props.chatWith[0] && props.chatWith[0].id)} className={s.dialogWith}>
+        <h2 className={s.header}>{chatWithName}</h2>
+      </NavLink>
       <div className={s.messages}>
         {props.currentPage < props.portionCount && <button onClick={() => { more() }} className={s.moreBtn}>more</button>}
         {message}

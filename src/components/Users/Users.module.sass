@@ -2,8 +2,44 @@ $mainColor: #DFE8FF
 $textColor: #001049
 $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 
-
 .body
   display: flex
   flex-direction: column
   gap: 20px
+  height: 100%
+.users
+  display: flex
+  margin: auto
+  max-width: 800px
+  flex-wrap: wrap
+  justify-content: center
+  align-items: center
+  gap: 10px
+  overflow: auto
+  max-height: 500px
+  &::-webkit-scrollbar
+    border-radius: 10px
+    width: 6px
+  &::-webkit-scrollbar-thumb
+    border-radius: 10px
+    background-color: #4F2F00
+.findUser
+  width: 100%
+.contactFormBlock
+  width: 350px
+  display: flex
+  margin: 0 auto
+  input
+    width: 80%
+
+.usersBlock
+  margin: auto
+  display: flex
+  flex-direction: column
+  gap: 30px
+
+@media screen and (max-width : 500px )
+  .contactFormBlock
+    width: 250px !important
+  .users
+    max-height: 450px

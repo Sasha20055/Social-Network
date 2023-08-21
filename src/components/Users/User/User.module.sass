@@ -2,23 +2,42 @@ $mainColor: #DFE8FF
 $textColor: #001049
 $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 
-.User
-  height: 120px
+.avaUser
   display: flex
+  flex-direction: column
+  justify-content: center
   align-items: center
-  max-width: 700px
-  .ava
-    width: 80px
-  .getRequestUsers
+.ava
+  width: 80px
+  height: 80px
+  border-radius: 50px
+  border: 1px solid #4F2F00
+.user
+  display: flex
+  border-radius: 10px
+  transition-duration: 0.5s
+  width: 340px
+  border: 1px solid #4F2F00
+  display: flex
+  gap: 20px
+  padding: 10px
+  border-radius: 10px
+  transition-duration: 0.5s
+  text-decoration: none
+  background-color: #F1E4A1
+  color: #55370A
+  a
+    text-decoration: none !important
+  h2, p
+    color: #55370A
+    max-width: 200px
+    overflow: auto
+    overflow-y: hidden
+.info
+  text-align: start
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  gap: 5px
+  button
     width: 100px
-  .MainInfo
-    background-color: #fff
-    width: 100%
-    height: 100%
-    display: flex
-    flex-direction: column
-    border-radius: 10px
-    justify-content: space-around
-    text-align: start
-    p
-      margin: 0 10px

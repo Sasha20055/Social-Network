@@ -9,6 +9,7 @@ const SET_CURRENT_PAGE = "users/SET-CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = "users/SET-TOTAL-USERS-COUNT"
 const TOOGLE_IS_FETCHING = "users/TOOGLE-IS-FETCHING"
 const TOOGLE_IS_FOLLOWING = "users/TOOGLE-IS-FOLLOWING"
+const FIND__USERS = "users/FIND-USERS"
 
 let initialState = {
   users: [],
@@ -32,6 +33,11 @@ const UsersReducer = (state = initialState, action) => {
         ...state,
         users: updateObjectInArray(state.users, action.UserId, "id", { followed: false })
       };
+
+    case FIND__USERS:
+      return {
+        ...state, users: [ ...action.users, ...state.users ]
+      }
 
     case SET_USERS:
       return { ...state, users: action.users }
@@ -65,6 +71,7 @@ export const SetCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, curren
 export const SetTotalUsersCount = (count) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
 export const SetToogleIsFetching = (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
 export const SetToogleIsFollowing = (isFollowing, userId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
+export const FindUsers = (users) => ({ type: FIND__USERS, users });
 
 const followUnfollowFlow = async (dispatch, userId, usersApi, actionCr) => {
   dispatch(SetToogleIsFollowing(true, userId))
@@ -87,10 +94,8 @@ export const getRequestUsers = (currentPage, pageSize) => async (dispatch) => {
 export const getUsersByName = (name) => async (dispatch) => {
   dispatch(SetToogleIsFetching(true))
   let data = await usersAPI.searchUsersbyName(1, 10, name)
-  dispatch(SetCurrentPage(1))
   dispatch(SetToogleIsFetching(false))
-  dispatch(SetUsers(data.items))
-  dispatch(SetTotalUsersCount(data.totalCount))
+  dispatch(FindUsers(data.items))
 }
 
 export const UnFollow = (userId) => async (dispatch) => {

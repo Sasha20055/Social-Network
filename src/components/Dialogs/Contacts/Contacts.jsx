@@ -8,7 +8,7 @@ import { required } from '../../../utilities/validation';
 
 const Contacts = React.memo((props) => {
   const onSubmit = (formData) => {
-    props.findPerson(formData.nameUser)
+    props.findPerson(formData.nameContact)
   }
 
   return (
@@ -27,7 +27,7 @@ const Contacts = React.memo((props) => {
 const FindContactForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.contactFormBlock}>
-      <Field name={"nameUser"} component={Input} type={"text"} placeholder={"name of person"} validate={[required]} />
+      <Field name={"nameContact"} component={Input} type={"text"} placeholder={"name of person"} validate={[required]} />
       <button className={s.contactBtn}>Write</button>
     </form>
   )
