@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import React from 'react';
 import s from './Chat.module.sass';
 import Writer from './Writer/Writer';
@@ -5,6 +6,16 @@ import SendingMessage from './SendingMessage/SendingMessage'
 
 
 const Chat = React.memo((props) => {
+
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [props.messageData]);
 
   const message = props.messageData
     .map(message => <Writer
@@ -17,41 +28,18 @@ const Chat = React.memo((props) => {
       messageToSpam={props.messageToSpam}
     />)
 
-  let countViewMsg = props.pageSize + ((props.currentPage - 1) * 20)
-
-  const start = () => {
-    props.SetCurrentPage(1)
-    props.SetPageSize(5)
-    props.listOfMessages(props.chatWith[0].id, 1, 5)
-
-  }
-
   const more = () => {
-    if (props.pageSize >= 15) {
-      if (props.currentPage < props.portionCount) {
-        props.SetCurrentPage(props.currentPage + 1)
-        props.SetPageSize(0)
-      } else {
-        props.SetCurrentPage(1)
-      }
-      props.SetPageSize(0)
-    } else if (props.pageSize < 15 && props.totalMessageCount > countViewMsg) {
-      props.SetPageSize(props.pageSize + 5)
-    }
-
-    props.listOfMessages(props.chatWith[0].id, props.currentPage, props.pageSize + 5)
+    props.moreMessages(props.chatWith[0].id, props.currentPage + 1, 20, props.messageData)
+    props.SetCurrentPage(props.currentPage + 1)
   }
 
   return (
     <div className={s.chat}>
-
+      <h2 className={s.header}>{props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].name)}</h2>
       <div className={s.messages}>
+        {props.currentPage < props.portionCount && <button onClick={() => { more() }} className={s.moreBtn}>more</button>}
         {message}
-      </div>
-      <div>
-        {props.totalMessageCount > countViewMsg && <button onClick={() => { more() }}>more</button>}
-        {props.totalMessageCount <= countViewMsg && <button onClick={() => { start() }}>start</button>}
-        {props.currentPage}
+        <div ref={messagesEndRef}></div>
       </div>
       {props.users && <SendingMessage
         sendMessage={props.sendMessage}

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { connect } from "react-redux"
-import { listOfMessages, sendMessage, deleteForMe, allDialogs, SetPageSize, messageToSpam, listOfNewMessages, SetCurrentPage, startChatting } from '../../redux/dialogsReducer';
+import { listOfMessages, sendMessage, deleteForMe, allDialogs, SetPageSize, messageToSpam, listOfNewMessages, SetCurrentPage, startChatting, moreMessages, findPerson } from '../../redux/dialogsReducer';
 import { getProfile } from "../../redux/profileReducer";
 import Dialogs from "./Dialogs";
 import { useParams } from "react-router-dom";
@@ -75,7 +75,8 @@ export default compose(
       deleteForMe, getProfile,
       allDialogs, SetPageSize,
       messageToSpam, listOfNewMessages,
-      SetCurrentPage, startChatting
+      SetCurrentPage, startChatting,
+      moreMessages, findPerson
     }),
   withRouter,
   withAuthRedirect

@@ -5,13 +5,28 @@ $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 .chat
   display: flex
   flex-direction: column
-  gap: 50px
-  overflow: auto
-  margin: 50px 0 50px 0
   border-radius: 10px
-  background-color: #bdcbef
-  padding: 20px
-  .messages
-    display: flex
-    flex-direction: column-reverse
-    gap: 20px
+  background-color: #F1E4A1
+  width: 340px
+  border: 2px solid #4F2F00
+.messages
+  display: flex
+  flex-direction: column
+  gap: 20px
+  height: 440px
+  overflow: auto
+  overflow-x: hidden
+  padding: 0 10px
+  padding-top: 10px
+  &::-webkit-scrollbar
+    border-radius: 10px
+    width: 6px
+  &::-webkit-scrollbar-thumb
+    border-radius: 10px
+    background-color: #4F2F00
+.header
+  background-color: white
+  margin-top: 0
+  border-radius: 10px 10px 0 0
+  padding: 5px 0
+

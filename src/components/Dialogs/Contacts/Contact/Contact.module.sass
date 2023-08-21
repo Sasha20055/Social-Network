@@ -1,14 +1,10 @@
-$mainColor: #DFE8FF
-$textColor: #001049
-$boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 
 .ava
-
   width: 50px
   height: 50px
   border-radius: 50px
+  border: 1px solid #4F2F00
 .contact
-  padding: 10px
   border-radius: 10px
   transition-duration: 0.5s
   a
@@ -18,13 +14,26 @@ $boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
     border-radius: 10px
     transition-duration: 0.5s
     text-decoration: none
-    .active
-      background-color: #bdcbef !important
-      color: $textColor !important
+    background-color: #A37A3E
     &:hover
-      background-color: #bdcbef !important
-      color: $textColor !important
-  p
-    max-width: 100px
-    overflow: hidden
-    text-overflow: ellipsis
+      border: 1px solid #4F2F00
+      background-color: #F1E4A1
+      color: #55370A
+      background-color: #F1E4A1
+      h2, p
+        color: #55370A
+.contact
+  .active
+    border: 1px solid #4F2F00 !important
+    background-color: #F1E4A1 !important
+    color: #55370A !important
+    background-color: #F1E4A1 !important
+    h2, p
+      color: #55370A
+.info
+  text-align: start
+.contact
+  h2, p
+    color: #F1E4A1
+    overflow: auto
+    overflow-y: hidden

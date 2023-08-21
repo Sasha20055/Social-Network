@@ -1,23 +1,37 @@
 
 .formControl.error
-  .textarea
+  .input
     border: 2px solid red !important
 .someError
   color: #4F2F00
 .commonError
   color: red
-.textarea
+.input, .textarea
   border: 2px solid #4F2F00
-  height: 26px
-  border-radius: 50px
   padding: 10px
   font-size: 18px
   background-color: white
   &:focus-visible
     outline: 0
+.input
+  border-radius: 50px
+  height: 26px
+  width: 100%
+.textarea
+  max-width: 300px
+  min-width: 300px
+  min-height: 26px
+  max-height: 150px
+  border-radius: 40px
+  &::-webkit-scrollbar
+    border-radius: 10px
+    width: 6px
+    padding: 5px 0
+  &::-webkit-scrollbar-thumb
+    display: none
 
 @media screen and (max-width : 450px )
-  .textarea
+  .input
     height: 15px
     border-radius: 50px
     padding: 10px

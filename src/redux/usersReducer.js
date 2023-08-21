@@ -86,7 +86,7 @@ export const getRequestUsers = (currentPage, pageSize) => async (dispatch) => {
 
 export const getUsersByName = (name) => async (dispatch) => {
   dispatch(SetToogleIsFetching(true))
-  let data = await usersAPI.searchUsersbyName(name)
+  let data = await usersAPI.searchUsersbyName(1, 10, name)
   dispatch(SetCurrentPage(1))
   dispatch(SetToogleIsFetching(false))
   dispatch(SetUsers(data.items))

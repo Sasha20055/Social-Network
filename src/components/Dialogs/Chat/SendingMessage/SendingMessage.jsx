@@ -1,37 +1,33 @@
 import React from 'react';
 import s from './SendingMessage.module.sass';
 import { Field, reduxForm } from 'redux-form';
-import {Input} from '../../../common/FormsControls/FormsControls';
+import { Textarea } from '../../../common/FormsControls/FormsControls';
 import { maxLengthCreator } from '../../../../utilities/validation';
 
 
+const maxLength300 = maxLengthCreator(50)
 
 const SendingMessageForm = (props) => {
-  const maxLength30 = maxLengthCreator(100)
-  return(
-    <form onSubmit={props.handleSubmit}>
-        <Field name={props.nameForm} component={Input} type={"text"} placeholder={"message"} />
-        <button>Send</button>
+  return (
+    <form onSubmit={props.handleSubmit} className={s.sendingMessageForm}>
+      <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"message"}  />
+      <button className={s.sendBtn}></button>
     </form>
   )
 }
 
 
-const DialogReduxForm = reduxForm({form: 'dialog'})(SendingMessageForm)
+const DialogReduxForm = reduxForm({ form: 'dialog' })(SendingMessageForm)
 
 
 const SendingMessage = (props) => {
-  let nameForm = `message${props.chatWith.length > 0 && props.chatWith[0].id}` 
+  let nameForm = 'message'
   const onSubmit = (formData) => {
-    // видит formData  но не видит nameForm console.log(formData.nameForm)
-
-    //props.sendMessage(props.chatWith.length > 0 ? props.chatWith[0].id : props.profile.userId, formData.nameForm)
+    props.sendMessage(props.chatWith.length > 0 && props.chatWith[0].id, formData.message)
   }
 
   return (
-    <div className={s.sendingMessage}>
-      <DialogReduxForm onSubmit={onSubmit} chatWith={props.chatWith} nameForm={nameForm}/>
-    </div>
+    <DialogReduxForm onSubmit={onSubmit} chatWith={props.chatWith} nameForm={nameForm} />
   )
 }
 

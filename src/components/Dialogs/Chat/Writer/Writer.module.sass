@@ -1,20 +1,53 @@
-$mainColor: #DFE8FF
-$textColor: #001049
-$boxShadow: 0 10px 50px rgb(86 133 255 / 15%)
 
-.you
+.you, .me
   display: flex
   gap: 20px
-  flex-direction: row-reverse
-.me
-  display: flex
-  gap: 20px
-.message
-  min-width: 100px
-  max-width: 200px
-  background-color: #fff
   border-radius: 10px
+  width: 70%
+  color: #F1E4A1
+  position: relative
   padding: 5px
+.you
+  background-color: #A37A3E
+  flex-direction: row
+  justify-self: end
+  border-radius: 10px 10px 10px 0
+  .delView
+    right: -30px
+    top: 4px
+.me
+  border-radius: 10px 10px 0 10px
+  align-self: end
+  flex-direction: row-reverse
+  background-color: #5B3700
+  .delView
+    left: -30px
+    top: 4px
+.message
+  padding: 5px
+  border: 20px
+  p
+    word-break: break-all
+    max-width: 210px
+    color: #F1E4A1
 .ava
-  width: 50px !important
-  height: 50px !important
+  width: 30px
+  height: 30px
+  border-radius: 50px
+.deleteMsg
+  background: url(../../../../assets/images/rubishBin.svg) 50% 50% no-repeat
+  padding: 12px
+  opacity: 1
+  background-size: 23px
+.viewed
+  background: url(../../../../assets/images/viewed.svg) 50% 50% no-repeat
+  background-size: 20px 20px
+  padding: 11px
+.unViewed
+  background: url(../../../../assets/images/unViewed.svg) 50% 50% no-repeat
+  padding: 11px
+  background-size: 20px 20px
+.delView
+  position: absolute
+  display: flex
+  flex-direction: column

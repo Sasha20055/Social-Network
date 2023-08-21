@@ -1,4 +1,5 @@
 import { dialogsAPI } from "../api/api";
+import { usersAPI } from "../api/api";
 
 
 const SEND_MESSAGE = "dialogs/ADD-MESSAGE";
@@ -10,14 +11,17 @@ const SET_TOTAL_MESSAGE_COUNT = "dialogs/SET-TOTAL-MESSAGE-COUNT"
 const SET_COUNT_NEW_MESSAGES = "dialogs/SET-COUNT-NEW-MESSAGES"
 const SET_CURRENT_PAGE = "dialogs/SET-CURRENT-PAGE"
 const SET_PORTION_COUNT = "dialogs/SET-PORTION-COUNT"
+const MORE__MESSAGES = "dialogs/MORE-MESSAGES"
+const FIND__PERSON = "dialogs/FIND-PERSON"
+const DELETE_PERSON = "dialogs/DELETE-PERSON"
 
 
 let initialState = {
   accounts: [],
   messages: [],
   chatWith: [],
-  pageSize: 5,
-  totalMessageCount: 6,
+  pageSize: 15,
+  totalMessageCount: 20,
   currentPage: 1,
   newMessages: 0,
   portionCount: null
@@ -31,11 +35,20 @@ const dialogsReducer = (state = initialState, action) => {
         messages: [...state.messages, { id: state.messages.length + 1, message: action.message, }],
       };
 
+    case FIND__PERSON:
+      return { ...state, accounts: [...action.accountsFind, ...state.accounts] }
+
+    case MORE__MESSAGES:
+      return { ...state, messages: [...action.messages, ...state.messages] }
+
     case LIST_OF_MESSAGES:
       return { ...state, chatWith: state.accounts.filter(account => account.id == action.userId), messages: action.messages }
 
     case DELETE_MESSAGE:
       return { ...state, messages: state.messages.filter(message => message.id != action.messageId) }
+
+    case DELETE_PERSON:
+      return { ...state, accounts: state.accounts.filter(account => account.id != action.messageId) }
 
     case SET_PAGE_SIZE:
       return { ...state, pageSize: action.pageSize }
@@ -72,13 +85,16 @@ export const SetCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, curren
 export const SetPortionCount = (portionCount) => ({ type: SET_PORTION_COUNT, portionCount });
 export const SetTotalMessageCount = (count) => ({ type: SET_TOTAL_MESSAGE_COUNT, count });
 export const SetCountOfNewMessages = (count) => ({ type: SET_COUNT_NEW_MESSAGES, count });
+export const SetMoreMessages = (messagesPort) => ({ type: MORE__MESSAGES, messages: messagesPort });
+export const SetFindPerson = (accountsFind) => ({ type: FIND__PERSON, accountsFind });
+export const SetDeletePerson = (messageId) => ({ type: DELETE_PERSON, messageId });
 
 
 
 export const startChatting = (userId, currentPage, pageSize) => async (dispatch) => {
   let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
   dialogsAPI.startChatting(userId)
-  dispatch(SetPageSize(5))
+  dispatch(SetPageSize(20))
   dispatch(SetCurrentPage(1))
   dispatch(actionListOfMessages(userId, data.items))
   dispatch(SetTotalMessageCount(data.totalCount))
@@ -88,6 +104,18 @@ export const startChatting = (userId, currentPage, pageSize) => async (dispatch)
 export const listOfMessages = (userId, currentPage, pageSize) => async (dispatch) => {
   let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
   dispatch(actionListOfMessages(userId, data.items))
+}
+
+export const moreMessages = (userId, currentPage, pageSize, messages) => async (dispatch) => {
+  let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
+  data.items.filter(message => dispatch(actionDeleteMessage(message.id)))
+  dispatch(SetMoreMessages(data.items))
+}
+
+export const findPerson = (name) => async (dispatch) => {
+  let data = await usersAPI.searchUsersbyName(1, 10, name)
+  data.items.filter(account => dispatch(SetDeletePerson(account.id)))
+  dispatch(SetFindPerson(data.items))
 }
 
 export const sendMessage = (userId, message) => async (dispatch) => {

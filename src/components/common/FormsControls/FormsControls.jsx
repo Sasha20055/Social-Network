@@ -19,7 +19,7 @@ export const Input = ({ input, meta: {touched, error}, ...props }) => {
   return (
     <div className={s.formControl + " " + (hasError ? s.error : "")}>
       <div>
-        <input {...input} {...props} className={s.textarea} />
+        <input {...input} {...props} className={s.input} />
       </div>
       {hasError && <span className={s.someError}>{error}</span>}
     </div>
