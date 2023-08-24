@@ -37,8 +37,8 @@ const Users = React.memo(({ totalUsersCount, pageSize, onPageChange, currentPage
 const FindUserForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.contactFormBlock}>
-      <Field name={"nameUser"} component={Input} type={"text"} placeholder={"name of person"} validate={[required]} />
-      <button className={s.contactBtn}>Search</button>
+      <Field name={"nameUser"} component={Input} type={"text"} placeholder={"Имя пользователя"} validate={[required]} />
+      <button className={s.contactBtn}>Искать</button>
     </form>
   )
 }

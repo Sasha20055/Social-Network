@@ -42,7 +42,7 @@ const Chat = React.memo((props) => {
         <h2 className={s.header}>{chatWithName}</h2>
       </NavLink>
       <div className={s.messages}>
-        {props.currentPage < props.portionCount && <button onClick={() => { more() }} className={s.moreBtn}>more</button>}
+        {props.currentPage < props.portionCount && <button onClick={() => { more() }} className={s.moreBtn}>Больше</button>}
         {message}
         <div ref={messagesEndRef}></div>
       </div>

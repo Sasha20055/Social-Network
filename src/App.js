@@ -15,6 +15,7 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const Login = React.lazy(() => import('./components/Login/Login'));
+const Settings = React.lazy(() => import('./components/Settings/SettingsContainer'))
 
 
 
@@ -49,6 +50,7 @@ export class App extends React.Component {
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path='/users/*' element={<UsersContainer />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/settings' element={<Settings />} />
               <Route path='*' element={<div>404 NOT FOUND</div>} />
             </Routes>
           </React.Suspense>

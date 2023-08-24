@@ -27,7 +27,6 @@ const Dialogs = React.memo((props) => {
           SetCurrentPage={props.SetCurrentPage}
           moreMessages={props.moreMessages}
         />
-        {props.newMessages > 0 && <div>New Messages: {props.newMessages}</div>}
       </div>
     </div>
   )

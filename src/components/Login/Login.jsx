@@ -47,6 +47,9 @@ const Login = (props) => {
       Авторизация
     </h1>
     <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL} />
+    <div className={s.reg}>
+      <a href="https://social-network.samuraijs.com/signUp">Зарегистрироваться</a>
+    </div>
   </div>
 }
 

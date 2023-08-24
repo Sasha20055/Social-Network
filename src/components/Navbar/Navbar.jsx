@@ -8,9 +8,10 @@ const Navbar = (props) => {
                 <li className={s.item1}><NavLink to={"/profile/" + props.userId} className={navData => navData.isActive ? s.active : s.link}></NavLink></li>
                 <li className={s.item2}><NavLink to="/dialogs/12" className={navData => navData.isActive ? s.active : s.link}></NavLink></li>
                 <li className={s.item3}><NavLink to="/users" className={navData => navData.isActive ? s.active : s.link}></NavLink></li>
-                <li className={s.item4}>
+                <li className={s.item4}><NavLink to="/settings" className={navData => navData.isActive ? s.active : s.link}></NavLink></li>
+                <li className={s.item5}>
                     {props.isAuth
-                        ? <div className={s.item5}>
+                        ? <div className={s.item6}>
                             <NavLink to={'/profile/' + props.userId}>{props.login}</NavLink>
                             <button className={s.button} onClick={props.logout}>Выйти</button>
                         </div>
