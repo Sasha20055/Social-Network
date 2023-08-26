@@ -13,7 +13,9 @@ const Settings = React.memo((props) => {
   }
 
   const onSubmit = (formData) => {
-    props.saveProfile(formData)
+    props.saveProfile(formData).then(
+      () => { alert('Внесены изменения!') }
+    )
   }
 
   return (
@@ -68,7 +70,7 @@ const PersonDataForm = React.memo((props) => {
           })}</div>
         <div>
           {props.error && <div className={s.commonError}>{props.error}</div>}
-          <button>Confirm</button>
+          <button>Подтверждаю</button>
         </div>
       </form>
     </div>)
