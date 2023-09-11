@@ -10,7 +10,7 @@ const maxLength300 = maxLengthCreator(50)
 const SendingMessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.sendingMessageForm}>
-      <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"message"}  />
+      <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"Введите сообщение..."}  />
       <button className={s.sendBtn}></button>
     </form>
   )

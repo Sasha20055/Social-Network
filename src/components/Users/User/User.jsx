@@ -17,8 +17,8 @@ const User = React.memo(({ user, ...props }) => {
         </NavLink>
         <p className={s.status}>{user.status}</p>
         {user.followed
-          ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => { props.UnFollow(user.id) }}>Unfollow</button>
-          : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => { props.Follow(user.id) }}>Follow</button>
+          ? <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => { props.UnFollow(user.id) }}>Отписаться</button>
+          : <button disabled={props.isFollowing.some(id => id === user.id)} onClick={() => { props.Follow(user.id) }}>Подписаться</button>
         }
       </div>
     </div>

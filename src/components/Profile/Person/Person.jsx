@@ -10,36 +10,11 @@ import FriendsContainer from '../../common/Friends/FriendsContainer'
 
 
 const Person = (props) => {
-  /*
-    const [editMode, setEditMode] = useState(false)
-  */
   if (!props.profile) {
     return (
       <img src="https://flevix.com/wp-content/uploads/2019/07/Spin-Preloader-1.gif"></img>
     )
   }
-  /*
-  const photoSelected = (e) => {
-    props.savePhoto(e.target.files[0])
-  }
-  
-  const onSubmit = (formData) => {
-    props.saveProfile(formData).then(
-      () => {
-        setEditMode(false)
-      }
-      )
-    }
-    
-    <PersonDataFormReduxForm
-    initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}
-    isOwner={props.isOwner} UpdateStatus={props.UpdateStatus}
-    editMode={editMode} offToEditMode={() => setEditMode(false)} photoSelected={photoSelected} />
-    
-    */
-  /*
-  {props.isOwner && <div><button onClick={props.goToEditMode}>Edit</button></div>}
-  */
   return (
     <div className={s.person}>
       <div className={s.firstBlock}>
@@ -96,11 +71,11 @@ const Following = (props) => {
   if (props.user && !props.isOwner) {
     if (props.isFollowing) {
       return (
-        <button disabled={props.isFollowingUser.length > 0} onClick={() => { props.Unfollow(props.user.items[0].id) }}> Unfollow</button>
+        <button disabled={props.isFollowingUser.length > 0} onClick={() => { props.Unfollow(props.user.items[0].id) }}> Отписаться</button>
       )
     } else {
       return (
-        <button disabled={props.isFollowingUser.length > 0} onClick={() => { props.follow(props.user.items[0].id) }}>Follow</button>
+        <button disabled={props.isFollowingUser.length > 0} onClick={() => { props.follow(props.user.items[0].id) }}>Подписаться</button>
       )
     }
   }

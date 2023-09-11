@@ -2,7 +2,6 @@ import { profileAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { Follow, UnFollow } from "./usersReducer.js"
-import { NavLinkProps } from "react-router-dom";
 
 
 
@@ -20,6 +19,20 @@ type postType = {
   id: number
   message: string
   likes: string
+}
+
+type userType = {
+  name: string
+  id: number
+  photos: photosType
+  status: string | null
+  followed: boolean
+} 
+
+type usersType = {
+  items: Array<userType>
+  totalCount: string
+  error: string | null
 }
 
 type contactType = {
@@ -57,8 +70,8 @@ let initialState = {
     ] as Array<postType>,
   profile: null as profileType | null,
   status: '',
-  friends: null,
-  user: null,
+  friends: null as any,
+  user: null as any,
   isFollowingProf: null as boolean | null,
 }
 
@@ -101,16 +114,49 @@ const profileReducer = (state = initialState, action: any): initialStateType => 
   }
 }
 
-
-export const actionAddPost = (newPostText: string) => ({ type: ADD_POST, newPostText: newPostText })
-export const SetProfile = (profile: profileType) => ({ type: SET_PROFILE, profile: profile })
-export const SetUser = (user: any) => ({ type: SET_USER, user: user })
-export const SetStatusAc = (status: string) => ({ type: SET_STATUS, status })
-export const savePhotoSuccess = (photos: any) => ({ type: SAVE_PHOTO_SUCCESS, photos })
-export const SetFriends = (friends: any) => ({ type: SET_FRIENDS, friends })
-export const SetFollow = () => ({ type: FOLLOW })
-export const SetUnfollow = () => ({ type: UNFOLLOW })
-export const SetIsFollowing = (isFollowing: boolean) => ({ type: SET__ISFOLLOWING, isFollowing })
+type actionAddPostType = {
+  type: typeof ADD_POST
+  newPostText: string
+}
+export const actionAddPost = (newPostText: string): actionAddPostType => ({ type: ADD_POST, newPostText })
+type SetProfileType = {
+  type: typeof SET_PROFILE
+  profile: profileType
+}
+export const SetProfile = (profile: profileType): SetProfileType => ({ type: SET_PROFILE, profile: profile })
+type SetUserType = {
+  type: typeof SET_USER
+  user: usersType
+}
+export const SetUser = (user: usersType): SetUserType => ({ type: SET_USER, user: user })
+type SetStatusAcType = {
+  type: typeof SET_STATUS
+  status: string
+}
+export const SetStatusAc = (status: string): SetStatusAcType => ({ type: SET_STATUS, status })
+type savePhotoSuccessType = {
+  type: typeof SAVE_PHOTO_SUCCESS
+  photos: photosType
+}
+export const savePhotoSuccess = (photos: photosType): savePhotoSuccessType => ({ type: SAVE_PHOTO_SUCCESS, photos })
+type SetFriendsType = {
+  type: typeof SET_FRIENDS
+  friends: usersType
+}
+export const SetFriends = (friends: usersType): SetFriendsType => ({ type: SET_FRIENDS, friends })
+type SetFollowType = {
+  type: typeof FOLLOW
+}
+export const SetFollow = (): SetFollowType => ({ type: FOLLOW })
+type SetUnfollowType = {
+  type: typeof UNFOLLOW
+}
+export const SetUnfollow = (): SetUnfollowType => ({ type: UNFOLLOW })
+type SetIsFollowingType = {
+  type: typeof SET__ISFOLLOWING
+  isFollowing: boolean
+}
+export const SetIsFollowing = (isFollowing: boolean): SetIsFollowingType => ({ type: SET__ISFOLLOWING, isFollowing })
 
 
 export const followProf = (userId: number) => async (dispatch: any) => {
@@ -155,7 +201,7 @@ export const UpdateStatus = (status: string) => async (dispatch: any) => {
   }
 }
 
-export const savePhoto = (photo: any) => async (dispatch: any) => {
+export const savePhoto = (photo: photosType) => async (dispatch: any) => {
   let data = await profileAPI.savePhoto(photo)
   if (data.resultCode === 0) {
     dispatch(savePhotoSuccess(data.data.photos))

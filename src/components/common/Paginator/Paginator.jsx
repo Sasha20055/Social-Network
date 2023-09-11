@@ -20,7 +20,7 @@ const Paginator = React.memo((props) => {
 
   return (
     <div className={s.paginator}>
-      {portionNumber > 1 && <button className={s.Prev} onClick={() => { setPortionNumber(portionNumber - 1) }}>prev</button>}
+      {portionNumber > 1 && <button className={s.Prev} onClick={() => { setPortionNumber(portionNumber - 1) }}>Пред</button>}
       <div className={s.pagesNumbers}>
         {pages
           .filter(p => p >= leftPortionNumber && p <= rightPortionNumber)
@@ -29,7 +29,7 @@ const Paginator = React.memo((props) => {
           })}
       </div>
 
-      {portionCount > portionNumber && <button className={s.Next} onClick={() => { setPortionNumber(portionNumber + 1) }}>next</button>}
+      {portionCount > portionNumber && <button className={s.Next} onClick={() => { setPortionNumber(portionNumber + 1) }}>След</button>}
     </div>
   )
 })
