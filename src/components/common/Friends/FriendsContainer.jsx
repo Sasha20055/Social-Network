@@ -1,5 +1,5 @@
 import React from "react";
-import {getFriends} from "../../../redux/profileReducer";
+import {getFriends} from "../../../redux/profileReducer.js";
 import Friends from "./Friends";
 import {compose} from 'redux';
 import {connect} from 'react-redux';

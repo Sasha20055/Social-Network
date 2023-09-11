@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 import dialogsReducer from "./dialogsReducer";
-import profileReducer from "./profileReducer"
-import usersReducer from "./usersReducer";
+import profileReducer from "./profileReducer.js"
+import usersReducer from "./usersReducer.js";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunk from "redux-thunk";

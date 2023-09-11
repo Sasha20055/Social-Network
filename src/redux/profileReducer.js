@@ -1,7 +1,7 @@
 import { profileAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
-import { Follow, UnFollow } from "./usersReducer"
+import { Follow, UnFollow } from "./usersReducer.js"
 
 
 

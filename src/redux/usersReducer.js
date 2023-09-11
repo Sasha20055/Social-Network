@@ -13,7 +13,7 @@ const FIND__USERS = "users/FIND-USERS"
 
 let initialState = {
   users: [],
-  pageSize: 10,
+  pageSize: 10 ,
   totalUsersCount: 300,
   currentPage: 1,
   isFetching: false,

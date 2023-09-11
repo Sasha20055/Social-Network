@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { connect } from "react-redux"
 import { listOfMessages, sendMessage, deleteForMe, allDialogs, SetPageSize, messageToSpam, listOfNewMessages, SetCurrentPage, startChatting, moreMessages, findPerson } from '../../redux/dialogsReducer';
-import { getProfile } from "../../redux/profileReducer";
+import { getProfile } from "../../redux/profileReducer.js";
 import Dialogs from "./Dialogs";
 import { useParams } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
