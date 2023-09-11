@@ -3,7 +3,7 @@ import Settings from './Settings'
 import { connect } from "react-redux"
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { UpdateStatus, savePhoto, getProfile, saveProfile } from "../../redux/profileReducer.js";
+import { UpdateStatus, savePhoto, getProfile, saveProfile } from "../../redux/profileReducer";
 
 
 
