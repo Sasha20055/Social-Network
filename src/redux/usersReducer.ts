@@ -11,16 +11,37 @@ const TOOGLE_IS_FETCHING = "users/TOOGLE-IS-FETCHING"
 const TOOGLE_IS_FOLLOWING = "users/TOOGLE-IS-FOLLOWING"
 const FIND__USERS = "users/FIND-USERS"
 
-let initialState = {
-  users: [],
-  pageSize: 10 ,
-  totalUsersCount: 300,
-  currentPage: 1,
-  isFetching: false,
-  isFollowing: []
+type userType = {
+  name: string
+  id: number
+  photos: photosType
+  status: string | null
+  followed: boolean
+} 
+
+type photosType = {
+  small: string | null
+  large: string | null
 }
 
-const UsersReducer = (state = initialState, action) => {
+type usersType = {
+  items: Array<userType>
+  totalCount: string
+  error: string | null
+}
+
+let initialState = {
+  users: [] as Array<userType>,
+  pageSize: 10 as number,
+  totalUsersCount: 300 as number,
+  currentPage: 1 as number,
+  isFetching: false as boolean,
+  isFollowing: [] as Array<number>
+}
+
+type initialStateType = typeof initialState
+
+const UsersReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -36,7 +57,7 @@ const UsersReducer = (state = initialState, action) => {
 
     case FIND__USERS:
       return {
-        ...state, users: [ ...action.users, ...state.users ]
+        ...state, users: [ ...action.users, ...state.users ] 
       }
 
     case SET_USERS:
@@ -64,16 +85,16 @@ const UsersReducer = (state = initialState, action) => {
   }
 }
 
-export const FollowSucces = (UserId) => ({ type: FOLLOW, UserId });
-export const UnFollowSucces = (UserId) => ({ type: UNFOLLOW, UserId });
-export const SetUsers = (users) => ({ type: SET_USERS, users });
-export const SetCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
-export const SetTotalUsersCount = (count) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
-export const SetToogleIsFetching = (isFetching) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
-export const SetToogleIsFollowing = (isFollowing, userId) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
-export const FindUsers = (users) => ({ type: FIND__USERS, users });
+export const FollowSucces = (UserId: number) => ({ type: FOLLOW, UserId });
+export const UnFollowSucces = (UserId: number) => ({ type: UNFOLLOW, UserId });
+export const SetUsers = (users: usersType) => ({ type: SET_USERS, users });
+export const SetCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
+export const SetTotalUsersCount = (count: number) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
+export const SetToogleIsFetching = (isFetching: boolean) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
+export const SetToogleIsFollowing = (isFollowing: boolean, userId: number) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
+export const FindUsers = (users: usersType) => ({ type: FIND__USERS, users });
 
-const followUnfollowFlow = async (dispatch, userId, usersApi, actionCr) => {
+const followUnfollowFlow = async (dispatch: any, userId: number, usersApi: any, actionCr: any) => {
   dispatch(SetToogleIsFollowing(true, userId))
   let data = await usersApi(userId)
   if (data.resultCode === 0) {
@@ -82,7 +103,7 @@ const followUnfollowFlow = async (dispatch, userId, usersApi, actionCr) => {
   dispatch(SetToogleIsFollowing(false, userId))
 }
 
-export const getRequestUsers = (currentPage, pageSize) => async (dispatch) => {
+export const getRequestUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
   dispatch(SetToogleIsFetching(true))
   let data = await usersAPI.getRequestUsers(currentPage, pageSize)
   dispatch(SetCurrentPage(currentPage))
@@ -91,18 +112,18 @@ export const getRequestUsers = (currentPage, pageSize) => async (dispatch) => {
   dispatch(SetTotalUsersCount(data.totalCount))
 }
 
-export const getUsersByName = (name) => async (dispatch) => {
+export const getUsersByName = (name: string) => async (dispatch: any) => {
   dispatch(SetToogleIsFetching(true))
   let data = await usersAPI.searchUsersbyName(1, 10, name)
   dispatch(SetToogleIsFetching(false))
   dispatch(FindUsers(data.items))
 }
 
-export const UnFollow = (userId) => async (dispatch) => {
+export const UnFollow = (userId: number) => async (dispatch: any) => {
   followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), UnFollowSucces);
 }
 
-export const Follow = (userId) => async (dispatch) => {
+export const Follow = (userId: number) => async (dispatch: any) => {
   followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), FollowSucces);
 }
 
