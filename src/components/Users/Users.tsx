@@ -5,11 +5,25 @@ import User from "./User/User"
 import { Field, reduxForm } from 'redux-form';
 import { Input } from '../common/FormsControls/FormsControls';
 import { required } from '../../utilities/validation';
+import { userType } from "../../types/types"
 
 
-const Users = React.memo(({ totalUsersCount, pageSize, onPageChange, currentPage, ...props }) => {
+type UsersPropsType = {
+  users: Array<userType>,
+  currentPage: number,
+  pageSize: number,
+  totalUsersCount: number,
+  isFetching: boolean,
+  isFollowing: Array<number>,
+  getUsersByName: (nameUser: string) => void,
+  onPageChange: (numberPage: number) => void,
+  Follow: any,
+  UnFollow: any,
+}
 
-  const onSubmit = (formData) => {
+const Users: React.FC<UsersPropsType> = React.memo(({ totalUsersCount, pageSize, onPageChange, currentPage, ...props }) => {
+
+  const onSubmit = (formData: any) => {
     props.getUsersByName(formData.nameUser)
   }
 
@@ -34,7 +48,11 @@ const Users = React.memo(({ totalUsersCount, pageSize, onPageChange, currentPage
 })
 
 
-const FindUserForm = (props) => {
+type FindUserFormPropsType = {
+  handleSubmit: any
+}
+
+const FindUserForm: React.FC<FindUserFormPropsType> = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.contactFormBlock}>
       <Field name={"nameUser"} component={Input} type={"text"} placeholder={"Имя пользователя"} validate={[required]} />

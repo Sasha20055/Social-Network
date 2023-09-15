@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import s from "./Paginator.module.sass";
 
+type PropsType = {
+  totalItemsCount: number
+  pageSize: number
+  onPageChange: (pageNumber: number) => void 
+  currentPage: number 
+  portionSize: number
+}
 
-
-const Paginator = React.memo((props) => {
+const Paginator: React.FC<PropsType> = React.memo((props) => {
 
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize)
 

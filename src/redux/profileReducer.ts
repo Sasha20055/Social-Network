@@ -2,6 +2,7 @@ import { profileAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { Follow, UnFollow } from "./usersReducer"
+import { usersType, photosType } from "../types/types"
 
 
 
@@ -15,24 +16,12 @@ const FOLLOW = "profile/FOLLOW"
 const UNFOLLOW = "profile/UNFOLLOW"
 const SET__ISFOLLOWING = "profile/SET-ISFOLLOWING"
 
+
+
 type postType = {
   id: number
   message: string
   likes: string
-}
-
-type userType = {
-  name: string
-  id: number
-  photos: photosType
-  status: string | null
-  followed: boolean
-} 
-
-type usersType = {
-  items: Array<userType>
-  totalCount: string
-  error: string | null
 }
 
 type contactType = {
@@ -44,11 +33,6 @@ type contactType = {
   vk: string | null
   website: string | null
   youtube: string | null
-}
-
-type photosType = {
-  small: string | null
-  large: string | null
 }
 
 type profileType = {

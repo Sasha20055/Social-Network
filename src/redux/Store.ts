@@ -5,7 +5,7 @@ import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunk from "redux-thunk";
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer, reducer } from 'redux-form';
 import { compose } from "redux"; 
 
 
@@ -18,15 +18,23 @@ const reducers = combineReducers({
   app: appReducer
 });
 
+type reducersType = typeof reducers
+export type appStateType = ReturnType<reducersType>
+
+
+// @ts-ignore
 const store = createStore( 
   reducers,
   compose(
     applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__         // Для расширения в браузере redux
+    // @ts-ignore
+    window.__REDUX_DEVTOOLS_EXTENSION__   // Для расширения в браузере redux
+    // @ts-ignore
       ? window.__REDUX_DEVTOOLS_EXTENSION__()   // Для расширения в браузере redux
+    // @ts-ignore
       : (noop) => noop)                         // Для расширения в браузере redux   
 );
-
+// @ts-ignore
 window.__store__ = store
 
 export default store

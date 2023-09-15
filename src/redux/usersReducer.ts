@@ -1,5 +1,6 @@
 import { usersAPI } from "../api/api"
 import {updateObjectInArray } from "../utilities/object-helpers"
+import { userType, usersType } from "../types/types"
 
 
 const FOLLOW = "users/FOLLOW"
@@ -10,25 +11,6 @@ const SET_TOTAL_USERS_COUNT = "users/SET-TOTAL-USERS-COUNT"
 const TOOGLE_IS_FETCHING = "users/TOOGLE-IS-FETCHING"
 const TOOGLE_IS_FOLLOWING = "users/TOOGLE-IS-FOLLOWING"
 const FIND__USERS = "users/FIND-USERS"
-
-type userType = {
-  name: string
-  id: number
-  photos: photosType
-  status: string | null
-  followed: boolean
-} 
-
-type photosType = {
-  small: string | null
-  large: string | null
-}
-
-type usersType = {
-  items: Array<userType>
-  totalCount: string
-  error: string | null
-}
 
 let initialState = {
   users: [] as Array<userType>,
