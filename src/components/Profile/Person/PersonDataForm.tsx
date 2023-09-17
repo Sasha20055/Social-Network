@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import s from './Person.module.sass';
 import { createForm } from '../../common/FormsControls/FormsControls'
 import { reduxForm } from 'redux-form';
 import { Input } from '../../common/FormsControls/FormsControls';
 import { maxLengthCreator, required } from '../../../utilities/validation';
 import style from '../../common/FormsControls/FormsControls.module.sass';
+import { profileType } from '../../../types/types';
+
+type PropsType = {
+  handleSubmit: any
+  profile: profileType
+  error: any
+  isOwner: boolean
+  photoSelected: ChangeEventHandler<HTMLInputElement>
+}
 
 
-
-const PersonDataForm = React.memo((props) => {
+const PersonDataForm: React.FC<PropsType> = React.memo((props) => {
 
   const maxLength30 = maxLengthCreator(50)
   const maxLength100 = maxLengthCreator(100)
@@ -45,7 +53,8 @@ const PersonDataForm = React.memo((props) => {
     </div>)
 })
 
-const PersonDataFormReduxForm = reduxForm({ form: 'personEdit' })(PersonDataForm)
+
+const PersonDataFormReduxForm = reduxForm<{}, PropsType>({ form: 'personEdit' })(PersonDataForm)
 
 
 export default PersonDataFormReduxForm;

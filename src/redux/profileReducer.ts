@@ -2,7 +2,7 @@ import { profileAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { Follow, UnFollow } from "./usersReducer"
-import { usersType, photosType } from "../types/types"
+import { usersType, photosType, profileType, postType } from "../types/types"
 
 
 
@@ -18,33 +18,6 @@ const SET__ISFOLLOWING = "profile/SET-ISFOLLOWING"
 
 
 
-type postType = {
-  id: number
-  message: string
-  likes: string
-}
-
-type contactType = {
-  facebook: string | null
-  github: string | null
-  instagram: string | null
-  mainLink: string | null
-  twitter: string | null
-  vk: string | null
-  website: string | null
-  youtube: string | null
-}
-
-type profileType = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: Array<contactType>
-  photos: photosType
-}
-
-
 let initialState = {
   postData:
     [
@@ -57,6 +30,7 @@ let initialState = {
   friends: null as any,
   user: null as any,
   isFollowingProf: null as boolean | null,
+  newPostText: null as string | null
 }
 
 type initialStateType = typeof initialState

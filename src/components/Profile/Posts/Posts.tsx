@@ -1,7 +1,12 @@
 import React from 'react'
+import { postType } from '../../../types/types';
 import s from './Post.module.sass';
 
-const Posts = React.memo((props) => {
+type PropsType = {
+  posts: Array<postType>
+}
+
+const Posts: React.FC<PropsType> = React.memo((props) => {
   return (
     <div>
       {

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import s from "./Status.module.sass"
 
-const Status = React.memo((props) => {
+type PropsType = {
+  status: string
+  UpdateStatus: (status: string) => void
+  isOwner: boolean
+}
+
+const Status = React.memo<PropsType>((props) => {
   const [editMode, setEditMode] = useState(false)
   const [status, setStatus] = useState(props.status)
 
@@ -19,7 +25,7 @@ const Status = React.memo((props) => {
     props.UpdateStatus(status)
   }
 
-  const onStatusChange = (e) => {
+  const onStatusChange = (e: any) => {
     setStatus(e.currentTarget.value)
   }
 

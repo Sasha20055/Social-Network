@@ -37,8 +37,8 @@ type PropsType = {
   isFollowing: Array<number>,
   getUsersByName: (nameUser: string) => void,
   getRequestUsers: (currentPage: number, pageSize: number) => void,
-  Follow: any,
-  UnFollow: any,
+  Follow: (userId: number) => void,
+  UnFollow: (userId: number) => void,
 }
 
 class UsersCont extends React.Component<PropsType> {

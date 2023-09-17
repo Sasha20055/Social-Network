@@ -5,20 +5,71 @@ import { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProf
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { appStateType } from "../../redux/Store";
+import { profileType, usersType, userType } from "../../types/types";
 
 
+type mapStateToPropsType = {
+  posts: any,
+  newPostText: string,
+  profile: profileType,
+  user: usersType,
+  isFollowing: boolean | null,
+  userId: number,
+  status: string,
+  friends: usersType,
+  isFollowingUser: Array<number>
+}
+
+type mapDispatchToPropsType = {
+  actionAddPost: any, 
+  getProfile: any, 
+  SetStatus: any, 
+  UpdateStatus: any, 
+  savePhoto: any, 
+  saveProfile: any, 
+  getFriends: any, 
+  getUser: any, 
+  UnFollowProf: any, 
+  followProf: any
+}
+
+type mapOwnProps = {}
+
+type PropsType = {
+  posts: any,
+  newPostText: string,
+  profile: profileType,
+  user: usersType,
+  isFollowing: boolean | null,
+  userId: number,
+  status: string,
+  friends: usersType,
+  isFollowingUser: Array<number>,
+  match: any,
+  actionAddPost: any, 
+  getProfile: any, 
+  SetStatus: any, 
+  UpdateStatus: any, 
+  savePhoto: any, 
+  saveProfile: any, 
+  getFriends: any, 
+  getUser: any, 
+  UnFollowProf: any, 
+  followProf: any,
+}
 
 
-export function withRouter(Children) {
-  return (props) => {
+export function withRouter(Children: any) {
+  return (props: any) => {
     const match = { params: useParams() };
     return <Children {...props} match={match} />
   }
 }
 
-class ProfileCont extends React.Component {
+class ProfileCont extends React.Component<PropsType> {
   refreshProfile() {
-    const profileId = this.props.match.params.userId
+    let profileId = this.props.match.params.userId
     if (!profileId) {
       profileId = this.props.userId
     }
@@ -31,7 +82,7 @@ class ProfileCont extends React.Component {
     this.refreshProfile()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
     if (this.props.match.params.userId != prevProps.match.params.userId) {
       this.refreshProfile()
     }
@@ -47,7 +98,7 @@ class ProfileCont extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: appStateType) => {
   return {
     posts: state.profilePage.postData,
     newPostText: state.profilePage.newPostText,
