@@ -1,7 +1,14 @@
 import s from './Navbar.module.sass';
 import { NavLink } from 'react-router-dom';
 
-const Navbar = (props) => {
+type PropsType = {
+    userId: number | null
+    isAuth: boolean | null
+    login: string | null
+    logout: () => void
+}
+
+const Navbar: React.FC<PropsType> = (props) => {
     return (
         <nav className={s.nav}>
             <ul className={s.items}>
