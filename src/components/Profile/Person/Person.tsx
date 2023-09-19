@@ -3,21 +3,21 @@ import s from './Person.module.sass';
 import UserIcon from "../../../assets/images/unknown.png";
 import Status from '../Status/Status';
 import FriendsContainer from '../../common/Friends/FriendsContainer'
-import { profileType, usersType, userType } from '../../../types/types';
+import { photosType, profileType, usersType, userType } from '../../../types/types';
 import Contact from '../../Dialogs/Contacts/Contact/Contact';
 
 type PersonPropsType = {
   profile: profileType
   isOwner: boolean
-  savePhoto: any
   status: string
-  UpdateStatus: any
-  saveProfile: any
   user: usersType
-  UnFollowProf: (id: number) => void
-  followProf: (id: number) => void
   isFollowing: boolean | null
   isFollowingUser: Array<number>
+  savePhoto: (photo: photosType) => void, 
+  UpdateStatus: (status: string) => void, 
+  saveProfile: (profile: profileType) => void, 
+  UnFollowProf: (userId: number) => void, 
+  followProf: (userId: number) => void
 }
 
 const Person: React.FC<PersonPropsType> = React.memo((props) => {
@@ -52,8 +52,8 @@ const Person: React.FC<PersonPropsType> = React.memo((props) => {
 type PersonDataPropsType = {
   profile: profileType
   status: string
-  UpdateStatus: (status: string) => void
   isOwner: boolean
+  UpdateStatus: (status: string) => void, 
 
 }
 
@@ -92,8 +92,8 @@ type FollowingPropsType = {
   isOwner: boolean
   user: usersType
   isFollowingUser: Array<number>
-  Unfollow: (id: number) => void
   isFollowing: boolean | null
+  Unfollow: (id: number) => void
   follow: (id: number) => void
 }
 

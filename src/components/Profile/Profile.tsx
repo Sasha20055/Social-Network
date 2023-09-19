@@ -3,7 +3,7 @@ import Person from './Person/Person';
 import SendingPost from './SendingPost/SendingPost';
 import Posts from './Posts/Posts';
 import s from './Profile.module.sass'
-import { profileType, usersType, userType } from "../../types/types";
+import { photosType, profileType, usersType, userType } from "../../types/types";
 
 type PropsType = {
    posts: any,
@@ -17,16 +17,16 @@ type PropsType = {
    isFollowingUser: Array<number>,
    match: any,
    isOwner: boolean
-   actionAddPost: any, 
-   getProfile: any, 
-   SetStatus: any, 
-   UpdateStatus: any, 
-   savePhoto: any, 
-   saveProfile: any, 
-   getFriends: any, 
-   getUser: any, 
-   UnFollowProf: any, 
-   followProf: any,
+   actionAddPost: (newPostText: string) => void, 
+   getProfile: (profileId: number) => void, 
+   SetStatus: (profileId: number) => void, 
+   UpdateStatus: (status: string) => void, 
+   savePhoto: (photo: photosType) => void, 
+   saveProfile: (profile: profileType) => void, 
+   getFriends: () => void, 
+   getUser: (profileId: number) => void, 
+   UnFollowProf: (userId: number) => void, 
+   followProf: (userId: number) => void
 }
 
 const Profile = React.memo<PropsType>((props) => {

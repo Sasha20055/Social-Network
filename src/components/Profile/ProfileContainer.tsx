@@ -1,43 +1,47 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux"
-import { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends, getUser, UnFollowProf, followProf } from "../../redux/profileReducer";
+import {
+  actionAddPost, getProfile, SetStatus,
+  UpdateStatus, savePhoto, saveProfile,
+  getFriends, getUser, UnFollowProf, followProf
+} from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { appStateType } from "../../redux/Store";
-import { profileType, usersType, userType } from "../../types/types";
+import { photosType, postType, profileType, usersType } from "../../types/types";
 
 
 type mapStateToPropsType = {
-  posts: any,
-  newPostText: string,
-  profile: profileType,
+  posts: Array<postType>,
+  newPostText: string | null,
+  profile: profileType | null,
   user: usersType,
   isFollowing: boolean | null,
-  userId: number,
+  userId: number | null,
   status: string,
   friends: usersType,
   isFollowingUser: Array<number>
 }
 
 type mapDispatchToPropsType = {
-  actionAddPost: any, 
-  getProfile: any, 
-  SetStatus: any, 
-  UpdateStatus: any, 
-  savePhoto: any, 
-  saveProfile: any, 
-  getFriends: any, 
-  getUser: any, 
-  UnFollowProf: any, 
-  followProf: any
+  actionAddPost: (newPostText: string) => void,
+  getProfile: (profileId: number) => void,
+  SetStatus: (profileId: number) => void,
+  UpdateStatus: (status: string) => void,
+  savePhoto: (photo: photosType) => void,
+  saveProfile: (profile: profileType) => void,
+  getFriends: () => void,
+  getUser: (profileId: number) => void,
+  UnFollowProf: (userId: number) => void,
+  followProf: (userId: number) => void
 }
 
-type mapOwnProps = {}
+type mapOwnPropsType = {}
 
 type PropsType = {
-  posts: any,
+  posts: Array<postType>,
   newPostText: string,
   profile: profileType,
   user: usersType,
@@ -47,16 +51,16 @@ type PropsType = {
   friends: usersType,
   isFollowingUser: Array<number>,
   match: any,
-  actionAddPost: any, 
-  getProfile: any, 
-  SetStatus: any, 
-  UpdateStatus: any, 
-  savePhoto: any, 
-  saveProfile: any, 
-  getFriends: any, 
-  getUser: any, 
-  UnFollowProf: any, 
-  followProf: any,
+  actionAddPost: (newPostText: string) => void,
+  getProfile: (profileId: number) => void,
+  SetStatus: (profileId: number) => void,
+  UpdateStatus: (status: string) => void,
+  savePhoto: (photo: photosType) => void,
+  saveProfile: (profile: profileType) => void,
+  getFriends: () => void,
+  getUser: (profileId: number) => void,
+  UnFollowProf: (userId: number) => void,
+  followProf: (userId: number) => void
 }
 
 
@@ -113,7 +117,13 @@ let mapStateToProps = (state: appStateType) => {
 }
 
 export default compose(
-  connect(mapStateToProps, { actionAddPost, getProfile, SetStatus, UpdateStatus, savePhoto, saveProfile, getFriends, getUser, UnFollowProf, followProf }),
+  connect
+    <mapStateToPropsType, mapDispatchToPropsType, mapOwnPropsType, appStateType>
+    (mapStateToProps, {
+      actionAddPost, getProfile, SetStatus,
+      UpdateStatus, savePhoto, saveProfile, getFriends,
+      getUser, UnFollowProf, followProf
+    }),
   withRouter,
   withAuthRedirect,
 )(ProfileCont)

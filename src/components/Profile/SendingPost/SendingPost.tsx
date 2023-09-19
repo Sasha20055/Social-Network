@@ -5,7 +5,7 @@ import { maxLengthCreator, required } from '../../../utilities/validation';
 import { Textarea } from '../../common/FormsControls/FormsControls';
 
 type SendingPostPropsType = {
-  actionAddPost: (post: string) => void
+  actionAddPost: (newPostText: string) => void, 
 }
 type SendingPostFormPropsType = {
   handleSubmit: any
