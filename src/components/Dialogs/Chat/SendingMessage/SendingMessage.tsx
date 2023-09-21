@@ -2,12 +2,14 @@ import React from 'react';
 import s from './SendingMessage.module.sass';
 import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../../../common/FormsControls/FormsControls';
-import { maxLengthCreator } from '../../../../utilities/validation';
+import { accountType } from '../../../../types/types';
 
+type SendingFormPropsType = {
+  handleSubmit: any
+  nameForm?: string
+}
 
-const maxLength300 = maxLengthCreator(50)
-
-const SendingMessageForm = (props) => {
+const SendingMessageForm: React.FC<SendingFormPropsType> = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.sendingMessageForm}>
       <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"Введите сообщение..."}  />
@@ -16,17 +18,21 @@ const SendingMessageForm = (props) => {
   )
 }
 
+const DialogReduxForm = reduxForm<{}, SendingMessagePropsType>({ form: 'dialog' })(SendingMessageForm)
 
-const DialogReduxForm = reduxForm({ form: 'dialog' })(SendingMessageForm)
+type SendingMessagePropsType = {
+  sendMessage: (userId: number, message: []) => void
+  chatWith: Array<accountType>
+  nameForm?: any
+}
 
-
-const SendingMessage = (props) => {
+const SendingMessage: React.FC<SendingMessagePropsType> = (props) => {
   let nameForm = 'message'
-  const onSubmit = (formData) => {
-    props.sendMessage(props.chatWith.length > 0 && props.chatWith[0].id, formData.message)
+  const onSubmit = (formData: any) => {
+    props.sendMessage(props.chatWith[0].id, formData.message)
   }
-
   return (
+    //@ts-ignore
     <DialogReduxForm onSubmit={onSubmit} chatWith={props.chatWith} nameForm={nameForm} />
   )
 }

@@ -1,8 +1,13 @@
 import React from "react";
 import s from "./FormsControls.module.sass";
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 
-export const Textarea = ({ input, meta, ...props }) => {
+type TextareaPropsType = {
+  input: any
+  meta: any
+}
+
+export const Textarea: React.FC<TextareaPropsType> = ({ input, meta, ...props }) => {
   const hasError = meta.touched && meta.error
   return (
     <div className={s.formControl + " " + (hasError ? s.error : "")}>
@@ -14,7 +19,12 @@ export const Textarea = ({ input, meta, ...props }) => {
   )
 }
 
-export const Input = ({ input, meta: {touched, error}, ...props }) => {
+type InputPropsType = {
+  input: any
+  meta: any
+}
+
+export const Input: React.FC<InputPropsType> = ({ input, meta: { touched, error }, ...props }) => {
   const hasError = touched && error
   return (
     <div className={s.formControl + " " + (hasError ? s.error : "")}>
@@ -26,7 +36,7 @@ export const Input = ({ input, meta: {touched, error}, ...props }) => {
   )
 }
 
-export const createForm = (name, component, type, placeholder="", validators=[], props = {}) => {
+export const createForm = (name: string, component: any, type: string, placeholder = "", validators: Array<any> = [], props = {}) => {
   return (<div className={`s.${name}`}>
     <Field
       name={name}

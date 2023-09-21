@@ -4,7 +4,16 @@ import UserIcon from "../../../../assets/images/unknown.png";
 import { NavLink } from 'react-router-dom';
 import lastVisited from '../../../common/lastVisited/lastVisited.js'
 
-const Contact = React.memo((props) => {
+type PropsType = {
+  key: number
+  nickName: string
+  id: number
+  ava: string
+  newMessagesCount: number
+  lastActivity: string 
+}
+
+const Contact: React.FC<PropsType> = React.memo((props) => {
   return (
     <div className={s.contact}>
       <NavLink to={'/dialogs/' + props.id} className={navData => navData.isActive ? s.active : s.link}>

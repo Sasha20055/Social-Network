@@ -1,8 +1,11 @@
 import React from 'react'
 import s from './Footer.module.sass'
 
+type PropsType = {
 
-const Footer = (props) => {
+}
+
+const Footer: React.FC<PropsType> = (props) => {
   return (
     <h2 className={s.lockNet}>LOCK NET</h2>
   )

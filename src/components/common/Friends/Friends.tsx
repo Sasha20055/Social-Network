@@ -2,9 +2,14 @@ import React from "react";
 import s from "./Friends.module.sass"
 import UserIcon from "../../../assets/images/unknown.png";
 import { NavLink } from 'react-router-dom';
+import { usersType, userType } from "../../../types/types";
 
+type FriendsPropsType = {
+  friends: usersType
 
-const Friends = React.memo((props) => {
+}
+
+const Friends = React.memo<FriendsPropsType>((props) => {
   return (
     <div className={s.friends}>
       {props.friends && props.friends.items.map(item => <Friend item={item}/>)}
@@ -12,8 +17,11 @@ const Friends = React.memo((props) => {
   )
 })
 
+type FriendPropsType = {
+  item: userType
+}
 
-const Friend = (props) => {
+const Friend: React.FC<FriendPropsType> = (props) => {
   return (
     <div className={s.friend}>
       <NavLink to={"/profile/" + props.item.id} >

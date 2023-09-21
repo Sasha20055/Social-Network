@@ -1,3 +1,4 @@
+import { accountType, messageType } from './../types/types';
 import { dialogsAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 
@@ -15,19 +16,6 @@ const MORE__MESSAGES = "dialogs/MORE-MESSAGES"
 const FIND__PERSON = "dialogs/FIND-PERSON"
 const DELETE_PERSON = "dialogs/DELETE-PERSON"
 
-type messageType = {
-  id: number
-  message: any
-}
-
-type accountType = {
-  id: number
-  userName: string
-  hasNewMessages: boolean
-  lastDialogActivityDate: string
-  lastUserActivityDate: string
-  newMessagesCount: number
-}
 
 let initialState = {
   accounts: [] as Array<accountType>,
@@ -47,7 +35,6 @@ const dialogsReducer = (state = initialState, action: any): initialStateType => 
     case SEND_MESSAGE:
       return {
         ...state,
-        messages: [...state.messages, { id: state.messages.length + 1, message: action.message, }],
       };
 
     case FIND__PERSON:
@@ -101,9 +88,9 @@ type actionSendMessageType = {
 export const actionSendMessage = (message: any): actionSendMessageType => ({ type: SEND_MESSAGE, message: message })
 type actionDeleteMessageType = {
   type: typeof DELETE_MESSAGE
-  messageId: number
+  messageId: string
 }
-export const actionDeleteMessage = (messageId: number): actionDeleteMessageType => ({ type: DELETE_MESSAGE, messageId })
+export const actionDeleteMessage = (messageId: string): actionDeleteMessageType => ({ type: DELETE_MESSAGE, messageId })
 type actionListOfDialogsType = {
   type: typeof LIST__OF__DIALOGS
   accounts: Array<accountType>
@@ -146,9 +133,9 @@ type SetFindPersonType = {
 export const SetFindPerson = (accountsFind: Array<accountType>): SetFindPersonType => ({ type: FIND__PERSON, accountsFind });
 type SetDeletePersonType = {
   type: typeof DELETE_PERSON
-  messageId: number
+  personId: number
 }
-export const SetDeletePerson = (messageId: number): SetDeletePersonType => ({ type: DELETE_PERSON, messageId });
+export const SetDeletePerson = (personId: number): SetDeletePersonType => ({ type: DELETE_PERSON, personId });
 
 
 
@@ -188,14 +175,14 @@ export const sendMessage = (userId: number, message: []) => async (dispatch: any
   }
 }
 
-export const deleteForMe = (messageId: number) => async (dispatch: any) => {
+export const deleteForMe = (messageId: string) => async (dispatch: any) => {
   let data = await dialogsAPI.deleteForMe(messageId)
   if (data.resultCode === 0) {
     dispatch(actionDeleteMessage(messageId))
   }
 }
 
-export const messageToSpam = (messageId: number) => async (dispatch: any) => {
+export const messageToSpam = (messageId: string) => async (dispatch: any) => {
   let data = await dialogsAPI.messageToSpam(messageId)
   if (data.resultCode === 0) {
     dispatch(actionDeleteMessage(messageId))

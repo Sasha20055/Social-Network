@@ -1,9 +1,18 @@
+import React from 'react';
+import { accountType, messageType, profileType } from '../../../../types/types';
 import s from './Writer.module.sass';
-import UserIcon from "../../../../assets/images/unknown.png";
 
+type PropsType = {
+  key: string
+  message: messageType
+  isMe: boolean
+  chatWith: Array<accountType>
+  profile: profileType
+  deleteForMe: (messageId: string) => void,
+  messageToSpam: (messageId: string) => void,
+}
 
-
-const Writer = (props) => {
+const Writer: React.FC<PropsType> = (props) => {
 
   const deleteMessage = () => {
     props.deleteForMe(props.message.id)

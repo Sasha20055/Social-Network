@@ -42,3 +42,32 @@ export type postType = {
   message: string
   likes: string
 }
+
+export type accountType = {
+  id: number
+  userName: string
+  hasNewMessages: boolean
+  lastDialogActivityDate: string
+  lastUserActivityDate: string
+  newMessagesCount: number
+}
+
+export type accountDialogsType = {
+  id: number
+  userName: string
+  hasNewMessages: boolean
+  lastDialogActivityDate: string
+  lastUserActivityDate: string
+  newMessagesCount: number
+  photos?: photosType
+}
+
+export type messageType = {
+  id: string
+  body: string 
+  translatedBody: any
+  addedAt: string
+  senderId: number
+  recipient: number
+  viewed: boolean
+}

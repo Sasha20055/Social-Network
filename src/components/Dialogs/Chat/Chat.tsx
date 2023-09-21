@@ -4,11 +4,32 @@ import s from './Chat.module.sass';
 import Writer from './Writer/Writer';
 import SendingMessage from './SendingMessage/SendingMessage'
 import { NavLink } from 'react-router-dom';
+import { accountType, messageType, profileType } from '../../../types/types';
 
+type PropsType = {
+  users: Array<any>
+  chatWith: Array<accountType>,
+  messageData: Array<messageType>,
+  profile: profileType,
+  YourId: number,
+  currentPage: number,
+  totalMessageCount: number | null,
+  pageSize: number,
+  portionCount: number,
+  listOfMessages: (userId: number, currentPage: number | null,
+    pageSize: number | null) => void,
+  sendMessage: (userId: number, message: []) => void,
+  deleteForMe: (messageId: string) => void,
+  SetPageSize: (pageSize: number) => void,
+  messageToSpam: (messageId: string) => void,
+  SetCurrentPage: (currentPage: number) => void,
+  moreMessages: (userId: number, currentPage: number, pageSize:
+    number, messages: Array<messageType>) => void,
+}
 
-const Chat = React.memo((props) => {
+const Chat = React.memo<PropsType>((props) => {
 
-  const messagesEndRef = useRef(null)
+  const messagesEndRef: any = useRef(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -34,7 +55,7 @@ const Chat = React.memo((props) => {
     props.SetCurrentPage(props.currentPage + 1)
   }
 
-  const chatWithName = props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].name)
+  const chatWithName = props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].userName)
 
   return (
     <div className={s.chat}>
@@ -48,9 +69,7 @@ const Chat = React.memo((props) => {
       </div>
       {props.users && <SendingMessage
         sendMessage={props.sendMessage}
-        users={props.users}
         chatWith={props.chatWith}
-        profile={props.profile}
       />}
     </div>
   )
