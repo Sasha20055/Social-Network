@@ -1,4 +1,5 @@
-import { InitialEntry } from '@remix-run/router';
+import { appStateType } from './Store';
+import { ThunkAction } from 'redux-thunk';
 import { Auth } from "./authReducer"
 
 const INITIALIZED_SUCCESS = "app/INITIALIZED-SUCCESS"
@@ -11,7 +12,7 @@ let initialState: initialStateType = {
   initialized: false
 }
 
-const appReducer = (state = initialState, action: any): initialStateType => {
+const appReducer = (state = initialState, action: initialSuccessType): initialStateType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS:
       return {
@@ -29,7 +30,9 @@ type initialSuccessType = {
 
 export const initialSuccess = (): initialSuccessType => ({ type: INITIALIZED_SUCCESS })
 
-export const initializedApp = () => (dispatch: any) => {
+type thunkType = ThunkAction<Promise<void>, appStateType, unknown, initialSuccessType>
+
+export const initializedApp = (): thunkType => async (dispatch) => {
   const promise = dispatch(Auth())
   Promise.all([promise]).then(() => {
     dispatch(initialSuccess())

@@ -30,7 +30,7 @@ const Contacts = React.memo<ContactsPropsType>((props) => {
             newMessagesCount={props.user.newMessagesCount}
             lastActivity={props.user.lastUserActivityDate} />}
         {props.users.map(user => <Contact key={user.id}
-          newMessagesCount={user.newMessagesCount} nickName={user.userName}
+          newMessagesCount={user.newMessagesCount} nickName={user.userName ? user.userName : user.name}
           id={user.id} ava={user.photos.small} lastActivity={user.lastUserActivityDate} />)
         }
       </div>

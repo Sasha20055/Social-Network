@@ -16,8 +16,7 @@ type PropsType = {
    friends: usersType,
    isFollowingUser: Array<number>,
    match: any,
-   isOwner: boolean
-   actionAddPost: (newPostText: string) => void, 
+   isOwner: boolean,
    getProfile: (profileId: number) => void, 
    SetStatus: (profileId: number) => void, 
    UpdateStatus: (status: string) => void, 

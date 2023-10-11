@@ -5,7 +5,7 @@ import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunk from "redux-thunk";
-import { reducer as formReducer, reducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form';
 import { compose } from "redux"; 
 
 
@@ -21,6 +21,9 @@ const reducers = combineReducers({
 type reducersType = typeof reducers
 export type appStateType = ReturnType<reducersType>
 
+type PropertiesTypes<T> = T extends {[key: string] : infer U} ? U : never
+
+export type InferActionsTypes<T extends {[key: string] : (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
 
 // @ts-ignore
 const store = createStore( 

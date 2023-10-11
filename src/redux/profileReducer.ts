@@ -1,21 +1,10 @@
+import { appStateType, InferActionsTypes } from './Store';
 import { profileAPI } from "../api/api";
 import { usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { Follow, UnFollow } from "./usersReducer"
 import { usersType, photosType, profileType, postType } from "../types/types"
-
-
-
-const ADD_POST = "profile/ADD-POST"
-const SET_PROFILE = "profile/SET-PROFILE"
-const SET_STATUS = "profile/SET-STATUS"
-const SAVE_PHOTO_SUCCESS = "profile/SAVE-PHOTO-SUCCESS"
-const SET_FRIENDS = "profile/SET-FRIENDS"
-const SET_USER = "profile/SET-USER"
-const FOLLOW = "profile/FOLLOW"
-const UNFOLLOW = "profile/UNFOLLOW"
-const SET__ISFOLLOWING = "profile/SET-ISFOLLOWING"
-
+import { ThunkAction } from "redux-thunk";
 
 
 let initialState = {
@@ -35,36 +24,36 @@ let initialState = {
 
 type initialStateType = typeof initialState
 
-const profileReducer = (state = initialState, action: any): initialStateType => {
+const profileReducer = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
-    case ADD_POST:
+    case 'ADD_POST':
       return {
         ...state,
         postData: [...state.postData, { id: state.postData.length + 1, message: action.newPostText, likes: '0' }]
       };
 
-    case SET__ISFOLLOWING:
+    case 'SET__ISFOLLOWING':
       return { ...state, isFollowingProf: action.isFollowing }
 
-    case FOLLOW:
+    case 'FOLLOW':
       return { ...state, isFollowingProf: true };
 
-    case UNFOLLOW:
+    case 'UNFOLLOW':
       return { ...state, isFollowingProf: false };
 
-    case SET_PROFILE:
+    case 'SET_PROFILE':
       return { ...state, profile: action.profile };
 
-    case SET_USER:
+    case 'SET_USER':
       return { ...state, user: action.user };
 
-    case SET_STATUS:
+    case 'SET_STATUS':
       return { ...state, status: action.status };
 
-    case SET_FRIENDS:
+    case 'SET_FRIENDS':
       return { ...state, friends: action.friends };
 
-    case SAVE_PHOTO_SUCCESS:
+    case 'SAVE_PHOTO_SUCCESS':
       return { ...state, profile: { ...state.profile, photos: action.photos } as profileType };
 
     default:
@@ -72,101 +61,73 @@ const profileReducer = (state = initialState, action: any): initialStateType => 
   }
 }
 
-type actionAddPostType = {
-  type: typeof ADD_POST
-  newPostText: string
+type actionsType = InferActionsTypes<typeof actions>
+
+export const actions = {
+  actionAddPost: (newPostText: string) => ({ type: 'ADD_POST', newPostText } as const),
+  SetProfile: (profile: profileType) => ({ type: 'SET_PROFILE', profile: profile } as const),
+  SetUser: (user: usersType) => ({ type: 'SET_USER', user: user } as const),
+  SetStatusAc: (status: string) => ({ type: 'SET_STATUS', status } as const),
+  savePhotoSuccess: (photos: photosType) => ({ type: 'SAVE_PHOTO_SUCCESS', photos } as const),
+  SetFriends: (friends: usersType) => ({ type: 'SET_FRIENDS', friends } as const),
+  SetFollow: () => ({ type: 'FOLLOW' } as const),
+  SetUnfollow: () => ({ type: 'UNFOLLOW' } as const),
+  SetIsFollowing: (isFollowing: boolean) => ({ type: 'SET__ISFOLLOWING', isFollowing } as const)
 }
-export const actionAddPost = (newPostText: string): actionAddPostType => ({ type: ADD_POST, newPostText })
-type SetProfileType = {
-  type: typeof SET_PROFILE
-  profile: profileType
-}
-export const SetProfile = (profile: profileType): SetProfileType => ({ type: SET_PROFILE, profile: profile })
-type SetUserType = {
-  type: typeof SET_USER
-  user: usersType
-}
-export const SetUser = (user: usersType): SetUserType => ({ type: SET_USER, user: user })
-type SetStatusAcType = {
-  type: typeof SET_STATUS
-  status: string
-}
-export const SetStatusAc = (status: string): SetStatusAcType => ({ type: SET_STATUS, status })
-type savePhotoSuccessType = {
-  type: typeof SAVE_PHOTO_SUCCESS
-  photos: photosType
-}
-export const savePhotoSuccess = (photos: photosType): savePhotoSuccessType => ({ type: SAVE_PHOTO_SUCCESS, photos })
-type SetFriendsType = {
-  type: typeof SET_FRIENDS
-  friends: usersType
-}
-export const SetFriends = (friends: usersType): SetFriendsType => ({ type: SET_FRIENDS, friends })
-type SetFollowType = {
-  type: typeof FOLLOW
-}
-export const SetFollow = (): SetFollowType => ({ type: FOLLOW })
-type SetUnfollowType = {
-  type: typeof UNFOLLOW
-}
-export const SetUnfollow = (): SetUnfollowType => ({ type: UNFOLLOW })
-type SetIsFollowingType = {
-  type: typeof SET__ISFOLLOWING
-  isFollowing: boolean
-}
-export const SetIsFollowing = (isFollowing: boolean): SetIsFollowingType => ({ type: SET__ISFOLLOWING, isFollowing })
 
 
-export const followProf = (userId: number) => async (dispatch: any) => {
+type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsType>
+
+export const followProf = (userId: number): thunkType => async (dispatch) => {
   dispatch(Follow(userId))
-  dispatch(SetFollow())
+  dispatch(actions.SetFollow())
 }
-export const UnFollowProf = (userId: number) => async (dispatch: any) => {
+export const UnFollowProf = (userId: number): thunkType => async (dispatch) => {
   dispatch(UnFollow(userId))
-  dispatch(SetUnfollow())
+  dispatch(actions.SetUnfollow())
 }
 
-export const getProfile = (profileId: number) => async (dispatch: any) => {
+export const getProfile = (profileId: number): thunkType => async (dispatch) => {
   let data = await profileAPI.getProfile(profileId)
-  dispatch(SetProfile(data))
+  dispatch(actions.SetProfile(data))
 }
 
-export const getUser = (profileId: number) => async (dispatch: any) => {
+export const getUser = (profileId: number): thunkType => async (dispatch) => {
   let data1 = await profileAPI.getProfile(profileId)
   let data2 = await usersAPI.searchUsersbyName(1, 1, data1.fullName)
-  dispatch(SetUser(data2))
-  dispatch(SetIsFollowing(data2.items[0].followed))
+  dispatch(actions.SetUser(data2))
+  dispatch(actions.SetIsFollowing(data2.items[0].followed))
 }
 
-export const getFriends = () => async (dispatch: any) => {
+export const getFriends = (): thunkType => async (dispatch) => {
   let data = await profileAPI.getFriends()
-  dispatch(SetFriends(data))
+  dispatch(actions.SetFriends(data))
 }
 
-export const SetStatus = (profileId: number) => async (dispatch: any) => {
+export const SetStatus = (profileId: number): thunkType => async (dispatch) => {
   let data = await profileAPI.getStatus(profileId)
   if (data != null) {
-    dispatch(SetStatusAc(data))
+    dispatch(actions.SetStatusAc(data))
   } else {
-    dispatch(SetStatusAc("No status!"))
+    dispatch(actions.SetStatusAc("No status!"))
   }
 }
 
-export const UpdateStatus = (status: string) => async (dispatch: any) => {
+export const UpdateStatus = (status: string): thunkType => async (dispatch) => {
   let data = await profileAPI.updateStatus(status)
   if (data.resultCode === 0) {
-    dispatch(SetStatusAc(status))
+    dispatch(actions.SetStatusAc(status))
   }
 }
 
-export const savePhoto = (photo: photosType) => async (dispatch: any) => {
+export const savePhoto = (photo: photosType): thunkType => async (dispatch) => {
   let data = await profileAPI.savePhoto(photo)
   if (data.resultCode === 0) {
-    dispatch(savePhotoSuccess(data.data.photos))
+    dispatch(actions.savePhotoSuccess(data.data.photos))
   }
 }
 
-export const saveProfile = (profile: profileType) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: profileType): thunkType => async (dispatch, getState: any) => {
   const userId = getState().auth.userId
   const data = await profileAPI.saveProfile(profile)
   if (data.resultCode === 0) {

@@ -1,13 +1,9 @@
 import React from "react";
 import s from "./FormsControls.module.sass";
-import { Field } from 'redux-form';
+import { Field, WrappedFieldProps } from 'redux-form';
+import {validationType} from '../../../utilities/validation'
 
-type TextareaPropsType = {
-  input: any
-  meta: any
-}
-
-export const Textarea: React.FC<TextareaPropsType> = ({ input, meta, ...props }) => {
+export const Textarea: React.FC<WrappedFieldProps> = ({ input, meta, ...props }) => {
   const hasError = meta.touched && meta.error
   return (
     <div className={s.formControl + " " + (hasError ? s.error : "")}>
@@ -19,12 +15,9 @@ export const Textarea: React.FC<TextareaPropsType> = ({ input, meta, ...props })
   )
 }
 
-type InputPropsType = {
-  input: any
-  meta: any
-}
 
-export const Input: React.FC<InputPropsType> = ({ input, meta: { touched, error }, ...props }) => {
+
+export const Input: React.FC<WrappedFieldProps> = ({ input, meta: { touched, error }, ...props }) => {
   const hasError = touched && error
   return (
     <div className={s.formControl + " " + (hasError ? s.error : "")}>
@@ -36,7 +29,7 @@ export const Input: React.FC<InputPropsType> = ({ input, meta: { touched, error 
   )
 }
 
-export const createForm = (name: string, component: any, type: string, placeholder = "", validators: Array<any> = [], props = {}) => {
+export const createForm = (name: string, component: string | React.Component | React.FC | React.FC<WrappedFieldProps>, type: string, placeholder = "", validators: Array<validationType> = [], props = {}) => {
   return (<div className={`s.${name}`}>
     <Field
       name={name}

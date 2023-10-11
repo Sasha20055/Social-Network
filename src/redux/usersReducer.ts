@@ -1,6 +1,8 @@
+import { appStateType } from './Store';
 import { usersAPI } from "../api/api"
-import {updateObjectInArray } from "../utilities/object-helpers"
-import { userType, usersType } from "../types/types"
+import { updateObjectInArray } from "../utilities/object-helpers"
+import { userType } from "../types/types"
+import { ThunkAction } from "redux-thunk"
 
 
 const FOLLOW = "users/FOLLOW"
@@ -23,7 +25,7 @@ let initialState = {
 
 type initialStateType = typeof initialState
 
-const UsersReducer = (state = initialState, action: any): initialStateType => {
+const UsersReducer = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -39,7 +41,7 @@ const UsersReducer = (state = initialState, action: any): initialStateType => {
 
     case FIND__USERS:
       return {
-        ...state, users: [ ...action.users, ...state.users ] 
+        ...state, users: [...action.users, ...state.users]
       }
 
     case SET_USERS:
@@ -67,14 +69,55 @@ const UsersReducer = (state = initialState, action: any): initialStateType => {
   }
 }
 
-export const FollowSucces = (UserId: number) => ({ type: FOLLOW, UserId });
-export const UnFollowSucces = (UserId: number) => ({ type: UNFOLLOW, UserId });
-export const SetUsers = (users: usersType) => ({ type: SET_USERS, users });
-export const SetCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
-export const SetTotalUsersCount = (count: number) => ({ type: SET_TOTAL_USERS_COUNT, count: count });
-export const SetToogleIsFetching = (isFetching: boolean) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
-export const SetToogleIsFollowing = (isFollowing: boolean, userId: number) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
-export const FindUsers = (users: usersType) => ({ type: FIND__USERS, users });
+type actionsType = FollowSuccesType | UnFollowSuccesType |
+  SetUsersType | SetCurrentPageType | SetTotalUsersCountType |
+  SetToogleIsFetchingType | SetToogleIsFollowingType |
+  FindUsersType
+
+type FollowSuccesType = {
+  type: typeof FOLLOW
+  UserId: number
+}
+export const FollowSucces = (UserId: number): FollowSuccesType => ({ type: FOLLOW, UserId });
+type UnFollowSuccesType = {
+  type: typeof UNFOLLOW
+  UserId: number
+}
+export const UnFollowSucces = (UserId: number): UnFollowSuccesType => ({ type: UNFOLLOW, UserId });
+type SetUsersType = {
+  type: typeof SET_USERS
+  users: Array<userType>
+}
+export const SetUsers = (users: Array<userType>): SetUsersType => ({ type: SET_USERS, users });
+type SetCurrentPageType = {
+  type: typeof SET_CURRENT_PAGE
+  currentPage: number
+}
+export const SetCurrentPage = (currentPage: number): SetCurrentPageType => ({ type: SET_CURRENT_PAGE, currentPage });
+type SetTotalUsersCountType = {
+  type: typeof SET_TOTAL_USERS_COUNT
+  count: number
+}
+export const SetTotalUsersCount = (count: number): SetTotalUsersCountType => ({ type: SET_TOTAL_USERS_COUNT, count: count });
+type SetToogleIsFetchingType = {
+  type: typeof TOOGLE_IS_FETCHING
+  isFetching: boolean
+}
+export const SetToogleIsFetching = (isFetching: boolean): SetToogleIsFetchingType => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
+type SetToogleIsFollowingType = {
+  type: typeof TOOGLE_IS_FOLLOWING
+  isFollowing: boolean
+  userId: number
+}
+export const SetToogleIsFollowing = (isFollowing: boolean, userId: number)
+  : SetToogleIsFollowingType => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
+type FindUsersType = {
+  type: typeof FIND__USERS
+  users: Array<userType>
+}
+export const FindUsers = (users: Array<userType>): FindUsersType => ({ type: FIND__USERS, users });
+
+type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsType>
 
 const followUnfollowFlow = async (dispatch: any, userId: number, usersApi: any, actionCr: any) => {
   dispatch(SetToogleIsFollowing(true, userId))
@@ -85,7 +128,7 @@ const followUnfollowFlow = async (dispatch: any, userId: number, usersApi: any, 
   dispatch(SetToogleIsFollowing(false, userId))
 }
 
-export const getRequestUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+export const getRequestUsers = (currentPage: number, pageSize: number): thunkType => async (dispatch) => {
   dispatch(SetToogleIsFetching(true))
   let data = await usersAPI.getRequestUsers(currentPage, pageSize)
   dispatch(SetCurrentPage(currentPage))
@@ -94,18 +137,18 @@ export const getRequestUsers = (currentPage: number, pageSize: number) => async 
   dispatch(SetTotalUsersCount(data.totalCount))
 }
 
-export const getUsersByName = (name: string) => async (dispatch: any) => {
+export const getUsersByName = (name: string): thunkType => async (dispatch) => {
   dispatch(SetToogleIsFetching(true))
   let data = await usersAPI.searchUsersbyName(1, 10, name)
   dispatch(SetToogleIsFetching(false))
   dispatch(FindUsers(data.items))
 }
 
-export const UnFollow = (userId: number) => async (dispatch: any) => {
+export const UnFollow = (userId: number): thunkType => async (dispatch) => {
   followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), UnFollowSucces);
 }
 
-export const Follow = (userId: number) => async (dispatch: any) => {
+export const Follow = (userId: number): thunkType => async (dispatch) => {
   followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), FollowSucces);
 }
 

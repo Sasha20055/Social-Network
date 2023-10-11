@@ -2,7 +2,7 @@ import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux"
 import {
-  actionAddPost, getProfile, SetStatus,
+  getProfile, SetStatus,
   UpdateStatus, savePhoto, saveProfile,
   getFriends, getUser, UnFollowProf, followProf
 } from "../../redux/profileReducer";
@@ -26,7 +26,6 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType = {
-  actionAddPost: (newPostText: string) => void,
   getProfile: (profileId: number) => void,
   SetStatus: (profileId: number) => void,
   UpdateStatus: (status: string) => void,
@@ -51,7 +50,6 @@ type PropsType = {
   friends: usersType,
   isFollowingUser: Array<number>,
   match: any,
-  actionAddPost: (newPostText: string) => void,
   getProfile: (profileId: number) => void,
   SetStatus: (profileId: number) => void,
   UpdateStatus: (status: string) => void,
@@ -120,7 +118,7 @@ export default compose(
   connect
     <mapStateToPropsType, mapDispatchToPropsType, mapOwnPropsType, appStateType>
     (mapStateToProps, {
-      actionAddPost, getProfile, SetStatus,
+      getProfile, SetStatus,
       UpdateStatus, savePhoto, saveProfile, getFriends,
       getUser, UnFollowProf, followProf
     }),
