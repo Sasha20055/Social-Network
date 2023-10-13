@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form"
 import { ThunkAction } from "redux-thunk"
-import { headerAPI } from "../api/api"
-import { appStateType } from "./Store"
+import { headerAPI } from "../api/headerApi"
+import { appStateType, InferActionsTypes } from "./Store"
 
 const SET_USER_DATA = "auth/SET-USER-DATA"
 const SET_CAPTCHA_URL = "auth/SET-CAPTCHA-URL"
@@ -16,7 +16,7 @@ let initialState = {
 
 type initialStateType = typeof initialState
 
-const authReducer = (state = initialState, action: actionstype): initialStateType => {
+const authReducer = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
     case SET_CAPTCHA_URL:
@@ -30,38 +30,21 @@ const authReducer = (state = initialState, action: actionstype): initialStateTyp
   }
 }
 
-type actionstype = setUserDataType | getCaptchaURLSuccessType
+type actionsType = InferActionsTypes<typeof actions>
 
-type setUserDataType = {
-  type: typeof SET_USER_DATA,
-  data: {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean | null
-  }
+export const actions = {
+  setUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean | null) => ({type: SET_USER_DATA, data: { userId, email, login, isAuth }} as const),
+  getCaptchaURLSuccess: (captchaURL: string | null) => ({ type: SET_CAPTCHA_URL, data: { captchaURL }} as const)
 }
-export const setUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean | null)
-  : setUserDataType => ({
-    type: SET_USER_DATA, data: { userId, email, login, isAuth }
-  })
-type getCaptchaURLSuccessType = {
-  type: typeof SET_CAPTCHA_URL
-  data: {
-    captchaURL: string | null
-  }
-}
-export const getCaptchaURLSuccess = (captchaURL: string | null)
-  : getCaptchaURLSuccessType => ({ type: SET_CAPTCHA_URL, data: { captchaURL } })
 
 
-type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionstype>
+type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsType>
 
 export const Auth = (): thunkType => async (dispatch) => {
   let data = await headerAPI.authMe()
   if (data.resultCode === 0) {
     let { email, id, login } = data.data
-    dispatch(setUserData(id as number | null, email as string | null, login as string | null, true))
+    dispatch(actions.setUserData(id as number | null, email as string | null, login as string | null, true))
   }
 }
 
@@ -85,14 +68,14 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const logout = (): thunkType => async (dispatch) => {
   let data = await headerAPI.logout()
   if (data.resultCode === 0) {
-    dispatch(setUserData(null, null, null, false))
+    dispatch(actions.setUserData(null, null, null, false))
   }
 }
 
 export const getCaptchaURL = (): thunkType => async (dispatch) => {
   const data = await headerAPI.captcha()
   const captchaURL = data.url
-  dispatch(getCaptchaURLSuccess(captchaURL))
+  dispatch(actions.getCaptchaURLSuccess(captchaURL))
 }
 
 export default authReducer;

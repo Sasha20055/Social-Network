@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux"
 import {
   listOfMessages, sendMessage, deleteForMe, allDialogs,
-  SetPageSize, messageToSpam, listOfNewMessages, SetCurrentPage,
+  messageToSpam, listOfNewMessages, actions,
   startChatting, moreMessages, findPerson
 } from '../../redux/dialogsReducer';
 import { getProfile } from "../../redux/profileReducer";
@@ -10,7 +10,7 @@ import Dialogs from "./Dialogs";
 import { useParams } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
-import { accountType, messageType, profileType } from "../../types/types";
+import { messageType, profileType, userType } from "../../types/types";
 import { appStateType } from "../../redux/Store";
 
 export function withRouter(Children: any) {
@@ -21,7 +21,7 @@ export function withRouter(Children: any) {
 }
 
 type mapStateToPropsType = {
-  chatWith: Array<accountType>,
+  chatWith: Array<userType>,
   users: Array<any> | null,
   messageData: Array<messageType>,
   user: any,
@@ -54,7 +54,7 @@ type mapDispatchToPropsType = {
 type mapOwnPropsType = {}
 
 type PropsType = {
-  chatWith: Array<accountType>,
+  chatWith: Array<userType>,
   users: Array<any>,
   messageData: Array<messageType>,
   user: any,
@@ -134,6 +134,8 @@ let mapStateToProps = (state: appStateType) => {
   }
 }
 
+const SetCurrentPage = actions.SetCurrentPage
+const SetPageSize = actions.SetPageSize
 
 export default compose(
   connect

@@ -2,7 +2,7 @@ import React from 'react';
 import s from './SendingMessage.module.sass';
 import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../../../common/FormsControls/FormsControls';
-import { accountType } from '../../../../types/types';
+import { accountType, userType } from '../../../../types/types';
 
 type SendingFormPropsType = {
   handleSubmit: any
@@ -12,7 +12,7 @@ type SendingFormPropsType = {
 const SendingMessageForm: React.FC<SendingFormPropsType> = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.sendingMessageForm}>
-      <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"Введите сообщение..."}  />
+      <Field name={props.nameForm} component={Textarea} type={"text"} placeholder={"Введите сообщение..."} />
       <button className={s.sendBtn}></button>
     </form>
   )
@@ -22,7 +22,7 @@ const DialogReduxForm = reduxForm<{}, SendingMessagePropsType>({ form: 'dialog' 
 
 type SendingMessagePropsType = {
   sendMessage: (userId: number, message: []) => void
-  chatWith: Array<accountType>
+  chatWith: Array<userType>
   nameForm?: any
 }
 

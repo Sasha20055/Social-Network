@@ -1,12 +1,12 @@
 import React from 'react';
-import { accountType, messageType, profileType } from '../../../../types/types';
+import { accountType, messageType, profileType, userType } from '../../../../types/types';
 import s from './Writer.module.sass';
 
 type PropsType = {
   key: string
   message: messageType
   isMe: boolean
-  chatWith: Array<accountType>
+  chatWith: Array<userType>
   profile: profileType
   deleteForMe: (messageId: string) => void,
   messageToSpam: (messageId: string) => void,

@@ -4,11 +4,11 @@ import s from './Chat.module.sass';
 import Writer from './Writer/Writer';
 import SendingMessage from './SendingMessage/SendingMessage'
 import { NavLink } from 'react-router-dom';
-import { accountType, messageType, profileType } from '../../../types/types';
+import { accountType, messageType, profileType, userType } from '../../../types/types';
 
 type PropsType = {
   users: Array<any>
-  chatWith: Array<accountType>,
+  chatWith: Array<userType>,
   messageData: Array<messageType>,
   profile: profileType,
   YourId: number,
@@ -55,7 +55,7 @@ const Chat = React.memo<PropsType>((props) => {
     props.SetCurrentPage(props.currentPage + 1)
   }
 
-  const chatWithName = props.chatWith[0] && (props.chatWith[0].userName ? props.chatWith[0].userName : props.chatWith[0].userName)
+  const chatWithName = props.chatWith[0] && (props.chatWith[0].name ? props.chatWith[0].name : props.chatWith[0].name)
 
   return (
     <div className={s.chat}>

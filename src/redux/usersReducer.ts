@@ -1,5 +1,5 @@
-import { appStateType } from './Store';
-import { usersAPI } from "../api/api"
+import { appStateType, InferActionsTypes } from './Store';
+import { usersAPI } from "../api/usersApi"
 import { updateObjectInArray } from "../utilities/object-helpers"
 import { userType } from "../types/types"
 import { ThunkAction } from "redux-thunk"
@@ -69,87 +69,55 @@ const UsersReducer = (state = initialState, action: actionsType): initialStateTy
   }
 }
 
-type actionsType = FollowSuccesType | UnFollowSuccesType |
-  SetUsersType | SetCurrentPageType | SetTotalUsersCountType |
-  SetToogleIsFetchingType | SetToogleIsFollowingType |
-  FindUsersType
+type actionsType = InferActionsTypes<typeof actions>
 
-type FollowSuccesType = {
-  type: typeof FOLLOW
-  UserId: number
+export const actions = {
+  FollowSucces: (UserId: number) => ({ type: FOLLOW, UserId } as const),
+  UnFollowSucces: (UserId: number) => ({ type: UNFOLLOW, UserId } as const),
+  SetUsers: (users: Array<userType>) => ({ type: SET_USERS, users } as const),
+  SetCurrentPage: (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage } as const),
+  SetTotalUsersCount: (count: number) => ({ type: SET_TOTAL_USERS_COUNT, count: count } as const),
+  SetToogleIsFetching: (isFetching: boolean) => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching } as const),
+  SetToogleIsFollowing: (isFollowing: boolean, userId: number) => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId } as const),
+  FindUsers: (users: Array<userType>) => ({ type: FIND__USERS, users } as const)
 }
-export const FollowSucces = (UserId: number): FollowSuccesType => ({ type: FOLLOW, UserId });
-type UnFollowSuccesType = {
-  type: typeof UNFOLLOW
-  UserId: number
-}
-export const UnFollowSucces = (UserId: number): UnFollowSuccesType => ({ type: UNFOLLOW, UserId });
-type SetUsersType = {
-  type: typeof SET_USERS
-  users: Array<userType>
-}
-export const SetUsers = (users: Array<userType>): SetUsersType => ({ type: SET_USERS, users });
-type SetCurrentPageType = {
-  type: typeof SET_CURRENT_PAGE
-  currentPage: number
-}
-export const SetCurrentPage = (currentPage: number): SetCurrentPageType => ({ type: SET_CURRENT_PAGE, currentPage });
-type SetTotalUsersCountType = {
-  type: typeof SET_TOTAL_USERS_COUNT
-  count: number
-}
-export const SetTotalUsersCount = (count: number): SetTotalUsersCountType => ({ type: SET_TOTAL_USERS_COUNT, count: count });
-type SetToogleIsFetchingType = {
-  type: typeof TOOGLE_IS_FETCHING
-  isFetching: boolean
-}
-export const SetToogleIsFetching = (isFetching: boolean): SetToogleIsFetchingType => ({ type: TOOGLE_IS_FETCHING, isFetching: isFetching });
-type SetToogleIsFollowingType = {
-  type: typeof TOOGLE_IS_FOLLOWING
-  isFollowing: boolean
-  userId: number
-}
-export const SetToogleIsFollowing = (isFollowing: boolean, userId: number)
-  : SetToogleIsFollowingType => ({ type: TOOGLE_IS_FOLLOWING, isFollowing: isFollowing, userId });
-type FindUsersType = {
-  type: typeof FIND__USERS
-  users: Array<userType>
-}
-export const FindUsers = (users: Array<userType>): FindUsersType => ({ type: FIND__USERS, users });
+
+
+
 
 type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsType>
 
 const followUnfollowFlow = async (dispatch: any, userId: number, usersApi: any, actionCr: any) => {
-  dispatch(SetToogleIsFollowing(true, userId))
+  dispatch(actions.SetToogleIsFollowing(true, userId))
   let data = await usersApi(userId)
   if (data.resultCode === 0) {
     dispatch(actionCr(userId))
   }
-  dispatch(SetToogleIsFollowing(false, userId))
+  dispatch(actions.SetToogleIsFollowing(false, userId))
 }
 
 export const getRequestUsers = (currentPage: number, pageSize: number): thunkType => async (dispatch) => {
-  dispatch(SetToogleIsFetching(true))
+  dispatch(actions.SetToogleIsFetching(true))
   let data = await usersAPI.getRequestUsers(currentPage, pageSize)
-  dispatch(SetCurrentPage(currentPage))
-  dispatch(SetToogleIsFetching(false))
-  dispatch(SetUsers(data.items))
-  dispatch(SetTotalUsersCount(data.totalCount))
+  dispatch(actions.SetCurrentPage(currentPage))
+  dispatch(actions.SetToogleIsFetching(false))
+  dispatch(actions.SetUsers(data.items))
+  dispatch(actions.SetTotalUsersCount(data.totalCount))
 }
 
 export const getUsersByName = (name: string): thunkType => async (dispatch) => {
-  dispatch(SetToogleIsFetching(true))
+  dispatch(actions.SetToogleIsFetching(true))
   let data = await usersAPI.searchUsersbyName(1, 10, name)
-  dispatch(SetToogleIsFetching(false))
-  dispatch(FindUsers(data.items))
+  dispatch(actions.SetToogleIsFetching(false))
+  dispatch(actions.FindUsers(data.items))
 }
 
 export const UnFollow = (userId: number): thunkType => async (dispatch) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), UnFollowSucces);
+  followUnfollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), actions.UnFollowSucces);
 }
 
 export const Follow = (userId: number): thunkType => async (dispatch) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), FollowSucces);
+  followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.FollowSucces);
 }
 
 

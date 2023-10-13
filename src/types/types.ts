@@ -13,7 +13,7 @@ export type photosType = {
 
 export type usersType = {
   items: Array<userType>
-  totalCount: string
+  totalCount: number
   error: string | null
 }
 
@@ -68,6 +68,13 @@ export type messageType = {
   translatedBody: any
   addedAt: string
   senderId: number
+  senderName: string
   recipient: number
   viewed: boolean
+}
+
+export type messagesType = {
+  items: messageType[]
+  totalCount: number
+  error: string | null
 }

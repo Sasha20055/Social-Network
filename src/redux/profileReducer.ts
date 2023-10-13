@@ -1,6 +1,6 @@
 import { appStateType, InferActionsTypes } from './Store';
-import { profileAPI } from "../api/api";
-import { usersAPI } from "../api/api";
+import { profileAPI } from "../api/profileApi";
+import { usersAPI } from "../api/usersApi";
 import { stopSubmit } from "redux-form";
 import { Follow, UnFollow } from "./usersReducer"
 import { usersType, photosType, profileType, postType } from "../types/types"
@@ -26,34 +26,34 @@ type initialStateType = typeof initialState
 
 const profileReducer = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
-    case 'ADD_POST':
+    case 'profile/ADD_POST':
       return {
         ...state,
         postData: [...state.postData, { id: state.postData.length + 1, message: action.newPostText, likes: '0' }]
       };
 
-    case 'SET__ISFOLLOWING':
+    case 'profile/SET__ISFOLLOWING':
       return { ...state, isFollowingProf: action.isFollowing }
 
-    case 'FOLLOW':
+    case 'profile/FOLLOW':
       return { ...state, isFollowingProf: true };
 
-    case 'UNFOLLOW':
+    case 'profile/UNFOLLOW':
       return { ...state, isFollowingProf: false };
 
-    case 'SET_PROFILE':
+    case 'profile/SET_PROFILE':
       return { ...state, profile: action.profile };
 
-    case 'SET_USER':
+    case 'profile/SET_USER':
       return { ...state, user: action.user };
 
-    case 'SET_STATUS':
+    case 'profile/SET_STATUS':
       return { ...state, status: action.status };
 
-    case 'SET_FRIENDS':
+    case 'profile/SET_FRIENDS':
       return { ...state, friends: action.friends };
 
-    case 'SAVE_PHOTO_SUCCESS':
+    case 'profile/SAVE_PHOTO_SUCCESS':
       return { ...state, profile: { ...state.profile, photos: action.photos } as profileType };
 
     default:
@@ -64,15 +64,15 @@ const profileReducer = (state = initialState, action: actionsType): initialState
 type actionsType = InferActionsTypes<typeof actions>
 
 export const actions = {
-  actionAddPost: (newPostText: string) => ({ type: 'ADD_POST', newPostText } as const),
-  SetProfile: (profile: profileType) => ({ type: 'SET_PROFILE', profile: profile } as const),
-  SetUser: (user: usersType) => ({ type: 'SET_USER', user: user } as const),
-  SetStatusAc: (status: string) => ({ type: 'SET_STATUS', status } as const),
-  savePhotoSuccess: (photos: photosType) => ({ type: 'SAVE_PHOTO_SUCCESS', photos } as const),
-  SetFriends: (friends: usersType) => ({ type: 'SET_FRIENDS', friends } as const),
-  SetFollow: () => ({ type: 'FOLLOW' } as const),
-  SetUnfollow: () => ({ type: 'UNFOLLOW' } as const),
-  SetIsFollowing: (isFollowing: boolean) => ({ type: 'SET__ISFOLLOWING', isFollowing } as const)
+  actionAddPost: (newPostText: string) => ({ type: 'profile/ADD_POST', newPostText } as const),
+  SetProfile: (profile: profileType) => ({ type: 'profile/SET_PROFILE', profile: profile } as const),
+  SetUser: (user: usersType) => ({ type: 'profile/SET_USER', user: user } as const),
+  SetStatusAc: (status: string) => ({ type: 'profile/SET_STATUS', status } as const),
+  savePhotoSuccess: (photos: photosType) => ({ type: 'profile/SAVE_PHOTO_SUCCESS', photos } as const),
+  SetFriends: (friends: usersType) => ({ type: 'profile/SET_FRIENDS', friends } as const),
+  SetFollow: () => ({ type: 'profile/FOLLOW' } as const),
+  SetUnfollow: () => ({ type: 'profile/UNFOLLOW' } as const),
+  SetIsFollowing: (isFollowing: boolean) => ({ type: 'profile/SET__ISFOLLOWING', isFollowing } as const)
 }
 
 

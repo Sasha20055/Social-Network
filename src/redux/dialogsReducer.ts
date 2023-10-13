@@ -1,28 +1,14 @@
-import { appStateType } from './Store';
-import { accountType, messageType } from './../types/types';
-import { dialogsAPI } from "../api/api";
-import { usersAPI } from "../api/api";
+import { appStateType, InferActionsTypes } from './Store';
+import { accountType, messageType, userType } from './../types/types';
+import { dialogsAPI } from "../api/dialogsApi";
+import { usersAPI } from "../api/usersApi";
 import { ThunkAction } from 'redux-thunk';
 
 
-const SEND_MESSAGE = "dialogs/ADD-MESSAGE";
-const LIST_OF_MESSAGES = "dialogs/LIST-OF-MESSAGES";
-const DELETE_MESSAGE = "dialogs/DELETE-MESSAGE"
-const LIST__OF__DIALOGS = "dialogs/LIST-OF-DIALOGS"
-const SET_PAGE_SIZE = "dialogs/SET-PAGE-SIZE"
-const SET_TOTAL_MESSAGE_COUNT = "dialogs/SET-TOTAL-MESSAGE-COUNT"
-const SET_COUNT_NEW_MESSAGES = "dialogs/SET-COUNT-NEW-MESSAGES"
-const SET_CURRENT_PAGE = "dialogs/SET-CURRENT-PAGE"
-const SET_PORTION_COUNT = "dialogs/SET-PORTION-COUNT"
-const MORE__MESSAGES = "dialogs/MORE-MESSAGES"
-const FIND__PERSON = "dialogs/FIND-PERSON"
-const DELETE_PERSON = "dialogs/DELETE-PERSON"
-
-
 let initialState = {
-  accounts: [] as Array<accountType>,
+  accounts: [] as Array<userType>,
   messages: [] as Array<messageType>,
-  chatWith: [] as Array<accountType>,
+  chatWith: [] as Array<userType>,
   pageSize: 15 as number | null,
   totalMessageCount: 20 as number | null,
   currentPage: 1 as number | null,
@@ -34,42 +20,42 @@ type initialStateType = typeof initialState
 
 const dialogsReducer = (state = initialState, action: actionsType): initialStateType => {
   switch (action.type) {
-    case SEND_MESSAGE:
+    case 'dialogs/SEND_MESSAGE':
       return {
         ...state,
       };
 
-    case FIND__PERSON:
+    case 'dialogs/FIND__PERSON':
       return { ...state, accounts: [...action.accountsFind, ...state.accounts] }
 
-    case MORE__MESSAGES:
+    case 'dialogs/MORE__MESSAGES':
       return { ...state, messages: [...action.messages, ...state.messages] }
 
-    case LIST_OF_MESSAGES:
+    case 'dialogs/LIST_OF_MESSAGES':
       return { ...state, chatWith: state.accounts.filter(account => account.id == action.userId), messages: action.messages }
 
-    case DELETE_MESSAGE:
+    case 'dialogs/DELETE_MESSAGE':
       return { ...state, messages: state.messages.filter(message => message.id != action.messageId) }
 
-    case DELETE_PERSON:
+    case 'dialogs/DELETE_PERSON':
       return { ...state, accounts: state.accounts.filter(account => account.id != action.personId) }
 
-    case SET_PAGE_SIZE:
+    case 'dialogs/SET_PAGE_SIZE':
       return { ...state, pageSize: action.pageSize }
 
-    case SET_PORTION_COUNT:
+    case 'dialogs/SET_PORTION_COUNT':
       return { ...state, portionCount: action.portionCount }
 
-    case SET_CURRENT_PAGE:
+    case 'dialogs/SET_CURRENT_PAGE':
       return { ...state, currentPage: action.currentPage }
 
-    case SET_TOTAL_MESSAGE_COUNT:
+    case 'dialogs/SET_TOTAL_MESSAGE_COUNT':
       return { ...state, totalMessageCount: action.count }
 
-    case SET_COUNT_NEW_MESSAGES:
+    case 'dialogs/SET_COUNT_NEW_MESSAGES':
       return { ...state, newMessages: action.count }
 
-    case LIST__OF__DIALOGS:
+    case 'dialogs/LIST__OF__DIALOGS':
       return { ...state, accounts: action.accounts }
 
     default:
@@ -77,103 +63,53 @@ const dialogsReducer = (state = initialState, action: actionsType): initialState
   }
 }
 
-type actionsType = actionListOfMessagesType | actionSendMessageType |
-  actionDeleteMessageType | actionListOfDialogsType | SetPageSizeType |
-  SetCurrentPageType | SetPortionCountType | SetTotalMessageCountType |
-  SetCountOfNewMessagesType | SetMoreMessagesType | SetFindPersonType |
-  SetDeletePersonType
+type actionsType = InferActionsTypes<typeof actions>
 
-type actionListOfMessagesType = {
-  type: typeof LIST_OF_MESSAGES
-  userId: number
-  messages: Array<messageType>
+export const actions = {
+  actionListOfMessages: (userId: number, messages: messageType[]) => ({ type: 'dialogs/LIST_OF_MESSAGES', userId, messages } as const ),
+  actionSendMessage: (message: any) => ({ type: 'dialogs/SEND_MESSAGE', message: message } as const ),
+  actionDeleteMessage: (messageId: string) => ({ type: 'dialogs/DELETE_MESSAGE', messageId } as const ),
+  actionListOfDialogs: (accounts: []) => ({ type: 'dialogs/LIST__OF__DIALOGS', accounts } as const ),
+  SetPageSize: (pageSize: number) => ({ type: 'dialogs/SET_PAGE_SIZE', pageSize } as const ),
+  SetCurrentPage: (currentPage: number) => ({ type: 'dialogs/SET_CURRENT_PAGE', currentPage } as const ),
+  SetPortionCount: (portionCount: number) => ({ type: 'dialogs/SET_PORTION_COUNT', portionCount } as const ),
+  SetTotalMessageCount: (count: number) => ({ type: 'dialogs/SET_TOTAL_MESSAGE_COUNT', count } as const ),
+  SetCountOfNewMessages: (count: number) => ({ type: 'dialogs/SET_COUNT_NEW_MESSAGES', count } as const ),
+  SetMoreMessages: (messagesPort: messageType[]) => ({ type: 'dialogs/MORE__MESSAGES', messages: messagesPort } as const ),
+  SetFindPerson: (accountsFind: Array<userType>) => ({ type: 'dialogs/FIND__PERSON', accountsFind } as const ),
+  SetDeletePerson: (personId: number) => ({ type: 'dialogs/DELETE_PERSON', personId } as const )
 }
-export const actionListOfMessages = (userId: number, messages: []): actionListOfMessagesType => ({ type: LIST_OF_MESSAGES, userId, messages })
-type actionSendMessageType = {
-  type: typeof SEND_MESSAGE
-  message: messageType
-}
-export const actionSendMessage = (message: any): actionSendMessageType => ({ type: SEND_MESSAGE, message: message })
-type actionDeleteMessageType = {
-  type: typeof DELETE_MESSAGE
-  messageId: string
-}
-export const actionDeleteMessage = (messageId: string): actionDeleteMessageType => ({ type: DELETE_MESSAGE, messageId })
-type actionListOfDialogsType = {
-  type: typeof LIST__OF__DIALOGS
-  accounts: Array<accountType>
-}
-export const actionListOfDialogs = (accounts: []): actionListOfDialogsType => ({ type: LIST__OF__DIALOGS, accounts })
-type SetPageSizeType = {
-  type: typeof SET_PAGE_SIZE
-  pageSize: number
-}
-export const SetPageSize = (pageSize: number): SetPageSizeType => ({ type: SET_PAGE_SIZE, pageSize });
-type SetCurrentPageType = {
-  type: typeof SET_CURRENT_PAGE
-  currentPage: number
-}
-export const SetCurrentPage = (currentPage: number): SetCurrentPageType => ({ type: SET_CURRENT_PAGE, currentPage });
-type SetPortionCountType = {
-  type: typeof SET_PORTION_COUNT
-  portionCount: number
-}
-export const SetPortionCount = (portionCount: number): SetPortionCountType => ({ type: SET_PORTION_COUNT, portionCount });
-type SetTotalMessageCountType = {
-  type: typeof SET_TOTAL_MESSAGE_COUNT
-  count: number
-}
-export const SetTotalMessageCount = (count: number): SetTotalMessageCountType => ({ type: SET_TOTAL_MESSAGE_COUNT, count });
-type SetCountOfNewMessagesType = {
-  type: typeof SET_COUNT_NEW_MESSAGES
-  count: number
-}
-export const SetCountOfNewMessages = (count: number): SetCountOfNewMessagesType => ({ type: SET_COUNT_NEW_MESSAGES, count });
-type SetMoreMessagesType = {
-  type: typeof MORE__MESSAGES
-  messages: Array<messageType>
-}
-export const SetMoreMessages = (messagesPort: []): SetMoreMessagesType => ({ type: MORE__MESSAGES, messages: messagesPort });
-type SetFindPersonType = {
-  type: typeof FIND__PERSON
-  accountsFind: Array<accountType>
-}
-export const SetFindPerson = (accountsFind: Array<accountType>): SetFindPersonType => ({ type: FIND__PERSON, accountsFind });
-type SetDeletePersonType = {
-  type: typeof DELETE_PERSON
-  personId: number
-}
-export const SetDeletePerson = (personId: number): SetDeletePersonType => ({ type: DELETE_PERSON, personId });
+
 
 type thunkType = ThunkAction<Promise<void>, appStateType, unknown, actionsType>
 
 export const startChatting = (userId: number, currentPage: number, pageSize: number): thunkType => async (dispatch) => {
   let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
   dialogsAPI.startChatting(userId)
-  dispatch(SetPageSize(20))
-  dispatch(SetCurrentPage(1))
-  dispatch(actionListOfMessages(userId, data.items))
-  dispatch(SetTotalMessageCount(data.totalCount))
-  dispatch(SetPortionCount(Math.ceil(data.totalCount / 20)))
+  dispatch(actions.SetPageSize(20))
+  dispatch(actions.SetCurrentPage(1))
+  dispatch(actions.actionListOfMessages(userId, data.items))
+  dispatch(actions.SetTotalMessageCount(data.totalCount))
+  dispatch(actions.SetPortionCount(Math.ceil(data.totalCount / 20)))
 }
 
 export const listOfMessages = (userId: number, currentPage: number | null, pageSize: number | null): thunkType => async (dispatch) => {
   let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
-  dispatch(actionListOfMessages(userId, data.items))
+  dispatch(actions.actionListOfMessages(userId, data.items))
 }
 
 export const moreMessages = (userId: number, currentPage: number, pageSize: number): thunkType => async (dispatch) => {
   let data = await dialogsAPI.listOfMessages(userId, currentPage, pageSize)
   let dataItems: Array<messageType> = data.items
-  dataItems.filter(message => dispatch(actionDeleteMessage(message.id)))
-  dispatch(SetMoreMessages(data.items))
+  dataItems.filter(message => dispatch(actions.actionDeleteMessage(message.id)))
+  dispatch(actions.SetMoreMessages(data.items))
 }
 
 export const findPerson = (name: string): thunkType => async (dispatch) => {
   let data = await usersAPI.searchUsersbyName(1, 10, name)
-  let dataItems: Array<accountType> = data.items
-  dataItems.filter(account => dispatch(SetDeletePerson(account.id)))
-  dispatch(SetFindPerson(data.items))
+  let dataItems = data.items
+  dataItems.filter(account => dispatch(actions.SetDeletePerson(account.id)))
+  dispatch(actions.SetFindPerson(data.items))
 }
 
 export const sendMessage = (userId: number, message: []): thunkType => async (dispatch) => {
@@ -186,28 +122,26 @@ export const sendMessage = (userId: number, message: []): thunkType => async (di
 export const deleteForMe = (messageId: string): thunkType => async (dispatch) => {
   let data = await dialogsAPI.deleteForMe(messageId)
   if (data.resultCode === 0) {
-    dispatch(actionDeleteMessage(messageId))
+    dispatch(actions.actionDeleteMessage(messageId))
   }
 }
 
 export const messageToSpam = (messageId: string): thunkType => async (dispatch) => {
   let data = await dialogsAPI.messageToSpam(messageId)
   if (data.resultCode === 0) {
-    dispatch(actionDeleteMessage(messageId))
+    dispatch(actions.actionDeleteMessage(messageId))
   }
 }
 
 export const allDialogs = (): thunkType => async (dispatch) => {
   let data = await dialogsAPI.allDialogs()
-  dispatch(actionListOfDialogs(data))
+  dispatch(actions.actionListOfDialogs(data))
 }
 
 export const listOfNewMessages = (): thunkType => async (dispatch) => {
   let data = await dialogsAPI.listOfNewMessages()
-  dispatch(SetCountOfNewMessages(data))
+  dispatch(actions.SetCountOfNewMessages(data))
 }
-
-
 
 
 export default dialogsReducer;

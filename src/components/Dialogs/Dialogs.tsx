@@ -2,10 +2,10 @@ import React from 'react'
 import s from './Dialogs.module.sass'
 import Contacts from './Contacts/Contacts'
 import Chat from './Chat/Chat'
-import { accountType, messageType, profileType } from '../../types/types'
+import { accountType, messageType, profileType, userType } from '../../types/types'
 
 type PropsType = {
-  chatWith: Array<accountType>,
+  chatWith: Array<userType>,
   users: Array<any>,
   messageData: Array<messageType>,
   user: any,
