@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+# [Социальная сеть LOCK NET](https://sasha20055.github.io/Social-Network)
+<br>
+Начал создания проекта с целью изучения react, redux. Постепенно дорабатываю, рефакторю его.
+Написан проект на react с использованием TypeScript и множества сторонних библиотек для тех или иних функций.
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Функционал проекта
+<ul>
+  <li><h2>Меню</h2>
+  <ul>
+    <li>Кнопки навигации</li>
+    <li>Имя логина </li>
+    <li>Кнопка ВЫХОДА / ВХОДА в аккаунт</li>
+  </ul>
+  </li>
+  <li><h2>Логинизация</h2>
+  <ul>
+    <li>Валидация</li>
+    <li>Кеширование пользователя</li>
+    <li>Вход / Выход</li>
+  </ul>
+  </li>
+  <li><h2>Профиль</h2>
+    <h4>Отображение профиля</h4>
+    <ul>
+      <li>Аватар</li>
+      <li>Имя пользователя</li>
+      <li>Поиск работы ( ИЩУ / НЕ ИЩУ )</li>
+      <li>Опыт работы</li>
+      <li>О себе</li>
+      <li>Соц сеты ( Instagram, VK, Youtube ... )</li>
+    </ul>
+    <h4>Отображение друзей с возможным переход на аккаунт друга</h4>
+  </li>
+  <li><h2>Чат</h2>
+    <h4>Поиск пользователей для переписки</h4>
+    <h4>Список пользователей, с которыми было общение</h4>
+    <ul>
+      Отображение имени пользователя, аватара и даты последнего вхождения в Соц.Сеть
+    </ul>
+    <h4>Переписка</h4>
+    <ul>
+      <li>Отображение имени пользователя</li>
+      <li>Сообщения (С возможностью удаления и отображения того, просмотрел ли пользователь сообщение)</li>
+      <li>Поле для ввода сообщения и кнопкой для его отправки</li>
+    </ul>
+  </li>
+  <li><h2>Пользователи</h2>
+    <h4>Поле для нахождения нужного пользователя</h4>
+    <h4>Список пользователей</h4>
+    <ul>
+      <li>Аватарка</li>
+      <li>Имя пользователя</li>
+      <li>Кнопка ОТПИСКИ / ПОДПИСКИ</li>
+    </ul>
+    <h4>Пагинатор ( Постраничный вывод пользователей )</h4>
+  </li>
+  <li><h2>Настройки</h2>
+  <h4>Возможность изменять профиль:</h4>
+  <ul>
+      <li>Аватар</li>
+      <li>Имя пользователя</li>
+      <li>Поиск работы ( ИЩУ / НЕ ИЩУ )</li>
+      <li>Опыт работы</li>
+      <li>О себе</li>
+      <li>Соц сеты ( Instagram, VK, Youtube ... )</li>
+    </ul>
+  </li>
+</ul>
+<br/>
+Использует библиотеки node.js, такие как:
 
-## Available Scripts
+``` json
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.3.1",
+    "@types/redux-form": "^8.3.5",
+    "axios": "^1.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "redux-form": "^8.3.9",
+    "redux-thunk": "^2.4.2",
+    "reselect": "^4.1.7",
+    "sass": "^1.55.0",
+    "web-vitals": "^2.1.4"
+  }
+```
+<br>
+И зависимости, нужные для тестирования приложения и публикации его на GitHub:
 
-In the project directory, you can run:
+``` json
+  "devDependencies": {
+    "gh-pages": "^5.0.0",
+    "react-test-renderer": "^18.2.0"
+  }
+```
+# Как запустить проект
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+``` bash
+npm i
+```
+Скачать все зависимости
+<br>
+<br>
+``` bash
+npm start
+```
+Запустить проект локально, на 3000 порту
+<br>
+<br>
+``` bash
+npm run deploy
+```
+Разворачивает проект на github-pages
